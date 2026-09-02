@@ -1,0 +1,355 @@
+:root {
+  --excel-green: #217346;
+  --excel-green-dark: #185c37;
+  --excel-grid-line: #d6dce4;
+  --excel-header: #edf1f5;
+  --excel-header-soft: #f3f4f6;
+  --excel-header-active: #dcebdc;
+  --excel-row-even: #f5f9ff;
+  --excel-row-hover: #edf5ff;
+  --excel-selection: rgba(137, 151, 142, 0.34);
+}
+
+.gerencial-excel-grid {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--excel-grid-line);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.gerencial-excel-grid > .panel-head {
+  margin: 0;
+  padding: 7px 9px;
+  border-bottom: 1px solid var(--excel-grid-line);
+  background: #f8f9fb;
+}
+
+.gerencial-excel-grid .excel-formula-bar {
+  display: grid;
+  grid-template-columns: 72px 32px minmax(180px, 1fr);
+  min-height: 34px;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--excel-grid-line);
+  background: #fff;
+}
+
+.gerencial-excel-grid .excel-name-box,
+.gerencial-excel-grid .excel-fx {
+  display: grid;
+  place-items: center;
+  color: #4b5563;
+  border-right: 1px solid var(--excel-grid-line);
+  font-size: 0.73rem;
+}
+
+.gerencial-excel-grid .excel-fx {
+  color: var(--excel-green);
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.gerencial-excel-grid .excel-formula-input {
+  min-width: 0;
+  min-height: 34px;
+  margin: 0;
+  padding: 0 9px;
+  color: #172033;
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.gerencial-excel-grid .excel-sheet-viewport {
+  display: block;
+  max-width: 100%;
+  overflow: auto;
+  background: #fff;
+  scrollbar-color: #aeb7c2 #eef1f4;
+  scrollbar-width: auto;
+}
+
+.gerencial-excel-grid .excel-sheet-viewport::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+
+.gerencial-excel-grid .excel-sheet-viewport::-webkit-scrollbar-track {
+  background: #eef1f4;
+}
+
+.gerencial-excel-grid .excel-sheet-viewport::-webkit-scrollbar-thumb {
+  background: #aeb7c2;
+  border: 3px solid #eef1f4;
+  border-radius: 8px;
+}
+
+.gerencial-excel-grid .excel-table {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  color: #172033;
+  background: #fff;
+  font-size: 0.78rem;
+}
+
+.gerencial-excel-grid .excel-table th,
+.gerencial-excel-grid .excel-table td {
+  box-sizing: border-box;
+  height: 30px;
+  min-height: 30px;
+  padding: 0 11px;
+  overflow: hidden;
+  border: 0;
+  border-right: 1px solid var(--excel-grid-line);
+  border-bottom: 1px solid var(--excel-grid-line);
+  color: #172033;
+  background: #fff;
+  font-size: 0.78rem;
+  line-height: 29px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.gerencial-excel-grid .excel-letter-row th,
+.gerencial-excel-grid .excel-field-row th {
+  position: sticky;
+  z-index: 5;
+  text-transform: none;
+}
+
+.gerencial-excel-grid .excel-letter-row th {
+  top: 0;
+  height: 25px;
+  min-height: 25px;
+  padding: 0 5px;
+  color: #485366;
+  background: var(--excel-header-soft);
+  font-size: 0.69rem;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+
+.gerencial-excel-grid .excel-field-row th {
+  top: 25px;
+  height: 34px;
+  min-height: 34px;
+  padding: 0 6px 0 9px;
+  color: #243145;
+  background: var(--excel-header);
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 33px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.gerencial-excel-grid .excel-corner,
+.gerencial-excel-grid .excel-row-header,
+.gerencial-excel-grid .excel-field-corner {
+  width: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  padding: 0 !important;
+  color: #526079;
+  background: var(--excel-header-soft) !important;
+  border-right-color: #c8ced7 !important;
+  font-size: 0.7rem !important;
+  font-weight: 700;
+  line-height: 29px !important;
+  text-align: center !important;
+}
+
+.gerencial-excel-grid tbody .excel-row-header {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+}
+
+.gerencial-excel-grid .excel-letter-header.active,
+.gerencial-excel-grid .excel-row-header.active,
+.gerencial-excel-grid .excel-field-header.active {
+  color: var(--excel-green-dark) !important;
+  background: var(--excel-header-active) !important;
+}
+
+.gerencial-excel-grid .excel-table tbody tr:nth-child(even) td {
+  background: var(--excel-row-even);
+}
+
+.gerencial-excel-grid .excel-table tbody tr:hover td {
+  background: var(--excel-row-hover);
+}
+
+.gerencial-excel-grid .spreadsheet-cell {
+  position: relative;
+  cursor: cell;
+  user-select: none;
+  transition: background-color 60ms ease;
+}
+
+.gerencial-excel-grid .spreadsheet-cell.selected {
+  background: var(--excel-selection) !important;
+  box-shadow: none !important;
+}
+
+.gerencial-excel-grid .spreadsheet-cell.selected::after {
+  position: absolute;
+  z-index: 4;
+  inset: -1px;
+  border: solid var(--excel-green);
+  border-width: var(--selection-top, 0) var(--selection-right, 0) var(--selection-bottom, 0) var(--selection-left, 0);
+  content: "";
+  pointer-events: none;
+}
+
+.gerencial-excel-grid .spreadsheet-cell.selection-edge-top { --selection-top: 2px; }
+.gerencial-excel-grid .spreadsheet-cell.selection-edge-right { --selection-right: 2px; }
+.gerencial-excel-grid .spreadsheet-cell.selection-edge-bottom { --selection-bottom: 2px; }
+.gerencial-excel-grid .spreadsheet-cell.selection-edge-left { --selection-left: 2px; }
+
+.gerencial-excel-grid .spreadsheet-cell.active {
+  background: #fff !important;
+  outline: 2px solid var(--excel-green);
+  outline-offset: -2px;
+}
+
+.gerencial-excel-grid .excel-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  padding: 0 9px;
+  color: #4b5563;
+  background: #f8f9fb;
+  border-top: 1px solid var(--excel-grid-line);
+  font-size: 0.72rem;
+}
+
+.gerencial-excel-grid .excel-selection-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Non-interactive administrative tables follow the same compact workbook skin. */
+.config-table,
+.changes-table,
+.mini-row-scroll table {
+  border-color: var(--excel-grid-line) !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  font-size: 0.78rem !important;
+}
+
+.config-table th,
+.config-table td,
+.changes-table th,
+.changes-table td,
+.mini-row-scroll th,
+.mini-row-scroll td {
+  height: 30px !important;
+  padding: 0 11px !important;
+  border-color: var(--excel-grid-line) !important;
+  font-size: 0.78rem !important;
+}
+
+.config-table th,
+.changes-table th,
+.mini-row-scroll th {
+  color: #243145 !important;
+  background: var(--excel-header) !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+}
+
+.config-table tbody tr:nth-child(even) td,
+.changes-table tbody tr:nth-child(even) td,
+.mini-row-scroll tbody tr:nth-child(even) td {
+  background: var(--excel-row-even) !important;
+}
+
+html.dark {
+  --excel-green: var(--proto-accent);
+  --excel-green-dark: #9bbcf8;
+  --excel-grid-line: var(--proto-border);
+  --excel-header: var(--proto-elevated);
+  --excel-header-soft: var(--proto-surface);
+  --excel-header-active: color-mix(in srgb, var(--proto-accent) 22%, var(--proto-elevated));
+  --excel-row-even: color-mix(in srgb, var(--proto-accent) 4%, var(--proto-surface));
+  --excel-row-hover: color-mix(in srgb, var(--proto-accent) 10%, var(--proto-surface));
+  --excel-selection: color-mix(in srgb, var(--proto-accent) 24%, transparent);
+}
+
+html.dark .gerencial-excel-grid,
+html.dark .gerencial-excel-grid .excel-formula-bar,
+html.dark .gerencial-excel-grid .excel-formula-input,
+html.dark .gerencial-excel-grid .excel-sheet-viewport,
+html.dark .gerencial-excel-grid .excel-table,
+html.dark .gerencial-excel-grid .excel-table td {
+  color: var(--proto-text);
+  background: var(--proto-surface);
+}
+
+html.dark .gerencial-excel-grid > .panel-head,
+html.dark .gerencial-excel-grid .excel-status-bar {
+  color: var(--proto-secondary);
+  background: var(--proto-elevated);
+}
+
+html.dark .gerencial-excel-grid .excel-letter-row th,
+html.dark .gerencial-excel-grid .excel-field-row th,
+html.dark .gerencial-excel-grid .excel-row-header {
+  color: var(--proto-text) !important;
+}
+
+html.dark .gerencial-excel-grid .spreadsheet-cell.active {
+  color: var(--proto-text);
+  background: color-mix(in srgb, var(--proto-accent) 16%, var(--proto-surface)) !important;
+  outline-color: var(--proto-accent);
+}
+
+html.dark .gerencial-excel-grid .spreadsheet-cell.selected {
+  color: var(--proto-text);
+  background: var(--excel-selection) !important;
+}
+
+html.dark .config-table,
+html.dark .changes-table,
+html.dark .mini-row-scroll table {
+  color: var(--proto-text) !important;
+  background: var(--proto-surface) !important;
+}
+
+html.dark .config-table td,
+html.dark .changes-table td,
+html.dark .mini-row-scroll td {
+  color: var(--proto-text) !important;
+  background: var(--proto-surface);
+}
+
+@media (max-width: 720px) {
+  .gerencial-excel-grid .excel-formula-bar {
+    grid-template-columns: 58px 28px minmax(150px, 1fr);
+  }
+
+  .gerencial-excel-grid .excel-selection-summary {
+    gap: 8px;
+  }
+}

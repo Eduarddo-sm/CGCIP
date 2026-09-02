@@ -1,0 +1,139 @@
+.negociadores-list {
+  gap: 12px;
+}
+
+.negociador-group {
+  gap: 8px;
+}
+
+.negociador-group > header {
+  min-height: 30px;
+  padding: 0 2px 6px;
+  border-color: var(--proto-border-soft);
+}
+
+.negociador-group > header strong {
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+
+.negociador-group > header span {
+  color: var(--proto-tertiary);
+  font-size: 9.5px;
+}
+
+.negociador-cards {
+  grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+  gap: 8px;
+}
+
+.negociador-card {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 68px;
+  gap: 10px;
+  border-color: var(--proto-border-soft);
+  border-radius: 7px;
+  padding: 9px 11px;
+  background: var(--proto-surface);
+  box-shadow: none;
+  transform: none;
+}
+
+.negociador-card:hover {
+  border-color: color-mix(in srgb, var(--proto-accent) 45%, var(--proto-border));
+  background: var(--proto-elevated);
+  transform: none;
+}
+
+.negociador-card-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 7px;
+  color: var(--proto-accent-strong);
+  background: color-mix(in srgb, var(--proto-accent) 13%, var(--proto-elevated));
+}
+
+.negociador-card-avatar img {
+  display: none;
+}
+
+.negociador-card-avatar::before {
+  width: 18px;
+  height: 18px;
+  content: "";
+  background: currentColor;
+  -webkit-mask: url("/assets/icons/people-9.svg") center / contain no-repeat;
+  mask: url("/assets/icons/people-9.svg") center / contain no-repeat;
+  opacity: .9;
+}
+
+.negociador-card-main {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 5px;
+}
+
+.negociador-card-main strong {
+  overflow: hidden;
+  color: var(--proto-text);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.negociador-card .negociador-card-presence {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--proto-secondary);
+  font-size: 9.5px;
+}
+
+.negociador-card-presence i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--proto-tertiary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--proto-tertiary) 12%, transparent);
+}
+
+.negociador-card.online .negociador-card-presence {
+  color: var(--proto-success);
+}
+
+.negociador-card.online .negociador-card-presence i {
+  background: var(--proto-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--proto-success) 14%, transparent);
+}
+
+.negociador-card-arrow {
+  flex: 0 0 auto;
+  color: var(--proto-tertiary);
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 150ms ease, color 150ms ease;
+}
+
+.negociador-card:hover .negociador-card-arrow {
+  color: var(--proto-accent-strong);
+  transform: translateX(2px);
+}
+
+.negociador-profile-online.offline {
+  background: var(--proto-tertiary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--proto-tertiary) 12%, transparent);
+}
+
+@media (max-width: 720px) {
+  .negociador-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

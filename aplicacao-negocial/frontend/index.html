@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Negocial Web</title>
+    <script>
+      (() => {
+        const saved = localStorage.getItem("negocial.theme");
+        const theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <link rel="stylesheet" href="static/css/styles.css?v=20260901-month-rollover-5">
+    <link rel="stylesheet" href="static/css/modules/excel-grid.css?v=20260729-alpha-ho-accounting-1">
+    <link rel="stylesheet" href="static/css/modules/workspace-enhancements.css?v=20260727-dynamic-identity-1">
+    <link rel="stylesheet" href="static/css/modules/dynamic-tools.css?v=20260811-card-updated-toggle-1">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="appSidebar">
+        <div class="sidebar-brand-row">
+          <div class="brand">
+            <span class="brand-mark">N</span>
+            <div class="brand-copy">
+              <strong>Negocial</strong>
+              <small>Rotina negocial</small>
+            </div>
+          </div>
+          <button class="sidebar-toggle" type="button" id="sidebarToggleBtn" aria-label="Minimizar navegacao" aria-expanded="true">‹</button>
+        </div>
+
+        <nav class="side-nav" id="sideNav" aria-label="Navegacao principal">
+          <button class="nav-item active" type="button" data-page="producao" data-tooltip="Produção diária" title="Produção diária" aria-current="page">
+            <span class="nav-glyph" aria-hidden="true">&#9638;</span>
+            <span class="nav-label">Produção diária</span>
+          </button>
+          <button class="nav-item" type="button" data-page="pareceres" data-tooltip="Pareceres" title="Pareceres">
+            <span class="nav-glyph" aria-hidden="true">&#9636;</span>
+            <span class="nav-label">Pareceres</span>
+          </button>
+        </nav>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div class="topbar-title">
+            <span class="topbar-page-icon" id="pageTitleIcon" aria-hidden="true">&#9638;</span>
+            <div class="topbar-title-copy">
+              <h1 id="pageTitle">Produção Diária</h1>
+              <small id="pageTitleDescription">Acordos e metas da competência</small>
+            </div>
+          </div>
+          <div class="profile">
+            <button class="correction-alert-btn" type="button" id="correctionAlertBtn" title="Correções pendentes">
+              <span class="correction-alert-icon" aria-hidden="true">&#9888;</span>
+              <span class="correction-alert-label">Correções</span>
+              <strong id="correctionAlertCount">0</strong>
+            </button>
+            <div class="profile-menu-wrap">
+              <button class="profile-trigger" type="button" id="profileMenuBtn" aria-expanded="false" aria-controls="profileMenu">
+                <span class="profile-avatar" id="profileAvatar" aria-hidden="true">-</span>
+                <span class="profile-text">
+                  <strong id="profileUsername">Carregando...</strong>
+                  <small id="profileRole">Sessão</small>
+                </span>
+                <span class="profile-chevron" aria-hidden="true">&#8964;</span>
+              </button>
+              <div class="profile-menu hidden" id="profileMenu">
+                <div class="profile-menu-summary">
+                  <strong id="profileMenuUsername">Carregando...</strong>
+                  <small id="profileMenuRole">Sessão</small>
+                </div>
+                <button class="profile-menu-action profile-theme-action" type="button" id="themeToggleBtn">
+                  <span id="themeToggleIcon" aria-hidden="true">&#9790;</span>
+                  <span id="themeToggleLabel">Tema escuro</span>
+                </button>
+                <button class="profile-menu-action" type="button" id="logoutBtn">
+                  <span aria-hidden="true">&#10140;</span>
+                  Sair
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="page-panel production-workspace" id="producaoPage">
+            <div class="production-command-bar">
+              <div class="month-switcher">
+                <div class="competencia-picker">
+                  <div class="competencia-menu-wrap">
+                    <button class="competencia-trigger" type="button" id="competenciaTriggerBtn" aria-expanded="false" aria-controls="competenciaMenu">
+                      <span id="competenciaTriggerLabel">Mes atual</span>
+                      <small id="competenciaTriggerCount">0 acordos</small>
+                    </button>
+                    <div class="competencia-menu hidden" id="competenciaMenu" role="menu" aria-label="Competencias da producao"></div>
+                  </div>
+                  <button class="secondary-btn current-month-btn" type="button" id="currentCompetenciaBtn">Mes atual</button>
+                </div>
+              </div>
+
+              <div class="section-header production-actions">
+                <button class="secondary-btn summary-toggle-btn" type="button" id="summaryToggleBtn" aria-expanded="false" title="Exibir ou recolher o resumo executivo">
+                  <span data-summary-toggle-label>Expandir resumo</span>
+                </button>
+                <button class="secondary-btn expand-grid-btn" type="button" id="expandProducaoGridBtn">Modo foco</button>
+                <button class="secondary-btn production-shortcuts-btn" type="button" id="productionShortcutsBtn" aria-label="Atalhos de teclado" title="Atalhos de teclado">?</button>
+                <button class="primary-btn production-create-btn" type="button" id="openProducaoDialogBtn"><span aria-hidden="true">+</span> Cadastrar acordo</button>
+              </div>
+            </div>
+
+            <div class="stats-grid compact-stats" id="producaoStats">
+              <article class="metric-card skeleton"></article>
+              <article class="metric-card skeleton"></article>
+              <article class="metric-card skeleton"></article>
+              <article class="metric-card skeleton"></article>
+              <article class="metric-card skeleton"></article>
+              <article class="metric-card skeleton"></article>
+            </div>
+
+            <div class="production-attention-bar hidden" id="producaoAttentionBar" aria-label="Pendencias da competencia"></div>
+
+            <div class="production-focus-header" id="productionFocusHeader" aria-hidden="true">
+              <div>
+                <strong id="productionFocusCompetencia">Mês atual</strong>
+                <small id="productionFocusRecords">0 registros</small>
+              </div>
+              <strong id="productionFocusSelection">Contagem: 0</strong>
+              <button class="focus-exit-btn" type="button" id="exitProductionFocusBtn">Sair do modo foco</button>
+            </div>
+
+            <div class="table-card production-sheet-card">
+              <div class="excel-grid-host" id="producaoGrid"></div>
+            </div>
+          </section>
+
+          <section class="page-panel parecer-page hidden" id="pareceresPage">
+            <div class="parecer-command-bar">
+              <div class="parecer-status-tabs" id="parecerStats" role="tablist" aria-label="Status dos pareceres">
+                <button class="parecer-status-tab skeleton" type="button" aria-label="Carregando"></button>
+                <button class="parecer-status-tab skeleton" type="button" aria-label="Carregando"></button>
+                <button class="parecer-status-tab skeleton" type="button" aria-label="Carregando"></button>
+                <button class="parecer-status-tab skeleton" type="button" aria-label="Carregando"></button>
+              </div>
+              <button class="primary-btn parecer-new-btn" type="button" id="openParecerDialogBtn"><span aria-hidden="true">+</span> Novo parecer</button>
+            </div>
+
+            <div class="parecer-panel">
+              <div class="table-toolbar parecer-toolbar">
+                <label class="parecer-search-field">
+                  <span class="visually-hidden">Buscar pareceres</span>
+                  <input id="parecerSearch" placeholder="Buscar por NPJ, cliente ou descrição" aria-label="Buscar pareceres">
+                </label>
+                <select id="parecerMotivoFilter" aria-label="Filtrar por motivo">
+                  <option value="">Todos os motivos</option>
+                  <option value="PISO NEGOCIAL">Piso negocial</option>
+                  <option value="PARECER">Parecer</option>
+                  <option value="REUNIAO">Reunião</option>
+                  <option value="EVENTO">Evento</option>
+                </select>
+                <input id="parecerPeriodFilter" type="month" aria-label="Filtrar por período">
+              </div>
+
+              <div class="parecer-list" id="parecerList">
+                <table class="parecer-data-table">
+                  <tbody>
+                    <tr><td><div class="table-loading skeleton"></div></td></tr>
+                    <tr><td><div class="table-loading skeleton"></div></td></tr>
+                    <tr><td><div class="table-loading skeleton"></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section class="page-panel dynamic-tool-page hidden" id="dynamicToolPage" aria-live="polite"></section>
+        </main>
+      </div>
+    </div>
+
+    <dialog class="month-rollover-modal" id="monthRolloverDialog" aria-labelledby="monthRolloverTitle">
+      <form class="month-rollover-card" id="monthRolloverForm">
+        <header class="month-rollover-header">
+          <div class="month-rollover-icon" aria-hidden="true">&#8635;</div>
+          <div>
+            <p class="eyebrow">Virada mensal obrigatoria</p>
+            <h2 id="monthRolloverTitle">Organize os acordos do mes anterior</h2>
+            <p id="monthRolloverDescription">Escolha quais clientes continuarao no mes atual.</p>
+          </div>
+          <span class="month-rollover-lock">Decisao necessaria</span>
+        </header>
+        <div class="month-rollover-summary">
+          <div><span>Competencia encerrada</span><strong id="monthRolloverSource">-</strong></div>
+          <div><span>Nova competencia</span><strong id="monthRolloverTarget">-</strong></div>
+          <div><span>Prazo automatico</span><strong id="monthRolloverDeadline">-</strong></div>
+        </div>
+        <div class="month-rollover-toolbar">
+          <label><span class="visually-hidden">Buscar cliente</span><input id="monthRolloverSearch" placeholder="Buscar cliente ou identificador"></label>
+          <button class="secondary-btn" type="button" id="monthRolloverSelectAll">Marcar visiveis como quebra</button>
+        </div>
+        <div class="month-rollover-list" id="monthRolloverList"></div>
+        <div class="month-rollover-warning">
+          <strong>O que acontecera?</strong>
+          <p>Classifique cada caso e escolha separadamente se ele deve gerar um novo acompanhamento no mes atual.</p>
+        </div>
+        <label class="month-rollover-confirmation">
+          <input type="checkbox" id="monthRolloverAcknowledgement" required>
+          <span>Revisei e confirmo a classificacao de todos os casos.</span>
+        </label>
+        <p class="form-error" id="monthRolloverError" hidden></p>
+        <footer class="month-rollover-actions">
+          <div><strong id="monthRolloverSelectedCount">0 selecionados</strong><span id="monthRolloverRemainingCount">0 permanecem no mes anterior</span></div>
+          <button class="primary-btn" type="submit" id="monthRolloverConfirmBtn">Confirmar e continuar</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="correcoesDialog">
+      <div class="modal-card correction-modal-card">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Backoffice</p>
+            <h2>Correcoes recebidas</h2>
+          </div>
+          <button class="icon-btn" type="button" id="closeCorrecoesDialogBtn" aria-label="Fechar">x</button>
+        </div>
+        <div class="correction-list" id="correcoesList"></div>
+      </div>
+    </dialog>
+
+    <dialog class="modal production-drawer" id="producaoDialog">
+      <form class="modal-card" id="producaoForm" method="dialog">
+        <input type="hidden" id="producaoId">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Producao diaria</p>
+            <h2 id="producaoDialogTitle">Cadastrar acordo</h2>
+          </div>
+          <button class="icon-btn" type="button" id="closeProducaoDialogBtn" aria-label="Fechar">x</button>
+        </div>
+
+        <div class="stepper">
+          <span class="step-dot active" data-step-dot="1">1</span>
+          <span class="step-line"></span>
+          <span class="step-dot" data-step-dot="2">2</span>
+        </div>
+
+        <section class="form-step" data-step="1">
+          <div class="field-grid">
+            <div id="dynamicStepOneFields" class="dynamic-field-grid"></div>
+          </div>
+        </section>
+
+        <section class="form-step hidden" data-step="2">
+          <div class="field-grid">
+            <textarea id="producaoJustificativa" class="hidden" maxlength="600"></textarea>
+            <input type="hidden" id="producaoDataPagamento">
+            <label id="nextMonthField" class="next-month-option hidden">
+              <input type="checkbox" id="producaoNextMonth">
+              <span>
+                <strong>Jogar para o proximo mes</strong>
+                <small id="nextMonthHint">Disponivel apenas no fechamento do mes.</small>
+              </span>
+            </label>
+            <label id="flexField" class="hidden">
+              <span>Autorizacao de Flexibilizacao</span>
+              <select id="producaoFlex">
+                <option value="">Selecione</option>
+                <option value="DANIELLE">DANIELLE</option>
+                <option value="ADRIANO">ADRIANO</option>
+                <option value="GECOR">GECOR</option>
+              </select>
+            </label>
+            <div id="dynamicStepTwoFields" class="dynamic-field-grid"></div>
+          </div>
+
+          <div class="calculation-card" id="percentualCard">
+            <span>Percentual H.O</span>
+            <strong id="percentualHo">0,00%</strong>
+            <small id="flexHint">Autorizacao sera exigida quando H.O for menor que 9%.</small>
+          </div>
+        </section>
+
+        <p class="form-error" id="producaoError" hidden></p>
+
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" id="cancelProducaoBtn">Cancelar</button>
+          <button class="secondary-btn hidden" type="button" id="backProducaoStepBtn">Voltar</button>
+          <button class="primary-btn" type="button" id="nextProducaoStepBtn">Avancar</button>
+          <button class="primary-btn hidden" type="submit" id="saveProducaoBtn">Salvar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal small-modal" id="productionShortcutsDialog">
+      <div class="modal-card shortcuts-card">
+        <div class="modal-header">
+          <h2>Atalhos da producao</h2>
+          <button class="icon-btn" type="button" id="closeProductionShortcutsBtn" aria-label="Fechar">x</button>
+        </div>
+        <div class="shortcuts-list">
+          <span><kbd>Ctrl</kbd> + <kbd>N</kbd><b>Novo acordo</b></span>
+          <span><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd><b>Alternar modo foco</b></span>
+          <span><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd><b>Limpar filtros</b></span>
+          <span><kbd>Alt</kbd> + <kbd>&uarr;</kbd> / <kbd>&darr;</kbd><b>Trocar competencia</b></span>
+          <span><kbd>F2</kbd><b>Editar celula</b></span>
+          <span><kbd>Esc</kbd><b>Sair do modo foco</b></span>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal sheet-expanded-modal" id="producaoExpandedDialog">
+      <div class="modal-card sheet-expanded-card">
+        <div class="modal-header sheet-expanded-header">
+          <div class="sheet-expanded-title">
+            <h2 id="producaoExpandedTitle">Junho de 2026</h2>
+            <small id="producaoExpandedSummary">Contagem: 0</small>
+          </div>
+          <button class="icon-btn" type="button" id="closeProducaoExpandedBtn" aria-label="Fechar">x</button>
+        </div>
+        <div class="excel-grid-host expanded-excel-grid" id="producaoExpandedGrid"></div>
+      </div>
+    </dialog>
+
+    <dialog class="modal small-modal" id="parecerDialog">
+      <form class="modal-card parecer-modal-card" id="parecerForm" method="dialog">
+        <input type="hidden" id="parecerId">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Solicitar parecer</p>
+            <h2 id="parecerDialogTitle">Novo parecer</h2>
+          </div>
+          <button class="icon-btn" type="button" id="closeParecerDialogBtn" aria-label="Fechar">x</button>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            <span>NPJ</span>
+            <input id="parecerNpj" inputmode="numeric" maxlength="14" placeholder="14 digitos" required>
+          </label>
+          <label>
+            <span>Cliente</span>
+            <input id="parecerCliente" required>
+          </label>
+          <label>
+            <span>Motivo</span>
+            <select id="parecerMotivo" required>
+              <option value="">Selecione</option>
+              <option value="PISO NEGOCIAL">PISO NEGOCIAL</option>
+              <option value="PARECER">PARECER</option>
+              <option value="REUNIAO">REUNIAO</option>
+              <option value="EVENTO">EVENTO</option>
+            </select>
+          </label>
+          <label class="wide-field">
+            <span>Descricao</span>
+            <textarea id="parecerDescricao" maxlength="1000" rows="5" placeholder="Descreva o pedido de parecer" required></textarea>
+          </label>
+        </div>
+
+        <p class="form-error" id="parecerError" hidden></p>
+
+        <div class="modal-actions">
+          <button class="danger-btn" type="button" id="cancelParecerStatusBtn" hidden>Cancelar parecer</button>
+          <button class="ghost-btn" type="button" id="cancelParecerBtn">Fechar</button>
+          <button class="primary-btn" type="submit" id="saveParecerBtn">Salvar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="modal-overlay hidden" id="statusJustificativaDialog" role="dialog" aria-modal="true">
+      <form class="modal-card small-card" id="statusJustificativaForm">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Alteracao de status</p>
+            <h2 id="statusJustificativaTitle">Informar justificativa</h2>
+          </div>
+          <button class="icon-btn" type="button" id="closeStatusJustificativaBtn" aria-label="Fechar">x</button>
+        </div>
+
+        <label class="stacked-field">
+          <span>Justificativa obrigatoria</span>
+          <textarea id="statusJustificativaTexto" maxlength="600" rows="5" placeholder="Descreva o motivo" required></textarea>
+        </label>
+
+        <label id="statusNextMonthField" class="next-month-option hidden">
+          <input type="checkbox" id="statusNextMonth">
+          <span>
+            <strong>Jogar para o proximo mes</strong>
+            <small id="statusNextMonthHint">Cria um novo acompanhamento para a proxima competencia.</small>
+          </span>
+        </label>
+
+        <p class="form-error" id="statusJustificativaError" hidden></p>
+
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" id="cancelStatusJustificativaBtn">Cancelar</button>
+          <button class="primary-btn" type="submit" id="saveStatusJustificativaBtn">Salvar status</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-overlay hidden" id="pagamentoDialog" role="dialog" aria-modal="true">
+      <form class="modal-card small-card" id="pagamentoForm">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Pagamento realizado</p>
+            <h2 id="pagamentoTitle">Informar data de pagamento</h2>
+          </div>
+          <button class="icon-btn" type="button" id="closePagamentoBtn" aria-label="Fechar">x</button>
+        </div>
+
+        <label class="stacked-field" id="pagamentoDataField">
+          <span>Data de pagamento</span>
+          <input id="pagamentoData" type="date" required>
+        </label>
+
+        <label class="next-month-option hidden" id="formalizacaoNovoAcordoField">
+          <input type="checkbox" id="formalizacaoNovoAcordo">
+          <span>
+            <strong>Formalizado novo acordo?</strong>
+            <small>Ao marcar, a data do acordo sera atualizada para hoje.</small>
+          </span>
+        </label>
+
+        <p class="form-error" id="pagamentoError" hidden></p>
+
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" id="cancelPagamentoBtn">Cancelar</button>
+          <button class="primary-btn" type="submit" id="savePagamentoBtn">Salvar pagamento</button>
+        </div>
+      </form>
+    </div>
+
+    <script type="module" src="static/js/app.js?v=20260901-month-rollover-5"></script>
+  </body>
+</html>

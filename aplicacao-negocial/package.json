@@ -1,0 +1,11 @@
+{
+  "name": "aplicacao-negocial-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:modules": "node --experimental-vm-modules tests/check_js_modules.mjs",
+    "test:status": "node tests/check_producao_status_column.mjs",
+    "test:attachments": "node tests/check_dynamic_tool_file_validation.mjs",
+    "test": "npm run test:modules && npm run test:status && npm run test:attachments"
+  }
+}

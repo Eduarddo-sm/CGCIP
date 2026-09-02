@@ -1,0 +1,398 @@
+.parecer-approval-page {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 16px 24px 24px;
+}
+
+.parecer-approval-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.parecer-approval-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 1px solid var(--proto-border-soft, var(--line));
+  border-radius: 8px;
+  background: var(--proto-surface, var(--panel-solid));
+}
+
+.parecer-approval-stat-icon {
+  width: 8px;
+  height: 32px;
+  border-radius: 4px;
+  background: var(--proto-accent, var(--accent));
+}
+
+.parecer-approval-stat.approved .parecer-approval-stat-icon { background: var(--proto-success, #249765); }
+.parecer-approval-stat.rejected .parecer-approval-stat-icon { background: var(--proto-danger, #d5524b); }
+.parecer-approval-stat.time .parecer-approval-stat-icon { background: var(--proto-gold, #9c762f); }
+
+.parecer-approval-stat div {
+  display: grid;
+  gap: 2px;
+}
+
+.parecer-approval-stat strong {
+  color: var(--proto-text, var(--text));
+  font-size: 18px;
+  line-height: 1;
+}
+
+.parecer-approval-stat span:last-child {
+  color: var(--proto-secondary, var(--muted));
+  font-size: 11px;
+}
+
+.parecer-approval-controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--proto-border-soft, var(--line));
+  border-radius: 8px;
+  background: var(--proto-surface, var(--panel-solid));
+}
+
+.parecer-approval-tabs {
+  align-self: stretch;
+  margin: 0;
+}
+
+.parecer-approval-filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(145px, 190px));
+  gap: 7px;
+}
+
+.parecer-approval-filters input,
+.parecer-approval-filters select {
+  width: 100%;
+  min-height: 34px;
+  height: 34px;
+  border: 1px solid var(--proto-border, var(--line));
+  border-radius: 7px;
+  padding: 0 10px;
+  background: var(--proto-elevated, var(--panel));
+  color: var(--proto-text, var(--text));
+  font-size: 11px;
+}
+
+.parecer-approval-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-content: start;
+}
+
+.parecer-approval-list > .parecer-empty-state {
+  grid-column: 1 / -1;
+}
+
+.parecer-approval-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3px minmax(0, 1fr) auto;
+  gap: 11px;
+  align-items: center;
+  min-width: 0;
+  min-height: 108px;
+  padding: 12px;
+  border: 1px solid var(--proto-border, var(--line));
+  border-radius: 8px;
+  background: var(--proto-surface, var(--panel-solid));
+  color: var(--proto-text, var(--text));
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.parecer-approval-card:hover {
+  border-color: color-mix(in srgb, var(--proto-accent, var(--accent)) 55%, var(--proto-border, var(--line)));
+  background: color-mix(in srgb, var(--proto-accent, var(--accent)) 4%, var(--proto-surface, var(--panel-solid)));
+  transform: translateY(-1px);
+}
+
+.parecer-approval-card:focus-visible {
+  outline: 2px solid var(--proto-accent, var(--accent));
+  outline-offset: 2px;
+}
+
+.parecer-approval-card-marker {
+  align-self: stretch;
+  border-radius: 4px;
+  background: var(--proto-gold, #9c762f);
+}
+
+.parecer-history-card,
+.parecer-rejected-card {
+  grid-template-columns: 3px minmax(0, 1fr);
+  cursor: default;
+}
+
+.parecer-rejected-card .parecer-approval-card-marker {
+  background: var(--proto-danger, #d5524b);
+}
+
+.parecer-approved-card .parecer-approval-card-marker {
+  background: var(--proto-success, #249765);
+}
+
+.parecer-approval-card-main {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.parecer-approval-card-topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.parecer-approval-card-topline > strong {
+  overflow: hidden;
+  color: var(--proto-text, var(--text));
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.parecer-approval-date {
+  flex: 0 0 auto;
+  color: var(--proto-tertiary, var(--muted));
+  font-size: 10px;
+}
+
+.parecer-approval-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  color: var(--proto-secondary, var(--muted));
+  font-size: 10px;
+}
+
+.parecer-approval-card-meta span + span::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin: 0 7px 2px 0;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.parecer-approval-card-main p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--proto-secondary, var(--muted));
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.parecer-approval-card-action {
+  display: grid;
+  justify-items: end;
+  gap: 13px;
+  min-width: 118px;
+}
+
+.parecer-approval-card-action > strong {
+  color: var(--proto-accent, var(--accent));
+  font-size: 11px;
+}
+
+.parecer-approval-waiting,
+.parecer-rejected-label {
+  width: max-content;
+  border-radius: 999px;
+  padding: 3px 7px;
+  color: #bd8434;
+  background: color-mix(in srgb, #bd8434 13%, transparent);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.parecer-rejected-label {
+  color: var(--proto-danger, #d5524b);
+  background: color-mix(in srgb, var(--proto-danger, #d5524b) 12%, transparent);
+}
+
+.parecer-approved-label {
+  width: max-content;
+  border-radius: 999px;
+  padding: 3px 7px;
+  color: var(--proto-success, #249765);
+  background: color-mix(in srgb, var(--proto-success, #249765) 12%, transparent);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.parecer-history-decision {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.parecer-history-decision time {
+  color: var(--proto-tertiary, var(--muted));
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.parecer-approval-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(570px, calc(100vw - 20px));
+  max-width: none;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  border-width: 0 0 0 1px;
+  border-radius: 0;
+  overflow-x: hidden;
+  animation: parecer-drawer-in 180ms ease both;
+}
+
+.parecer-approval-drawer > form {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0;
+  height: 100%;
+  min-width: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.parecer-approval-drawer header,
+.parecer-approval-drawer footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--proto-border-soft, var(--line));
+}
+
+.parecer-approval-drawer footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  border-top: 1px solid var(--proto-border-soft, var(--line));
+  border-bottom: 0;
+}
+
+.parecer-approval-drawer footer > button {
+  width: max-content;
+  max-width: 100%;
+}
+
+.parecer-approval-drawer h2 {
+  margin: 2px 0 0;
+  font-size: 16px;
+}
+
+.parecer-drawer-eyebrow {
+  color: var(--proto-accent, var(--accent));
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.parecer-approval-drawer .approval-dialog-body {
+  align-content: start;
+  gap: 16px;
+  padding: 18px;
+  overflow: auto;
+}
+
+.parecer-drawer-client {
+  display: grid;
+  gap: 9px;
+}
+
+.parecer-drawer-client h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.parecer-approval-drawer .approval-meta-grid {
+  gap: 7px;
+}
+
+.parecer-approval-drawer .approval-meta-grid div {
+  border-radius: 7px;
+  padding: 9px;
+  background: var(--proto-elevated, var(--panel));
+}
+
+.parecer-drawer-field span {
+  color: var(--proto-text, var(--text));
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.parecer-drawer-field textarea {
+  resize: vertical;
+  border: 1px solid var(--proto-border, var(--line));
+  border-radius: 7px;
+  padding: 10px;
+  background: var(--proto-elevated, var(--panel));
+  color: var(--proto-text, var(--text));
+  font: inherit;
+  line-height: 1.45;
+}
+
+.parecer-drawer-decisions {
+  display: flex;
+  min-width: 0;
+  gap: 7px;
+}
+
+.parecer-drawer-decisions .primary-btn,
+.parecer-drawer-decisions .danger-btn {
+  width: auto;
+  min-width: 92px;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+@keyframes parecer-drawer-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 1050px) {
+  .parecer-approval-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .parecer-approval-controls { grid-template-columns: 1fr; }
+  .parecer-approval-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .parecer-approval-search { grid-column: 1 / -1; }
+  .parecer-approval-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .parecer-approval-page { padding: 12px; }
+  .parecer-approval-stats { grid-template-columns: 1fr 1fr; }
+  .parecer-approval-filters { grid-template-columns: 1fr; }
+  .parecer-approval-search { grid-column: auto; }
+  .parecer-approval-card { grid-template-columns: 3px minmax(0, 1fr); }
+  .parecer-approval-card-action { grid-column: 2; grid-template-columns: 1fr auto; align-items: center; justify-items: start; }
+  .parecer-approval-card-action > strong { justify-self: end; }
+  .parecer-approval-drawer { width: 100vw; }
+  .parecer-approval-drawer footer { align-items: stretch; flex-direction: column-reverse; }
+  .parecer-approval-drawer footer { grid-template-columns: 1fr; }
+  .parecer-approval-drawer footer > button { width: 100%; }
+  .parecer-drawer-decisions { display: grid; grid-template-columns: 1fr 1fr; }
+  .parecer-drawer-decisions .primary-btn,
+  .parecer-drawer-decisions .danger-btn { width: 100%; min-width: 0; }
+}

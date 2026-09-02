@@ -1,0 +1,172 @@
+#monitorPlanilhaContent.monitor-planilha-content {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
+  height: calc(100dvh - 146px);
+  min-height: 520px;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+#monitorPlanilhaContent.monitor-planilha-content.hidden { display: none; }
+
+.monitor-sheet-commandbar {
+  display: grid;
+  grid-template-columns: minmax(430px, 1fr) auto minmax(440px, auto);
+  align-items: center;
+  gap: 14px;
+  min-height: 42px;
+}
+
+.monitor-sheet-filters {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) minmax(130px, 0.72fr) 96px;
+  gap: 8px;
+  min-width: 0;
+}
+
+.monitor-sheet-filters select {
+  width: 100%;
+  min-height: 34px;
+  height: 34px;
+  padding-block: 0;
+  font-size: 0.76rem;
+}
+
+.monitor-sheet-context {
+  display: grid;
+  gap: 1px;
+  min-width: 180px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.monitor-sheet-context strong {
+  overflow: hidden;
+  color: var(--surface-text);
+  font-size: 0.74rem;
+  text-overflow: ellipsis;
+}
+
+.monitor-sheet-context span {
+  color: color-mix(in srgb, var(--surface-text) 60%, transparent);
+  font-size: 0.66rem;
+}
+
+.monitor-sheet-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.monitor-sheet-actions .ds-button {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 34px;
+  padding-inline: 11px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.monitor-sheet-actions .icon-only-btn {
+  display: grid;
+  width: 34px;
+  min-width: 34px;
+  padding: 0;
+  place-items: center;
+}
+
+.monitor-sheet-actions svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+#monitorPlanilhaContent #monitorPlanilhaTable,
+#monitorPlanilhaContent #monitorPlanilhaTable.monitor-native-excel,
+#monitorPlanilhaContent #monitorPlanilhaTable.monitor-native-excel .excel-grid-shell {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+
+#monitorPlanilhaContent .excel-toolbar { min-height: 32px; height: 32px; }
+#monitorPlanilhaContent .excel-formula-bar { min-height: 34px; height: 34px; }
+#monitorPlanilhaContent .excel-status-bar { min-height: 26px; height: 26px; font-size: 0.68rem; }
+
+.monitor-row-menu-btn {
+  display: grid;
+  width: 28px;
+  height: 24px;
+  padding: 0 0 5px;
+  color: var(--surface-text);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  place-items: center;
+}
+
+.monitor-row-menu-btn:hover,
+.monitor-row-menu-btn:focus-visible {
+  border-color: var(--surface-line-strong);
+  background: var(--surface-soft);
+}
+
+.monitor-row-actions-popover {
+  position: fixed;
+  z-index: 6000;
+  display: grid;
+  width: 132px;
+  padding: 5px;
+  border: 1px solid var(--surface-line-strong);
+  border-radius: 6px;
+  background: var(--surface-solid);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.2);
+}
+
+.monitor-row-actions-popover.hidden { display: none; }
+
+.monitor-row-actions-popover button {
+  min-height: 30px;
+  padding: 0 9px;
+  color: var(--surface-text);
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 0.72rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.monitor-row-actions-popover button:hover { background: var(--surface-soft); }
+.monitor-row-actions-popover button.danger { color: #c24141; }
+
+@media (max-width: 1220px) {
+  #monitorPlanilhaContent.monitor-planilha-content {
+    height: auto;
+    min-height: calc(100dvh - 146px);
+    overflow: visible;
+  }
+
+  .monitor-sheet-commandbar { grid-template-columns: 1fr auto; }
+  .monitor-sheet-context { display: none; }
+  #monitorPlanilhaContent #monitorPlanilhaTable.monitor-native-excel .excel-grid-shell {
+    height: max(520px, calc(100dvh - 210px));
+  }
+}
+
+@media (max-width: 820px) {
+  .monitor-sheet-commandbar { grid-template-columns: 1fr; }
+  .monitor-sheet-actions { justify-content: flex-start; flex-wrap: wrap; }
+  .monitor-sheet-filters { grid-template-columns: minmax(150px, 1fr) 1fr 86px; }
+}

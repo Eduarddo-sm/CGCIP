@@ -1,0 +1,336 @@
+:root {
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 64px;
+  --sidebar-item-height: 42px;
+}
+
+.app-shell,
+body.sidebar-collapsed .app-shell {
+  transition: padding-left 200ms ease;
+}
+
+.app-shell { padding-left: var(--sidebar-width); }
+body.sidebar-collapsed .app-shell { padding-left: var(--sidebar-collapsed-width); }
+
+.sidebar,
+body.sidebar-collapsed .sidebar {
+  overflow: visible;
+  border-right: 1px solid var(--proto-border-soft);
+  background: var(--proto-surface);
+  box-shadow: none;
+  transition: width 200ms ease, padding 200ms ease;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  padding: 12px 10px;
+}
+
+.sidebar.group-menu-open {
+  z-index: 130;
+}
+
+body.sidebar-collapsed .sidebar {
+  width: var(--sidebar-collapsed-width);
+  padding: 12px 7px;
+}
+
+.tool-switcher,
+body.sidebar-collapsed .tool-switcher {
+  min-height: 44px;
+  margin: 0 0 8px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--proto-border-soft);
+}
+
+.brand,
+body.sidebar-collapsed .brand {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 34px 4px 5px;
+  border-radius: 7px;
+  background: transparent;
+  transition: background-color 160ms ease;
+}
+
+.brand:hover { background: var(--proto-elevated); }
+
+body.sidebar-collapsed .brand {
+  justify-content: center;
+  padding: 4px;
+}
+
+.brand-mark {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--proto-accent), var(--proto-accent-strong));
+  font-size: 14px;
+}
+
+.brand strong {
+  overflow: hidden;
+  color: var(--proto-text);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-toggle,
+body.sidebar-collapsed .sidebar-toggle {
+  top: 4px;
+  right: 2px;
+  z-index: 30;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--proto-secondary);
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+  transform: none;
+}
+
+body.sidebar-collapsed .sidebar-toggle {
+  top: 48px;
+  right: 10px;
+  place-items: center;
+  background: var(--proto-surface);
+}
+
+.tool-dropdown.app-module-nav,
+body.sidebar-collapsed .tool-dropdown.app-module-nav {
+  position: static;
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.tool-dropdown.app-module-nav button,
+body.sidebar-collapsed .tool-dropdown.app-module-nav button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--sidebar-item-height);
+  height: var(--sidebar-item-height);
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--proto-secondary);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.tool-dropdown.app-module-nav button:hover {
+  border: 0;
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+}
+
+.tool-dropdown.app-module-nav button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--proto-accent) 70%, transparent);
+  outline-offset: -2px;
+}
+
+.tool-dropdown.app-module-nav button.active,
+html.dark .tool-dropdown.app-module-nav button.active {
+  border: 0;
+  background: color-mix(in srgb, var(--proto-accent) 10%, transparent);
+  color: var(--proto-accent);
+  box-shadow: none;
+}
+
+.tool-dropdown.app-module-nav button.active::before,
+body.sidebar-collapsed .tool-dropdown.app-module-nav button.active::before {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: -10px;
+  width: 3px;
+  height: auto;
+  border-radius: 0 3px 3px 0;
+  background: var(--proto-accent);
+  content: "";
+  transform: none;
+}
+
+.tool-dropdown.app-module-nav .tool-icon,
+body.sidebar-collapsed .tool-dropdown.app-module-nav .tool-icon {
+  display: grid;
+  place-items: center;
+  grid-row: auto;
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--proto-accent) 9%, transparent);
+  box-shadow: none;
+}
+
+.tool-dropdown.app-module-nav .dynamic-tool-nav-icon {
+  background: color-mix(in srgb, var(--dynamic-tool-color, var(--proto-accent)) 14%, transparent);
+  color: var(--dynamic-tool-color, var(--proto-accent));
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.tool-dropdown.app-module-nav .tool-icon img,
+body.sidebar-collapsed .tool-dropdown.app-module-nav .tool-icon img {
+  width: 15px;
+  height: 15px;
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2222%) hue-rotate(202deg) brightness(96%) contrast(88%);
+}
+
+.tool-dropdown.app-module-nav button strong {
+  display: block;
+  overflow: hidden;
+  color: currentColor;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1;
+  opacity: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: opacity 110ms ease;
+}
+
+body:not(.sidebar-collapsed) .tool-dropdown.app-module-nav button[data-tool="monitoramento"]::after {
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--proto-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--proto-success) 14%, transparent);
+  content: "";
+}
+
+body:not(.sidebar-collapsed) .tool-dropdown.app-module-nav button[data-tool="monitoramento"] {
+  grid-template-columns: 22px minmax(0, 1fr) 8px;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav { margin-top: 36px; }
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  width: 50px;
+  padding: 0;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button strong {
+  position: absolute;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button.active::before { left: -7px; }
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button::after {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 9px);
+  z-index: 80;
+  width: max-content;
+  max-width: 190px;
+  padding: 6px 8px;
+  border: 1px solid var(--proto-border);
+  border-radius: 6px;
+  background: var(--proto-surface);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+  color: var(--proto-text);
+  content: attr(aria-label);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-4px, -50%);
+  transition: opacity 130ms ease, transform 130ms ease;
+  white-space: nowrap;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button:hover::after,
+body.sidebar-collapsed .tool-dropdown.app-module-nav button:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.group-dropdown {
+  top: 42px;
+  left: 0;
+  right: auto;
+  z-index: 131;
+  width: 200px;
+  margin: 0;
+}
+
+body.sidebar-collapsed .group-dropdown {
+  top: 0;
+  left: calc(100% + 10px);
+  width: 200px;
+}
+
+html.dark .sidebar { background: var(--proto-bg); }
+html.dark .tool-switcher { border-color: var(--proto-border-soft); }
+html.dark .tool-dropdown.app-module-nav button:hover { background: var(--proto-elevated); }
+html.dark .tool-dropdown.app-module-nav button.active { background: color-mix(in srgb, var(--proto-accent) 13%, transparent); }
+
+@media (max-width: 720px) {
+  .app-shell,
+  body.sidebar-collapsed .app-shell { padding-left: 0; }
+
+  .sidebar,
+  body.sidebar-collapsed .sidebar {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    max-height: none;
+    padding: 10px;
+    border-right: 0;
+    border-bottom: 1px solid var(--proto-border-soft);
+  }
+
+  body.sidebar-collapsed .tool-dropdown.app-module-nav { margin-top: 0; }
+  body.sidebar-collapsed .tool-dropdown.app-module-nav button {
+    grid-template-columns: 22px minmax(0, 1fr);
+    justify-items: start;
+    width: 100%;
+    padding: 0 9px;
+  }
+  body.sidebar-collapsed .tool-dropdown.app-module-nav button strong {
+    position: static;
+    width: auto;
+    opacity: 1;
+  }
+  body.sidebar-collapsed .tool-dropdown.app-module-nav button::after { display: none; }
+  body.sidebar-collapsed .brand { justify-content: flex-start; padding: 4px 34px 4px 5px; }
+  body.sidebar-collapsed .brand > div:not(.brand-mark) { display: block; }
+  body.sidebar-collapsed .sidebar-toggle { top: 4px; right: 2px; }
+}

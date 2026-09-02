@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Controle Backoffice</title>
+    <link rel="icon" type="image/png" href="/assets/app-icon.png?v=1" />
+    <link rel="apple-touch-icon" href="/assets/app-icon.png?v=1" />
+    <script>
+      (() => {
+        window.__GERENCIAL_ASSET_VERSION__ = "20260810-record-layout-1";
+        const theme = localStorage.theme || "dark";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme === "dark" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="/app.css?v=20260825-report-periods-1" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="tool-switcher">
+        <button id="sidebarToggleBtn" class="sidebar-toggle" type="button" aria-label="Minimizar menu" aria-expanded="true">
+          <span></span>
+        </button>
+        <button id="toolMenuBtn" class="brand" type="button" aria-expanded="false">
+          <div class="brand-mark">B</div>
+          <div>
+            <strong id="activeToolName">BACKOFFICE</strong>
+          </div>
+        </button>
+        <div id="groupDropdown" class="group-dropdown hidden">
+          <button type="button" data-group-tool="monitoramento" data-group="backoffice">
+            <strong>BACKOFFICE</strong>
+          </button>
+          <button type="button" data-group-tool="analise" data-group="analise">
+            <strong>DADOS</strong>
+          </button>
+          <button type="button" data-group-tool="configuracao" data-group="configuracao">
+            <strong>CONFIGURA&Ccedil;&Atilde;O</strong>
+          </button>
+        </div>
+        <div id="toolDropdown" class="tool-dropdown app-module-nav hidden" aria-label="Módulos Backoffice">
+          <button type="button" data-tool="monitoramento" title="Monitoramento PD" aria-label="Monitoramento PD">
+            <span class="tool-icon" aria-hidden="true"><img src="/assets/icons/monitoring-9.svg" alt="" /></span>
+            <strong>MONITORAMENTO</strong>
+          </button>
+          <button type="button" data-tool="parecer" title="PARECER GAMMA" aria-label="PARECER GAMMA">
+            <span class="tool-icon" aria-hidden="true"><img src="/assets/icons/opinion-1.svg" alt="" /></span>
+            <strong>PARECERES</strong>
+          </button>
+          <button type="button" data-tool="protocolo" title="Controle de Protocolo" aria-label="Controle de Protocolo">
+            <span class="tool-icon" aria-hidden="true"><img src="/assets/icons/protocol-template.svg" alt="" /></span>
+            <strong>PROTOCOLOS</strong>
+          </button>
+          <button type="button" data-tool="colchao" title="COLCHÃO" aria-label="COLCHÃO">
+            <span class="tool-icon" aria-hidden="true"><img src="/assets/icons/mattress.svg" alt="" /></span>
+            <strong>COLCHÃO</strong>
+          </button>
+        </div>
+        <div id="analiseToolDropdown" class="tool-dropdown app-module-nav hidden" aria-label="Módulos de Análise de Dados">
+          <button type="button" data-tool="analise" title="Inteligencia de Producao" aria-label="Inteligencia de Producao">
+            <span class="tool-icon" aria-hidden="true"><img src="/assets/icons/dashboard-65.svg" alt="" /></span>
+            <strong>PRODU&Ccedil;&Atilde;O</strong>
+          </button>
+          <button type="button" data-tool="defasagem" title="Controle de Defasagem" aria-label="Controle de Defasagem">
+            <span class="tool-icon" aria-hidden="true"><img src="/assets/icons/monitoring-9.svg" alt="" /></span>
+            <strong>DEFASAGEM</strong>
+          </button>
+        </div>
+        </div>
+        <nav id="monitorNav" class="sidebar-nav">
+          <button id="addBtn" class="primary-btn nav-action-btn" title="Adicionar negociador" aria-label="Adicionar negociador">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14" /><path d="M5 12h14" /></svg></span>
+            <span>Adicionar</span>
+          </button>
+          <button id="overviewBtn" class="overview-nav" type="button" title="Overview" aria-label="Overview">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/overview.svg" alt="" /></span>
+            <span>Overview</span>
+            <strong id="overviewBadge">0</strong>
+          </button>
+          <button id="negociadoresBtn" class="overview-nav" type="button" title="Negociadores" aria-label="Negociadores">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/people-9.svg" alt="" /></span>
+            <span>Negociadores</span>
+            <strong id="negociadoresBadge">0</strong>
+          </button>
+          <button id="carteirasBtn" class="overview-nav" type="button" title="Carteiras" aria-label="Carteiras">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/portfolio-26-1.svg" alt="" /></span>
+            <span>Carteiras</span>
+            <strong id="carteirasBadge">0</strong>
+          </button>
+          <button id="monitorPlanilhaBtn" class="overview-nav" type="button" title="Planilha" aria-label="Planilha">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/spreadsheet-2.svg" alt="" /></span>
+            <span>Produção Diária</span>
+          </button>
+          <button id="monitorFechamentoBtn" class="overview-nav" type="button" title="Fechamento" aria-label="Fechamento">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/protocol-template.svg" alt="" /></span>
+            <span>Fechamento</span>
+          </button>
+        </nav>
+        <nav id="parecerNav" class="sidebar-nav hidden" aria-label="Navegação PARECER GAMMA">
+          <button class="overview-nav active" type="button" data-parecer-page="dashboard" title="Dashboard" aria-label="Dashboard">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/dashboard-65.svg" alt="" /></span>
+            <span>Dashboard</span>
+          </button>
+          <button class="overview-nav" type="button" data-parecer-page="pendentes" title="Pendentes" aria-label="Pendentes">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/pending-disposal-1.svg" alt="" /></span>
+            <span>Pendentes</span>
+          </button>
+          <button class="overview-nav" type="button" data-parecer-page="aprovacao" title="Aprovar parecer" aria-label="Aprovar parecer">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/opinion-1.svg" alt="" /></span>
+            <span>Aprovar parecer</span>
+          </button>
+          <button class="overview-nav" type="button" data-parecer-page="completa" title="Planilha Completa" aria-label="Planilha Completa">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/spreadsheet-2.svg" alt="" /></span>
+            <span>Planilha de Pareceres</span>
+          </button>
+        </nav>
+        <nav id="protocoloNav" class="sidebar-nav hidden" aria-label="Navegação Controle de Protocolo">
+          <button class="overview-nav active" type="button" data-protocolo-page="dashboard" title="Dashboard" aria-label="Dashboard">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/dashboard-65.svg" alt="" /></span>
+            <span>Dashboard</span>
+          </button>
+          <button class="overview-nav" type="button" data-protocolo-page="monitoramento" title="Pendentes" aria-label="Pendentes">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/pending-disposal-1.svg" alt="" /></span>
+            <span>Pendentes</span>
+          </button>
+          <button class="overview-nav" type="button" data-protocolo-page="concluidos" title="Concluidos" aria-label="Concluidos">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/spreadsheet-2.svg" alt="" /></span>
+            <span>Planilha de Protocolos</span>
+          </button>
+        </nav>
+        <nav id="colchaoNav" class="sidebar-nav hidden" aria-label="Navegação COLCHÃO">
+          <button class="overview-nav active" type="button" data-colchao-page="dashboard" title="Dashboard" aria-label="Dashboard">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/dashboard-65.svg" alt="" /></span>
+            <span>Dashboard</span>
+          </button>
+          <button class="overview-nav" type="button" data-colchao-page="clientes" title="Clientes e acordos" aria-label="Clientes e acordos">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/people-9.svg" alt="" /></span>
+            <span>Clientes</span>
+          </button>
+          <button class="overview-nav" type="button" data-colchao-page="pendencias" title="Pendências" aria-label="Pendências">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/pending-disposal-1.svg" alt="" /></span>
+            <span>Pendências</span>
+          </button>
+          <button class="overview-nav" type="button" data-colchao-page="completo" title="Planilha" aria-label="Planilha">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/spreadsheet-2.svg" alt="" /></span>
+            <span>Planilha</span>
+          </button>
+          <button class="overview-nav" type="button" data-colchao-page="cadastro" title="Novo Acordo" aria-label="Novo Acordo">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14" /><path d="M5 12h14" /></svg></span>
+            <span>Novo Acordo</span>
+          </button>
+          <button class="overview-nav" type="button" data-colchao-page="configuracoes" title="configuracoes" aria-label="configuracoes ">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/settings-settings.svg" alt="" /></span>
+            <span>Configurações</span>
+          </button>
+        </nav>
+        <nav id="configNav" class="sidebar-nav hidden" aria-label="Navegação Configuração">
+          <button class="overview-nav active" type="button" data-config-page="usuarios" title="Usuarios" aria-label="Usuarios">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/people-9.svg" alt="" /></span>
+            <span>Usu&aacute;rios</span>
+          </button>
+          <button class="overview-nav" type="button" data-config-page="auditoria" title="Auditoria" aria-label="Auditoria">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/overview.svg" alt="" /></span>
+            <span>Auditoria</span>
+          </button>
+          <button class="overview-nav" type="button" data-config-page="permissoes" title="Permissões" aria-label="Permissões">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/settings-settings.svg" alt="" /></span>
+            <span>Permiss&otilde;es</span>
+          </button>
+          <button class="overview-nav" type="button" data-config-page="schemas" title="Versões de schema" aria-label="Versões de schema">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/portfolio-26-1.svg" alt="" /></span>
+            <span>Schemas</span>
+          </button>
+          <button class="overview-nav" type="button" data-config-page="ferramentas" title="Ferramentas negociais" aria-label="Ferramentas negociais">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/portfolio-26-1.svg" alt="" /></span>
+            <span>Ferramentas</span>
+          </button>
+          <button class="overview-nav" type="button" data-config-page="backups" title="Backups" aria-label="Backups">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/settings-settings.svg" alt="" /></span>
+            <span>Backups</span>
+          </button>
+          <button class="overview-nav" type="button" data-config-page="diagnostico" title="Diagnóstico" aria-label="Diagnóstico">
+            <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/dashboard-65.svg" alt="" /></span>
+            <span>Diagnóstico</span>
+          </button>
+        </nav>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div class="topbar-main">
+          <div class="page-title-group">
+            <span class="page-title-icon" aria-hidden="true"><img id="pageTitleIcon" src="/assets/icons/dashboard-65.svg" alt="" /></span>
+            <h1 id="pageTitle">Main Hub</h1>
+          </div>
+          <div class="actions">
+            <button id="mainHubBtn" class="top-icon-btn" type="button" title="Main Hub" aria-label="Main Hub">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 11.5 12 4l9 7.5" />
+                <path d="M5 10.5V20h14v-9.5" />
+                <path d="M9 20v-6h6v6" />
+              </svg>
+              <span id="mainHubBadge" class="notification-badge hidden">0</span>
+            </button>
+            <div class="notification-menu">
+              <button id="notificationBtn" class="notification-btn" type="button" aria-expanded="false" aria-label="Notificacoes">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+                  <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+                </svg>
+                <span id="notificationBadge" class="notification-badge hidden">0</span>
+              </button>
+              <div id="notificationDropdown" class="notification-dropdown hidden">
+                <header>
+                  <div>
+                    <strong>Notificacoes</strong>
+                    <span id="notificationSummary">Sem novidades</span>
+                  </div>
+                  <button id="notificationAlertsBtn" class="notification-alert-btn" type="button">Ativar alertas</button>
+                </header>
+                <div id="notificationList" class="notification-list"></div>
+              </div>
+            </div>
+            <div class="profile-menu">
+              <button id="profileBtn" class="profile-btn" type="button" aria-expanded="false">
+                <span id="profileInitial">-</span>
+                <strong id="currentUser">-</strong>
+              </button>
+              <div id="profileDropdown" class="profile-dropdown hidden">
+                <small id="currentRole">-</small>
+                <button id="themeBtn" type="button">Alternar tema</button>
+                <button id="logoutBtn" type="button">Sair</button>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="module-tabs-row">
+            <div id="moduleTabs" class="module-tabs" aria-label="Páginas do módulo"></div>
+            <div class="module-action-slot">
+              <button id="refreshBtn" class="secondary-btn module-action-btn hidden" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.4 6.4" /><path d="M3 12A9 9 0 0 1 18.4 5.6" /><path d="M18 2v4h-4" /><path d="M6 22v-4h4" /></svg>
+                Atualizar
+              </button>
+              <button id="parecerRefreshBtn" class="secondary-btn parecer-action-btn module-action-btn hidden" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.4 6.4" /><path d="M3 12A9 9 0 0 1 18.4 5.6" /><path d="M18 2v4h-4" /><path d="M6 22v-4h4" /></svg>
+                Atualizar
+              </button>
+              <button id="protocoloNewBtn" class="primary-btn fit module-action-btn hidden">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
+                Novo protocolo
+              </button>
+              <button id="colchaoBackProfilesTopBtn" class="secondary-btn top-back-profiles hidden" type="button">Voltar aos perfis</button>
+            </div>
+          </div>
+        </header>
+
+      </section>
+    </main>
+
+    <div id="localNotificationStack" class="local-notification-stack" aria-live="polite"></div>
+    <div id="toast" class="toast"></div>
+    <script type="module" src="/app.js?v=20260828-defasagem-source-1"></script>
+  </body>
+</html>
+
+
+
+

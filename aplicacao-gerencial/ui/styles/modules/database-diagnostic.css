@@ -1,0 +1,107 @@
+.database-health-head,
+.database-diagnostic-section {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+}
+
+.database-health-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+}
+
+.database-health-head > div:first-child {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 2px 8px;
+}
+
+.database-health-head small {
+  grid-column: 2;
+  color: var(--muted);
+}
+
+.database-health-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #94a3b8;
+  box-shadow: 0 0 0 4px color-mix(in srgb, #94a3b8 16%, transparent);
+}
+
+.database-health-indicator.healthy { background: #10b981; box-shadow: 0 0 0 4px color-mix(in srgb, #10b981 16%, transparent); }
+.database-health-indicator.degraded { background: #f59e0b; box-shadow: 0 0 0 4px color-mix(in srgb, #f59e0b 16%, transparent); }
+
+.database-version-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.database-version-pills span {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.database-kpis { margin: 10px 0 0; }
+.database-kpis article { padding: 9px 11px; }
+.database-kpis strong { font-size: 17px; }
+
+.database-diagnostic-section {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+
+.database-diagnostic-section > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.database-diagnostic-section h4 { margin: 0; font-size: 13px; }
+.database-diagnostic-section > header span { color: var(--muted); font-size: 11px; }
+
+.database-alert-list,
+.database-recommendations { display: grid; gap: 6px; }
+
+.database-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-left: 3px solid #f59e0b;
+  background: var(--surface-2, var(--surface));
+  padding: 8px 10px;
+}
+
+.database-alert.critical { border-left-color: #ef4444; }
+.database-alert > div { display: grid; gap: 2px; }
+.database-alert small { color: var(--muted); }
+
+.database-recommendations p {
+  margin: 0;
+  border-left: 3px solid #60a5fa;
+  padding: 7px 10px;
+  background: var(--surface-2, var(--surface));
+  font-size: 12px;
+}
+
+.database-recommendations p[data-severity="warning"] { border-left-color: #f59e0b; }
+.database-recommendations p[data-severity="critical"] { border-left-color: #ef4444; }
+.database-recommendations p[data-severity="success"] { border-left-color: #10b981; }
+.database-empty-state { color: var(--muted); font-size: 12px; padding: 8px; }
+.database-performance-table { min-width: 680px; }
+
+@media (max-width: 760px) {
+  .database-health-head { align-items: flex-start; flex-direction: column; }
+  .database-version-pills { justify-content: flex-start; }
+}

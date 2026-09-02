@@ -1,0 +1,92 @@
+/* Shared dark treatment for every Excel-like grid in the management app. */
+html.dark .excel-sheet-viewport,
+html.dark .monitor-planilha-scroll {
+  color-scheme: dark;
+  scrollbar-color: #607087 #111a27;
+  scrollbar-width: auto;
+}
+
+html.dark .excel-sheet-viewport::-webkit-scrollbar,
+html.dark .monitor-planilha-scroll::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+  background: #111a27;
+}
+
+html.dark .excel-sheet-viewport::-webkit-scrollbar-track,
+html.dark .monitor-planilha-scroll::-webkit-scrollbar-track {
+  background: #111a27;
+}
+
+html.dark .excel-sheet-viewport::-webkit-scrollbar-thumb,
+html.dark .monitor-planilha-scroll::-webkit-scrollbar-thumb {
+  min-width: 34px;
+  min-height: 34px;
+  background: #607087;
+  border: 3px solid #111a27;
+  border-radius: 8px;
+}
+
+html.dark .excel-sheet-viewport::-webkit-scrollbar-thumb:hover,
+html.dark .monitor-planilha-scroll::-webkit-scrollbar-thumb:hover {
+  background: #78889d;
+}
+
+html.dark .excel-sheet-viewport::-webkit-scrollbar-corner,
+html.dark .monitor-planilha-scroll::-webkit-scrollbar-corner {
+  background: #111a27;
+}
+
+html.dark .monitor-native-excel .status-fill,
+html.dark .operational-native-excel .status-fill,
+html.dark .operational-native-excel .status-fill-select,
+html.dark .operational-native-excel .status-select {
+  color: var(--proto-text);
+  background: #202c3b;
+  border-color: #39495e;
+}
+
+html.dark .monitor-native-excel .status-proposta,
+html.dark .operational-native-excel .status-proposta {
+  color: #d9e5f4;
+  background: #283548;
+}
+
+html.dark .monitor-native-excel .status-aguardando_pagamento,
+html.dark .operational-native-excel .status-aguardando_pagamento,
+html.dark .operational-native-excel .status-pendente,
+html.dark .operational-native-excel .status-vencido {
+  color: #f6ca66;
+  background: #3b301c;
+}
+
+html.dark .monitor-native-excel .status-pagamento_realizado,
+html.dark .operational-native-excel .status-pagamento_realizado,
+html.dark .operational-native-excel .status-pago,
+html.dark .operational-native-excel .status-concluido,
+html.dark .operational-native-excel .status-concluído {
+  color: #77d9aa;
+  background: #18372d;
+}
+
+html.dark .operational-native-excel .status-solicitado {
+  color: #9fc2ff;
+  background: #1d3150;
+}
+
+html.dark .monitor-native-excel .status-quebra,
+html.dark .monitor-native-excel .status-proposta_negada,
+html.dark .operational-native-excel .status-quebra,
+html.dark .operational-native-excel .status-proposta_negada,
+html.dark .operational-native-excel .status-cancelado {
+  color: #f3a0a8;
+  background: #40232b;
+}
+
+html.dark .monitor-native-excel .status-fill option,
+html.dark .operational-native-excel .status-fill option,
+html.dark .operational-native-excel .status-fill-select option,
+html.dark .operational-native-excel .status-select option {
+  color: var(--proto-text);
+  background: var(--proto-elevated);
+}

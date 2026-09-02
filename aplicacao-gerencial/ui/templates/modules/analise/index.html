@@ -1,0 +1,251 @@
+<nav id="analiseNav" class="sidebar-nav hidden" aria-label="Inteligencia de Producao">
+  <button class="overview-nav active" type="button" data-analysis-page="executive" title="Visao Executiva">
+    <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/dashboard-65.svg" alt="" /></span><span>Vis&atilde;o Executiva</span>
+  </button>
+  <button class="overview-nav" type="button" data-analysis-page="negotiators" title="Negociadores">
+    <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/people-9.svg" alt="" /></span><span>Negociadores</span>
+  </button>
+  <button class="overview-nav" type="button" data-analysis-page="wallets" title="Carteiras">
+    <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/portfolio-26-1.svg" alt="" /></span><span>Carteiras</span>
+  </button>
+  <button class="overview-nav" type="button" data-analysis-page="pipeline" title="Pipeline e Riscos">
+    <span class="nav-icon" aria-hidden="true"><img src="/assets/icons/monitoring-9.svg" alt="" /></span><span>Pipeline e Riscos</span>
+  </button>
+</nav>
+
+<section id="productionIntelligenceContent" class="production-intelligence hidden" aria-live="polite">
+  <div class="analytics-command-bar">
+    <div class="analytics-command-main">
+      <div class="analytics-period-identity"><span>Compet&ecirc;ncia</span><strong id="analyticsPeriodLabel">-</strong></div>
+      <label class="analytics-command-field analytics-scope-field">
+        <span>Per&iacute;odo</span>
+        <select id="analyticsPeriodScopeFilter" aria-label="Per&iacute;odo">
+          <option value="month">M&ecirc;s espec&iacute;fico</option>
+          <option value="year">Ano completo</option>
+          <option value="journey">Toda a jornada</option>
+        </select>
+      </label>
+      <div id="analyticsMonthNavigation" class="analytics-month-navigation">
+        <button id="analyticsPreviousMonthBtn" class="analytics-month-only" type="button" aria-label="M&ecirc;s anterior" title="M&ecirc;s anterior">&lsaquo;</button>
+        <label class="analytics-command-field analytics-month-only">
+          <span>M&ecirc;s</span>
+          <select id="analyticsMonthFilter" aria-label="M&ecirc;s">
+            <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Mar&ccedil;o</option>
+            <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
+            <option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option>
+            <option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option>
+          </select>
+        </label>
+        <label class="analytics-command-field analytics-year-field">
+          <span>Ano</span>
+          <select id="analyticsYearFilter" aria-label="Ano"></select>
+        </label>
+        <button id="analyticsNextMonthBtn" class="analytics-month-only" type="button" aria-label="Pr&oacute;ximo m&ecirc;s" title="Pr&oacute;ximo m&ecirc;s">&rsaquo;</button>
+      </div>
+      <div class="analytics-actions">
+        <button id="analyticsFiltersToggleBtn" class="secondary-btn compact analytics-filter-toggle" type="button" aria-expanded="false" aria-controls="analyticsAdvancedFilters">
+          Filtros <b id="analyticsActiveFilterCount" class="hidden">0</b>
+        </button>
+        <button id="analyticsRefreshBtn" class="primary-btn fit compact" type="button">Atualizar</button>
+      </div>
+    </div>
+    <div id="analyticsAdvancedFilters" class="analytics-advanced-filters hidden">
+      <label><span>Carteira</span><select id="analyticsWalletFilter" aria-label="Carteira"><option value="">Todas as carteiras</option></select></label>
+      <label><span>Negociador</span><select id="analyticsNegotiatorFilter" aria-label="Negociador"><option value="">Todos os negociadores</option></select></label>
+      <label><span>Status</span><select id="analyticsStatusFilter" aria-label="Status"><option value="">Todos os status</option></select></label>
+      <label><span>Tipo de acordo</span><select id="analyticsTypeFilter" aria-label="Tipo de acordo"><option value="">Todos os tipos</option></select></label>
+      <button id="analyticsClearFiltersBtn" class="secondary-btn compact" type="button">Limpar filtros</button>
+    </div>
+    <div id="analyticsActiveFilters" class="analytics-active-filters hidden" aria-label="Filtros ativos"></div>
+  </div>
+
+  <div id="analyticsLoading" class="analytics-skeleton hidden" aria-label="Carregando indicadores">
+    <div></div><div></div><div></div><div></div><span></span><span></span>
+  </div>
+  <div id="analyticsEmpty" class="analytics-empty hidden"><strong>Nenhuma produ&ccedil;&atilde;o encontrada</strong><span>Ajuste os filtros ou selecione outra compet&ecirc;ncia.</span></div>
+
+  <div id="analyticsWorkspace" class="analytics-workspace hidden">
+    <section data-analysis-panel="executive" class="analytics-page">
+      <div id="analyticsKpis" class="analytics-kpi-grid"></div>
+      <div class="analytics-executive-grid">
+        <section class="analytics-panel analytics-trend-panel">
+          <header>
+            <div><span id="analyticsTrendEyebrow">Evolu&ccedil;&atilde;o no m&ecirc;s</span><strong id="analyticsTrendTitle">Honor&aacute;rios recebidos</strong></div>
+            <div class="analytics-wallet-trend-actions">
+              <select id="analyticsExecutiveTrendMetric" aria-label="M&eacute;trica da evolu&ccedil;&atilde;o executiva">
+                <option value="paid_honorarios">H.O.</option>
+                <option value="paid_value">Pagamentos realizados</option>
+                <option value="cash_value">&Agrave; vista</option>
+                <option value="installment_total">Parcelados</option>
+                <option value="breaks_value">Quebras</option>
+                <option value="negated_value">Propostas negadas</option>
+                <option value="total_value">Total</option>
+              </select>
+              <b id="analyticsTrendTotal">-</b>
+            </div>
+          </header>
+          <div id="analyticsTrendChart" class="analytics-line-chart"></div>
+        </section>
+        <section class="analytics-panel">
+          <header><div><span>Distribui&ccedil;&atilde;o</span><strong>Funil por status</strong></div></header><div id="analyticsStatusChart" class="analytics-status-chart"></div>
+        </section>
+        <section class="analytics-panel analytics-goal-panel">
+          <header><div><span>Meta consolidada</span><strong>Ritmo e proje&ccedil;&atilde;o</strong></div></header><div id="analyticsGoalContent"></div>
+        </section>
+        <section class="analytics-panel">
+          <header><div><span>Destaques</span><strong>Top negociadores</strong></div><button type="button" data-analysis-jump="negotiators">Ver ranking</button></header><div id="analyticsTopNegotiators" class="analytics-mini-ranking"></div>
+        </section>
+      </div>
+      <div class="analytics-comparison-grid">
+        <section class="analytics-panel analytics-comparison-panel">
+          <header>
+            <div><span>Vis&atilde;o consolidada</span><strong>Comparativo anual</strong></div>
+            <div class="analytics-comparison-controls">
+              <select id="analyticsAnnualMetric" aria-label="M&eacute;trica do comparativo anual">
+                <option value="total_value">Produ&ccedil;&atilde;o total</option>
+                <option value="paid_honorarios">H.O. recebido</option>
+                <option value="paid_value">Pagamentos realizados</option>
+                <option value="agreements">Quantidade de acordos</option>
+                <option value="conversion_rate">Convers&atilde;o</option>
+              </select>
+              <details class="analytics-month-selector" id="analyticsAnnualMonths">
+                <summary><span>Todos os meses</span></summary>
+                <div class="analytics-month-selector-menu"></div>
+              </details>
+              <details class="analytics-month-selector analytics-year-selector" id="analyticsAnnualYears">
+                <summary><span>Todos os anos</span></summary>
+                <div class="analytics-month-selector-menu"></div>
+              </details>
+            </div>
+          </header>
+          <div id="analyticsAnnualComparison" class="analytics-annual-comparison"></div>
+        </section>
+        <section class="analytics-panel analytics-comparison-panel">
+          <header>
+            <div><span>Evolu&ccedil;&atilde;o comparada</span><strong>Comparativo mensal</strong></div>
+            <div class="analytics-comparison-controls">
+              <select id="analyticsMonthlyMetric" aria-label="M&eacute;trica do comparativo mensal">
+                <option value="total_value">Produ&ccedil;&atilde;o total</option>
+                <option value="paid_honorarios">H.O. recebido</option>
+                <option value="paid_value">Pagamentos realizados</option>
+                <option value="agreements">Quantidade de acordos</option>
+                <option value="conversion_rate">Convers&atilde;o</option>
+              </select>
+              <details class="analytics-month-selector" id="analyticsMonthlyMonths">
+                <summary><span>Todos os meses</span></summary>
+                <div class="analytics-month-selector-menu"></div>
+              </details>
+              <details class="analytics-month-selector analytics-year-selector" id="analyticsMonthlyYears">
+                <summary><span>Todos os anos</span></summary>
+                <div class="analytics-month-selector-menu"></div>
+              </details>
+            </div>
+          </header>
+          <div id="analyticsMonthlyComparison" class="analytics-monthly-comparison"></div>
+        </section>
+      </div>
+    </section>
+
+    <section data-analysis-panel="negotiators" class="analytics-page hidden">
+      <div class="analytics-section-heading"><div><h2>Desempenho por negociador</h2><span>Meta, convers&atilde;o, honor&aacute;rios e qualidade da carteira.</span></div><strong id="analyticsNegotiatorCount">0 profissionais</strong></div>
+      <div class="analytics-table-wrap"><table class="analytics-table">
+        <thead><tr><th>#</th><th>Negociador</th><th>Carteira</th><th>Acordos</th><th>Produ&ccedil;&atilde;o</th><th>Honor&aacute;rios pagos</th><th>Meta</th><th>Convers&atilde;o</th><th>Quebras</th><th>&Uacute;ltima atualiza&ccedil;&atilde;o</th></tr></thead>
+        <tbody id="analyticsNegotiatorRows"></tbody>
+      </table></div>
+    </section>
+
+    <section data-analysis-panel="wallets" class="analytics-page hidden">
+      <div class="analytics-wallet-heading">
+        <div>
+          <span>Vis&atilde;o anal&iacute;tica</span>
+          <h2 id="analyticsWalletTitle">Carteiras</h2>
+          <p id="analyticsWalletDescription">Selecione uma carteira para analisar seus principais direcionadores.</p>
+        </div>
+        <strong id="analyticsWalletCount">0 carteiras</strong>
+      </div>
+      <nav id="analyticsWalletTabs" class="analytics-wallet-tabs" aria-label="Carteiras dispon&iacute;veis"></nav>
+      <div id="analyticsWalletKpis" class="analytics-wallet-kpis"></div>
+      <div id="analyticsWalletExecutiveGrid" class="analytics-wallet-executive-grid">
+        <section class="analytics-panel analytics-wallet-trend-panel">
+          <header>
+            <div><span>Evolu&ccedil;&atilde;o</span><strong id="analyticsWalletTrendTitle">Desempenho no per&iacute;odo</strong></div>
+            <div class="analytics-wallet-trend-actions">
+              <select id="analyticsWalletTrendMetric" aria-label="M&eacute;trica da evolu&ccedil;&atilde;o">
+                <option value="total_value">Total</option>
+                <option value="paid_honorarios">H.O.</option>
+                <option value="paid_value">Pagamentos realizados</option>
+                <option value="cash_value">&Agrave; vista</option>
+                <option value="installment_total">Parcelados</option>
+                <option value="breaks_value">Quebras</option>
+                <option value="negated_value">Propostas negadas</option>
+              </select>
+              <b id="analyticsWalletTrendTotal">-</b>
+            </div>
+          </header>
+          <div id="analyticsWalletTrend" class="analytics-wallet-trend-chart"></div>
+        </section>
+        <section class="analytics-panel">
+          <header><div><span>Composi&ccedil;&atilde;o</span><strong id="analyticsWalletMixTitle">Perfil dos acordos</strong></div></header>
+          <div id="analyticsWalletMix" class="analytics-wallet-mix"></div>
+        </section>
+        <section id="analyticsWalletGammaHonorariosPanel" class="analytics-panel analytics-wallet-gamma-panel hidden">
+          <header><div><span>Honor&aacute;rios</span><strong>Previsto, flexibilizado e realizado</strong></div></header>
+          <div id="analyticsWalletGammaHonorarios" class="analytics-wallet-gamma-honorarios"></div>
+        </section>
+        <section id="analyticsWalletGammaFunnelPanel" class="analytics-panel analytics-wallet-gamma-panel hidden">
+          <header><div><span>Convers&atilde;o</span><strong>Funil financeiro do GAMMA</strong></div></header>
+          <div id="analyticsWalletGammaFunnel" class="analytics-wallet-gamma-funnel"></div>
+        </section>
+        <section id="analyticsWalletPortfolioPanel" class="analytics-panel analytics-wallet-portfolio-panel">
+          <header>
+            <div><span id="analyticsWalletPortfolioEyebrow">Portf&oacute;lios</span><strong id="analyticsWalletPortfolioTitle">Desempenho por portf&oacute;lio</strong></div>
+            <small id="analyticsWalletPortfolioCount">0 grupos</small>
+          </header>
+          <div class="analytics-wallet-portfolio-wrap">
+            <table class="analytics-wallet-portfolio-table">
+              <thead id="analyticsWalletPortfolioHead"></thead>
+              <tbody id="analyticsWalletPortfolioRows"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="analytics-panel analytics-wallet-negotiators-panel">
+          <header><div><span>Equipe</span><strong>Negociadores em destaque</strong></div><button type="button" data-analysis-jump="negotiators">Ver todos</button></header>
+          <div id="analyticsWalletNegotiators" class="analytics-wallet-negotiators"></div>
+        </section>
+        <section id="analyticsWalletGammaGecorPanel" class="analytics-panel analytics-wallet-gamma-panel analytics-wallet-gecor-panel hidden">
+          <header><div><span>Distribui&ccedil;&atilde;o gerencial</span><strong>Produ&ccedil;&atilde;o por GECOR</strong></div><small id="analyticsWalletGammaGecorCount">0 grupos</small></header>
+          <div id="analyticsWalletGammaGecors" class="analytics-wallet-dimension-list"></div>
+        </section>
+        <section id="analyticsWalletGammaStatesPanel" class="analytics-panel analytics-wallet-gamma-panel analytics-wallet-states-panel hidden">
+          <header><div><span>Distribui&ccedil;&atilde;o geogr&aacute;fica</span><strong>Desempenho por estado</strong></div><small id="analyticsWalletGammaStatesCount">0 estados</small></header>
+          <div class="analytics-wallet-states-wrap">
+            <table class="analytics-wallet-states-table">
+              <thead><tr><th>UF</th><th>Acordos</th><th>Produ&ccedil;&atilde;o</th><th>Entradas</th><th>H.O. recebido</th><th>Convers&atilde;o</th><th>Participa&ccedil;&atilde;o</th></tr></thead>
+              <tbody id="analyticsWalletGammaStates"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section data-analysis-panel="pipeline" class="analytics-page hidden">
+      <div class="analytics-risk-summary">
+        <article><span>Vencidos</span><strong id="analyticsOverdueCount">0</strong><small>exigem atua&ccedil;&atilde;o imediata</small></article>
+        <article><span>Pr&oacute;ximos 5 dias</span><strong id="analyticsDueSoonCount">0</strong><small>acordos em aten&ccedil;&atilde;o</small></article>
+        <article><span>Sem atualiza&ccedil;&atilde;o</span><strong id="analyticsStagnantCount">0</strong><small>h&aacute; 7 dias ou mais</small></article>
+        <article><span>Qualidade dos dados</span><strong id="analyticsQualityScore">100%</strong><small id="analyticsQualityCaption">sem inconsist&ecirc;ncias</small></article>
+      </div>
+      <div class="analytics-risk-grid">
+        <section class="analytics-panel"><header><div><span>Prioridade alta</span><strong>Vencidos</strong></div></header><div id="analyticsOverdueList" class="analytics-risk-list"></div></section>
+        <section class="analytics-panel"><header><div><span>Preven&ccedil;&atilde;o</span><strong>Vencem em breve</strong></div></header><div id="analyticsDueSoonList" class="analytics-risk-list"></div></section>
+        <section class="analytics-panel"><header><div><span>Cad&ecirc;ncia</span><strong>Sem atualiza&ccedil;&atilde;o</strong></div></header><div id="analyticsStagnantList" class="analytics-risk-list"></div></section>
+      </div>
+      <section class="analytics-panel analytics-quality-panel"><header><div><span>Governan&ccedil;a</span><strong>Diagn&oacute;stico dos registros</strong></div></header><div id="analyticsQualityDetails" class="analytics-quality-details"></div></section>
+    </section>
+  </div>
+
+  <aside id="analyticsDrawer" class="analytics-drawer hidden" aria-hidden="true">
+    <div class="analytics-drawer-head"><div><span id="analyticsDrawerEyebrow">Detalhes</span><h2 id="analyticsDrawerTitle">An&aacute;lise</h2></div><button id="analyticsDrawerClose" type="button" aria-label="Fechar">&times;</button></div>
+    <div id="analyticsDrawerBody" class="analytics-drawer-body"></div>
+  </aside>
+</section>

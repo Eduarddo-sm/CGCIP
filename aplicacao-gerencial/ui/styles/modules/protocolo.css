@@ -1,0 +1,259 @@
+﻿#protocoloContent {
+  border: 1px solid var(--surface-line);
+  border-radius: 14px;
+  padding: 28px;
+  background: var(--surface-solid);
+  color: var(--surface-text);
+  box-shadow: 0 18px 54px rgba(15, 47, 110, 0.08);
+}
+
+#protocoloContent .protocolo-stat-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  background: var(--surface-accent-soft);
+  color: #155eef;
+}
+
+#protocoloContent svg,
+#protocoloDialog svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#protocoloContent .stats-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 26px;
+}
+
+#protocoloContent #protocoloStats.hidden {
+  display: none;
+}
+
+#protocoloContent .protocolo-stat-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 22px;
+  min-height: 126px;
+  border-color: var(--surface-line);
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--surface-solid);
+}
+
+#protocoloContent .protocolo-stat-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+}
+
+#protocoloContent .protocolo-stat-card.orange .protocolo-stat-icon {
+  background: #fff1df;
+  color: #f08a00;
+}
+
+#protocoloContent .protocolo-stat-card.green .protocolo-stat-icon {
+  background: #dff8ec;
+  color: #13a66b;
+}
+
+#protocoloContent .protocolo-stat-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+#protocoloContent .protocolo-stat-card span {
+  color: var(--surface-muted-text);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+#protocoloContent .protocolo-stat-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #f08a00;
+  font-size: 36px;
+  line-height: 1;
+}
+
+#protocoloContent .protocolo-stat-card.green strong {
+  color: #13a66b;
+}
+
+#protocoloContent .protocolo-stat-card em {
+  display: block;
+  margin-top: 12px;
+  color: var(--surface-muted-text);
+  font-size: 14px;
+  font-style: normal;
+}
+
+#protocoloContent .protocolo-empty-state {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 330px;
+  border: 1px dashed #c7d7f2;
+  border-radius: 10px;
+  padding: 42px;
+  background: var(--surface-solid);
+  color: var(--surface-text);
+  text-align: center;
+}
+
+#protocoloContent .protocolo-empty-state > span {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 26px;
+  background: var(--surface-icon);
+  color: #5f87e8;
+}
+
+#protocoloContent .protocolo-empty-state > span svg {
+  width: 54px;
+  height: 54px;
+}
+
+#protocoloContent .protocolo-empty-state strong {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+#protocoloContent .protocolo-empty-state p {
+  margin: 0;
+  color: var(--surface-muted-text);
+}
+
+#protocoloDialog {
+  width: min(1120px, calc(100vw - 40px));
+  border-color: var(--surface-line);
+  border-radius: 16px;
+  background: var(--surface-solid);
+  color: var(--surface-text);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.32);
+}
+
+#protocoloDialog::backdrop {
+  background: rgba(15, 23, 42, 0.66);
+}
+
+#protocoloDialog form {
+  gap: 0;
+  padding: 0;
+}
+
+#protocoloDialog .protocolo-dialog-head {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 22px;
+  padding: 34px 36px 22px;
+}
+
+#protocoloDialog .protocolo-dialog-icon {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 16px;
+  background: var(--surface-icon);
+  color: #155eef;
+}
+
+#protocoloDialog .protocolo-dialog-icon svg {
+  width: 38px;
+  height: 38px;
+}
+
+#protocoloDialog h2 {
+  margin: 0;
+  color: var(--surface-text);
+  font-size: 26px;
+  font-weight: 900;
+}
+
+#protocoloDialog header p {
+  margin: 8px 0 0;
+  color: #66769d;
+  font-size: 16px;
+}
+
+#protocoloDialog .icon-btn[data-close-protocolo] {
+  width: 52px;
+  height: 52px;
+  border-color: var(--surface-line);
+  border-radius: 10px;
+  background: var(--surface-solid);
+  color: var(--surface-text);
+  font-size: 0;
+}
+
+#protocoloDialog .icon-btn[data-close-protocolo]::before {
+  content: "\00d7";
+  font-size: 32px;
+  line-height: 1;
+}
+
+#protocoloDialog label {
+  display: grid;
+  gap: 10px;
+  margin: 0 36px 24px;
+  color: var(--surface-text);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+#protocoloDialog label span {
+  color: #155eef;
+}
+
+#protocoloDialog input,
+#protocoloDialog textarea {
+  min-height: 56px;
+  border: 1px solid var(--surface-line-strong);
+  border-radius: 9px;
+  padding: 0 18px;
+  background: var(--surface-solid);
+  color: var(--surface-text);
+  font-weight: 650;
+}
+
+#protocoloDialog textarea {
+  min-height: 112px;
+  padding-top: 18px;
+}
+
+#protocoloDialog footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  border-top: 1px solid var(--surface-line-soft);
+  margin-top: 10px;
+  padding: 28px 36px;
+}
+
+#protocoloDialog footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  border-radius: 9px;
+  padding: 0 28px;
+  font-weight: 850;
+}
+
+#protocoloDialog footer .primary-btn {
+  background: #155eef;
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(21, 94, 239, 0.18);
+}

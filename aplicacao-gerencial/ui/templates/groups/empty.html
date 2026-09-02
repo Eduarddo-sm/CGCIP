@@ -1,0 +1,249 @@
+<section id="configContent" class="overview-content config-content hidden">
+  <div class="overview-head">
+    <div>
+      <h2 id="configPageTitle">Configura&ccedil;&atilde;o</h2>
+      <p id="configPageSubtitle">Gerencie acessos, auditoria, schemas e backups do sistema.</p>
+    </div>
+    <div id="configUsersActions" class="overview-actions">
+      <button id="openConfigUserDialogBtn" class="primary-btn fit" type="button">Cadastrar usu&aacute;rio</button>
+      <button id="reloadConfigUsersBtn" class="secondary-btn" type="button">Atualizar</button>
+    </div>
+    <div id="configAuditActions" class="overview-actions hidden">
+      <button id="reloadConfigAuditBtn" class="secondary-btn" type="button">Atualizar</button>
+      <button id="exportConfigAuditCsvBtn" class="secondary-btn" type="button">CSV</button>
+      <button id="exportConfigAuditXlsxBtn" class="secondary-btn" type="button">XLSX</button>
+    </div>
+    <div id="configPermissionActions" class="overview-actions hidden">
+      <button id="reloadConfigPermissionsBtn" class="secondary-btn" type="button">Atualizar</button>
+      <button id="discardConfigPermissionsBtn" class="secondary-btn hidden" type="button">Descartar</button>
+      <button id="saveConfigPermissionsBtn" class="primary-btn fit" type="button" disabled>Salvar permiss&otilde;es</button>
+    </div>
+    <div id="configSchemaActions" class="overview-actions hidden">
+      <select id="configSchemaCarteira" data-carteira-options data-placeholder="Carteira"></select>
+      <button id="reloadConfigSchemasBtn" class="secondary-btn" type="button">Carregar versões</button>
+    </div>
+    <div id="configToolActions" class="overview-actions hidden">
+      <button id="openDynamicToolBuilderBtn" class="primary-btn fit" type="button">Nova ferramenta</button>
+      <button id="reloadDynamicToolsBtn" class="secondary-btn" type="button">Atualizar</button>
+    </div>
+    <div id="configBackupActions" class="overview-actions hidden">
+      <button id="createDatabaseBackupBtn" class="primary-btn fit" type="button">Criar backup</button>
+      <button id="reloadDatabaseBackupsBtn" class="secondary-btn" type="button">Atualizar</button>
+    </div>
+    <div id="configDiagnosticActions" class="overview-actions hidden">
+      <button id="testDatabaseAlertBtn" class="secondary-btn" type="button">Testar alerta</button>
+      <button id="collectDatabaseMonitoringBtn" class="primary-btn fit" type="button">Coletar agora</button>
+      <button id="reloadConfigDiagnosticBtn" class="secondary-btn" type="button">Atualizar</button>
+    </div>
+  </div>
+
+  <div class="config-layout">
+    <section id="configUsersPage" class="config-panel config-page">
+      <div id="configUsersList" class="config-users-list"></div>
+    </section>
+
+    <section id="configAuditPage" class="config-panel config-page hidden">
+      <div class="config-panel-head">
+        <div>
+          <h3>Auditoria</h3>
+        </div>
+      </div>
+      <div class="config-kpi-row">
+        <article><span>Total carregado</span><strong id="configAuditTotal">0</strong></article>
+        <article><span>&Uacute;ltima altera&ccedil;&atilde;o</span><strong id="configAuditLast">-</strong></article>
+        <article><span>Respons&aacute;veis</span><strong id="configAuditUsers">0</strong></article>
+      </div>
+      <div class="config-filter-row">
+        <input id="configAuditSearch" placeholder="Buscar na auditoria" />
+        <input id="configAuditActor" placeholder="Usu&aacute;rio" />
+        <input id="configAuditAction" placeholder="A&ccedil;&atilde;o" />
+        <input id="configAuditEntity" placeholder="Entidade" />
+        <select id="configAuditOutcome">
+          <option value="">Resultado</option>
+          <option value="success">success</option>
+          <option value="failed">failed</option>
+        </select>
+        <input id="configAuditFrom" type="date" />
+        <input id="configAuditTo" type="date" />
+      </div>
+      <div id="configAuditList" class="config-table-wrap"></div>
+    </section>
+
+    <section id="configPermissionsPage" class="config-panel config-page hidden">
+      <div class="config-permissions-nav" role="tablist" aria-label="Tipo de configura&ccedil;&atilde;o">
+        <button class="active" type="button" data-permission-section="roles" role="tab">Perfis</button>
+        <button type="button" data-permission-section="users" role="tab">Exce&ccedil;&otilde;es por usu&aacute;rio</button>
+        <span id="configPermissionsDirty" class="config-permissions-dirty hidden">Altera&ccedil;&otilde;es n&atilde;o salvas</span>
+      </div>
+
+      <div id="configPermissionRolesSection" class="config-permission-section">
+        <div class="config-permissions-toolbar">
+          <label class="config-permissions-search">
+            <span aria-hidden="true">&#128269;</span>
+            <input id="configPermissionSearch" type="search" placeholder="Buscar permiss&atilde;o ou c&oacute;digo" />
+          </label>
+          <select id="configPermissionModuleFilter" aria-label="Filtrar por m&oacute;dulo">
+            <option value="">Todos os m&oacute;dulos</option>
+          </select>
+          <select id="configPermissionStateFilter" aria-label="Filtrar por estado">
+            <option value="">Permitidas e bloqueadas</option>
+            <option value="allowed">Com alguma permiss&atilde;o</option>
+            <option value="blocked">Bloqueadas nos perfis edit&aacute;veis</option>
+          </select>
+          <div class="config-permissions-view" aria-label="Modo de visualiza&ccedil;&atilde;o">
+            <button class="active" type="button" data-permission-view="matrix">Matriz</button>
+            <button type="button" data-permission-view="profile">Por perfil</button>
+          </div>
+          <select id="configPermissionProfile" class="hidden" aria-label="Perfil selecionado">
+            <option value="gerencial">Gerencial</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="admin">Admin</option>
+            <option value="superadmin">Superadmin</option>
+          </select>
+        </div>
+        <div id="configPermissionsSummary" class="config-permissions-summary"></div>
+        <div id="configPermissionsMatrix" class="config-permissions-matrix-wrap"></div>
+      </div>
+
+      <div id="configPermissionUsersSection" class="config-permission-section hidden">
+        <div class="config-user-permission-head">
+          <div>
+            <strong>Exce&ccedil;&otilde;es individuais</strong>
+            <span>Sobreponha uma regra somente quando um usu&aacute;rio precisar de acesso diferente do perfil.</span>
+          </div>
+          <div>
+            <select id="configUserPermissionSelect"></select>
+            <button id="saveConfigUserPermissionsBtn" class="primary-btn fit" type="button">Salvar exce&ccedil;&otilde;es</button>
+          </div>
+        </div>
+        <div id="configUserPermissionsMatrix" class="config-table-wrap"></div>
+      </div>
+    </section>
+
+    <section id="configSchemasPage" class="config-panel config-page hidden">
+      <div class="config-panel-head">
+        <div>
+          <h3>Vers&otilde;es de schema</h3>
+        </div>
+      </div>
+      <div id="configSchemaSummary" class="config-inline-note">Selecione uma carteira para consultar as vers&otilde;es.</div>
+      <div id="configSchemaVersionsList" class="config-version-list"></div>
+    </section>
+
+    <section id="configToolsPage" class="config-panel config-page hidden">
+      <div class="config-panel-head">
+        <div><h3>Ferramentas negociais</h3></div>
+      </div>
+      <div id="dynamicToolsList" class="dynamic-tools-admin-list"></div>
+    </section>
+
+    <section id="configBackupsPage" class="config-panel config-page hidden">
+      <section id="defasagemSourceSettings" class="config-backup-storage hidden">
+        <div class="config-backup-storage-head">
+          <span class="config-backup-storage-icon" aria-hidden="true">DF</span>
+          <div>
+            <label for="defasagemSourcePath">Planilhas da Defasagem</label>
+            <strong id="defasagemSourceDisplay">-</strong>
+          </div>
+          <span id="defasagemSourceHealth" class="config-backup-health">Verificando</span>
+          <button id="editDefasagemSourceBtn" class="secondary-btn" type="button">Alterar origem</button>
+        </div>
+        <div id="defasagemSourceEditor" class="config-backup-storage-editor hidden">
+          <div class="config-backup-storage-row">
+            <input id="defasagemSourcePath" type="text" spellcheck="false" placeholder="C:\Planilhas\Defasagem ou \\SERVIDOR\Defasagem" />
+            <button id="cancelDefasagemSourceBtn" class="secondary-btn" type="button">Cancelar</button>
+            <button id="saveDefasagemSourceBtn" class="primary-btn fit" type="button">Salvar origem</button>
+          </div>
+        </div>
+        <small id="defasagemSourceStatus" class="config-storage-status"></small>
+      </section>
+      <section id="attachmentStorageSettings" class="config-backup-storage hidden">
+        <div class="config-backup-storage-head">
+          <span class="config-backup-storage-icon" aria-hidden="true">&#128206;</span>
+          <div>
+            <label for="attachmentStoragePath">Arquivos anexados</label>
+            <strong id="attachmentStorageDisplay">-</strong>
+          </div>
+          <span id="attachmentStorageHealth" class="config-backup-health">Verificando</span>
+          <button id="editAttachmentStorageBtn" class="secondary-btn" type="button">Alterar destino</button>
+        </div>
+        <div id="attachmentStorageEditor" class="config-backup-storage-editor hidden">
+          <div class="config-backup-storage-row">
+            <input id="attachmentStoragePath" type="text" spellcheck="false" placeholder="C:\\Anexos ou \\\\SERVIDOR\\Anexos" />
+            <button id="cancelAttachmentStorageBtn" class="secondary-btn" type="button">Cancelar</button>
+            <button id="saveAttachmentStorageBtn" class="primary-btn fit" type="button">Salvar local</button>
+          </div>
+          <label class="checkbox-row config-backup-migrate">
+            <input id="migrateExistingAttachments" type="checkbox" checked />
+            <span>Mover os anexos existentes para o novo local</span>
+          </label>
+        </div>
+        <small id="attachmentStorageStatus" class="config-storage-status"></small>
+      </section>
+      <section id="backupStorageSettings" class="config-backup-storage hidden">
+        <div class="config-backup-storage-head">
+          <span class="config-backup-storage-icon" aria-hidden="true">&#128451;</span>
+          <div>
+            <label for="backupStoragePath">Destino dos backups</label>
+            <strong id="backupStorageDisplay">-</strong>
+          </div>
+          <span id="backupStorageHealth" class="config-backup-health">Verificando</span>
+          <button id="editBackupStorageBtn" class="secondary-btn" type="button">Alterar destino</button>
+        </div>
+        <div id="backupStorageEditor" class="config-backup-storage-editor hidden">
+          <div class="config-backup-storage-row">
+            <input id="backupStoragePath" type="text" spellcheck="false" placeholder="C:\\Backups ou \\\\SERVIDOR\\Backups" />
+            <button id="cancelBackupStorageBtn" class="secondary-btn" type="button">Cancelar</button>
+            <button id="saveBackupStorageBtn" class="primary-btn fit" type="button">Salvar local</button>
+          </div>
+          <label class="checkbox-row config-backup-migrate">
+            <input id="migrateExistingBackups" type="checkbox" checked />
+            <span>Mover os backups existentes para o novo local</span>
+          </label>
+        </div>
+        <small id="backupStorageStatus" class="config-storage-status"></small>
+      </section>
+      <div class="config-backup-metrics">
+        <article><span>Backups</span><strong id="backupTotal">0</strong></article>
+        <article><span>Reten&ccedil;&atilde;o</span><strong id="backupDailyRetention">-</strong><small>dias</small></article>
+        <article><span>Limite</span><strong id="backupWeeklyRetention">-</strong><small>por origem</small></article>
+        <article><span>Espa&ccedil;o ocupado</span><strong id="backupUsedSpace">-</strong></article>
+        <article><span>&Uacute;ltimo backup</span><strong id="backupLastSize">-</strong><small id="backupLastDate">-</small></article>
+        <article><span>Estado</span><strong id="backupLastStatus">-</strong></article>
+      </div>
+      <section class="config-backup-history">
+        <div class="config-backup-history-head">
+          <div><strong>Hist&oacute;rico de backups</strong><small id="backupHistoryCount">0 arquivo(s)</small></div>
+          <div class="config-backup-filters">
+            <input id="backupSearchInput" type="search" placeholder="Buscar backup" />
+            <select id="backupSourceFilter">
+              <option value="">Todas as origens</option>
+              <option value="manual">Manual</option>
+              <option value="automatic">Autom&aacute;tico</option>
+              <option value="pre_restore">Pr&eacute;-restore</option>
+            </select>
+            <select id="backupPeriodFilter">
+              <option value="">Todo o per&iacute;odo</option>
+              <option value="today">Hoje</option>
+              <option value="7">&Uacute;ltimos 7 dias</option>
+              <option value="30">&Uacute;ltimos 30 dias</option>
+            </select>
+          </div>
+        </div>
+        <div class="config-backup-table-head" aria-hidden="true">
+          <span>Backup</span><span>Origem</span><span>Data e hora</span><span>Tamanho</span><span>Integridade</span><span></span>
+        </div>
+        <div id="databaseBackupList" class="config-backup-list"></div>
+      </section>
+    </section>
+
+    <section id="configDiagnosticPage" class="config-panel config-page hidden">
+      <div class="config-panel-head">
+        <div>
+          <h3>Diagn&oacute;stico</h3>
+        </div>
+      </div>
+      <div id="configDiagnosticPanel" class="config-users-list"></div>
+    </section>
+  </div>
+</section>

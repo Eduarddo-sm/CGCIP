@@ -1,0 +1,191 @@
+.dialog#monitorClientDialog {
+  width: min(680px, calc(100vw - 24px));
+}
+
+#monitorClientForm {
+  gap: 12px;
+}
+
+.monitor-client-stepper {
+  display: grid;
+  grid-template-columns: max-content minmax(32px, 1fr) max-content;
+  align-items: center;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.monitor-client-stepper button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.monitor-client-stepper button span {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.monitor-client-stepper button strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.monitor-client-stepper button.active,
+.monitor-client-stepper button.complete {
+  color: var(--accent);
+}
+
+.monitor-client-stepper button.active span,
+.monitor-client-stepper button.complete span {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.monitor-client-stepper > i {
+  height: 1px;
+  margin: 0 10px;
+  background: var(--line);
+}
+
+.monitor-client-context {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.monitor-client-step {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.monitor-client-advanced {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--panel) 62%, transparent);
+}
+
+.monitor-client-advanced summary {
+  padding: 9px 11px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.monitor-client-advanced[open] summary {
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+}
+
+.monitor-client-advanced > .row {
+  padding: 11px;
+}
+
+.monitor-client-footer-spacer {
+  flex: 1 1 auto;
+}
+
+#monitorClientForm > footer {
+  flex-wrap: nowrap;
+}
+
+#monitorClientForm > footer .primary-btn {
+  width: auto;
+  min-width: 124px;
+}
+
+.monitor-multiselect {
+  min-width: 0;
+  margin: 0;
+  padding: 8px;
+  color: var(--text);
+  background: var(--panel-solid);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.monitor-multiselect legend {
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.monitor-multiselect > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.monitor-multiselect label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 4px 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.monitor-multiselect label:has(input:checked) {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel-solid));
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+}
+
+.monitor-multiselect input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+@media (max-width: 620px) {
+  .monitor-client-stepper {
+    width: 100%;
+  }
+
+  .monitor-client-stepper button strong {
+    display: none;
+  }
+
+  .monitor-client-context.row,
+  .monitor-client-step > .row,
+  .monitor-client-advanced > .row {
+    grid-template-columns: 1fr;
+  }
+
+  .monitor-client-footer-spacer {
+    display: none;
+  }
+
+  #monitorClientForm > footer .ds-button {
+    flex: 1 1 auto;
+  }
+
+  #monitorClientForm > footer {
+    flex-wrap: wrap;
+  }
+
+  #monitorClientForm > footer .primary-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,263 @@
+#colchaoContent.profile-home-active {
+  width: 100%;
+  height: calc(100dvh - 53px);
+  min-height: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+#colchaoProfiles.profile-grid {
+  display: block;
+  min-height: calc(100dvh - 52px);
+  padding: 12px 20px 20px;
+}
+
+.colchao-profile-home {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.colchao-profile-home-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 42px;
+}
+
+.colchao-profile-home-head > div {
+  display: grid;
+  gap: 2px;
+}
+
+.colchao-profile-home-head h2 {
+  margin: 0;
+  color: var(--proto-text, var(--text));
+  font-size: 16px;
+}
+
+.colchao-profile-home-head span {
+  color: var(--proto-secondary, var(--muted));
+  font-size: 11px;
+}
+
+.colchao-profile-home-head button {
+  min-height: 32px;
+  white-space: nowrap;
+}
+
+.colchao-profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 38px;
+  border: 1px solid var(--proto-border-soft, var(--line));
+  border-radius: 8px;
+  background: var(--proto-surface, var(--panel-solid));
+  overflow: hidden;
+}
+
+.colchao-profile-summary > span {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+  padding: 0 14px;
+  color: var(--proto-secondary, var(--muted));
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.colchao-profile-summary > span + span {
+  border-left: 1px solid var(--proto-border-soft, var(--line));
+}
+
+.colchao-profile-summary strong {
+  color: var(--proto-text, var(--text));
+  font-size: 11px;
+}
+
+.colchao-profile-summary.is-loading {
+  opacity: 0.72;
+}
+
+.colchao-profile-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.colchao-wallet-card {
+  min-width: 0;
+  border: 1px solid var(--proto-border, var(--line));
+  border-radius: 9px;
+  background: var(--proto-surface, var(--panel-solid));
+  overflow: hidden;
+  transition: border-color 150ms ease, transform 150ms ease, background 150ms ease;
+}
+
+.colchao-wallet-card:hover {
+  border-color: color-mix(in srgb, var(--proto-accent, var(--accent)) 55%, var(--proto-border, var(--line)));
+  background: color-mix(in srgb, var(--proto-accent, var(--accent)) 3%, var(--proto-surface, var(--panel-solid)));
+  transform: translateY(-1px);
+}
+
+.colchao-wallet-card > button {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  width: 100%;
+  min-height: 154px;
+  padding: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--proto-text, var(--text));
+  text-align: left;
+  cursor: pointer;
+}
+
+.colchao-wallet-card > button:focus-visible {
+  outline: 2px solid var(--proto-accent, var(--accent));
+  outline-offset: -3px;
+}
+
+.colchao-wallet-card > button:disabled {
+  cursor: not-allowed;
+}
+
+.colchao-wallet-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--proto-accent, var(--accent)) 13%, transparent);
+}
+
+.colchao-wallet-icon img {
+  width: 21px;
+  height: 21px;
+  opacity: 0.8;
+}
+
+.colchao-wallet-content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  min-width: 0;
+}
+
+.colchao-wallet-title-row,
+.colchao-wallet-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.colchao-wallet-title-row > span:first-child {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.colchao-wallet-title-row strong {
+  color: var(--proto-text, var(--text));
+  font-size: 14px;
+}
+
+.colchao-wallet-title-row small,
+.colchao-wallet-footer small {
+  overflow: hidden;
+  color: var(--proto-secondary, var(--muted));
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.colchao-wallet-state {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 3px 7px;
+  color: var(--proto-secondary, var(--muted));
+  background: var(--proto-elevated, var(--panel));
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.colchao-wallet-card.is-ready .colchao-wallet-state {
+  color: var(--proto-success, #249765);
+  background: color-mix(in srgb, var(--proto-success, #249765) 12%, transparent);
+}
+
+.colchao-wallet-card.has-error .colchao-wallet-state {
+  color: var(--proto-danger, #d5524b);
+  background: color-mix(in srgb, var(--proto-danger, #d5524b) 12%, transparent);
+}
+
+.colchao-wallet-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-self: center;
+  border: 1px solid var(--proto-border-soft, var(--line));
+  border-radius: 7px;
+  background: var(--proto-elevated, var(--panel));
+}
+
+.colchao-wallet-metrics > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 8px 9px;
+}
+
+.colchao-wallet-metrics > span + span {
+  border-left: 1px solid var(--proto-border-soft, var(--line));
+}
+
+.colchao-wallet-metrics strong {
+  overflow: hidden;
+  color: var(--proto-text, var(--text));
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.colchao-wallet-metrics small {
+  color: var(--proto-tertiary, var(--muted));
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.colchao-wallet-footer {
+  align-items: center;
+}
+
+.colchao-wallet-footer > strong {
+  flex: 0 0 auto;
+  color: var(--proto-accent, var(--accent));
+  font-size: 10px;
+}
+
+@media (max-width: 980px) {
+  .colchao-profile-list { grid-template-columns: 1fr; }
+  .colchao-profile-summary { flex-wrap: wrap; padding: 5px 0; }
+  .colchao-profile-summary > span { min-height: 24px; }
+}
+
+@media (max-width: 640px) {
+  #colchaoProfiles.profile-grid { padding: 12px; }
+  .colchao-profile-home-head { align-items: stretch; flex-direction: column; }
+  .colchao-profile-home-head button { width: 100%; }
+  .colchao-profile-summary { display: grid; grid-template-columns: 1fr 1fr; }
+  .colchao-profile-summary > span { border-left: 0 !important; }
+  .colchao-wallet-card > button { grid-template-columns: 34px minmax(0, 1fr); padding: 11px; }
+  .colchao-wallet-icon { width: 34px; height: 34px; }
+  .colchao-wallet-metrics { grid-template-columns: 1fr 1fr; }
+  .colchao-wallet-metrics > span:nth-child(3) { border-left: 0; border-top: 1px solid var(--proto-border-soft, var(--line)); }
+  .colchao-wallet-metrics > span:nth-child(4) { border-top: 1px solid var(--proto-border-soft, var(--line)); }
+}

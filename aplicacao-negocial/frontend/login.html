@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | Negocial Web</title>
+    <script>
+      (() => {
+        const saved = localStorage.getItem("negocial.theme");
+        const theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <link rel="stylesheet" href="static/css/styles.css?v=20260811-dark-multiselect-1">
+  </head>
+  <body class="login-body">
+    <main class="login-shell">
+      <section class="login-card">
+        <div class="login-brand">
+          <span class="brand-mark">N</span>
+          <div>
+            <h1>Negocial</h1>
+            <p>Entre para acessar o painel operacional.</p>
+          </div>
+        </div>
+
+        <form id="loginForm" class="login-form">
+          <label>
+            Usuario
+            <input
+              id="username"
+              name="username"
+              autocomplete="username"
+              placeholder="Digite seu nome de usuário"
+              required
+            >
+          </label>
+          <label>
+            Senha
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Digite sua senha"
+              required
+            >
+          </label>
+          <p class="form-error" id="loginError" hidden></p>
+          <button class="primary-btn" type="submit" id="loginButton">Entrar</button>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="static/js/login.js?v=20260714-module-contract-1"></script>
+  </body>
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Negociador - Visao Executiva</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --surface: #151b24;
+      --raised: #1b2430;
+      --line: #2a3442;
+      --line-soft: #202936;
+      --text: #e7edf5;
+      --muted: #9aa7b8;
+      --faint: #687588;
+      --blue: #5b8ff0;
+      --blue-strong: #3f73d5;
+      --green: #4fbe84;
+      --amber: #d4a64f;
+      --red: #e0645c;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body {
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .shell { display: grid; grid-template-columns: 212px minmax(0, 1fr); height: 100dvh; }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line-soft);
+      padding: 14px 10px;
+      background: var(--bg);
+    }
+    .brand { display: flex; align-items: center; gap: 9px; padding: 2px 6px 14px; border-bottom: 1px solid var(--line-soft); }
+    .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 7px; background: var(--blue-strong); font-weight: 750; }
+    .brand strong { font-size: 13px; }
+    .group-label { margin: 15px 7px 8px; color: var(--faint); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+    .nav { display: grid; gap: 3px; }
+    .nav button {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      border: 0;
+      border-radius: 7px;
+      padding: 0 10px;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+    }
+    .nav button:hover { background: color-mix(in srgb, var(--blue) 7%, transparent); color: var(--text); }
+    .nav button.active { color: var(--blue); }
+    .nav button.active::before { position: absolute; top: 9px; bottom: 9px; left: -10px; width: 2px; border-radius: 3px; background: var(--blue); content: ""; }
+    .nav-icon { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 7px; background: color-mix(in srgb, var(--blue) 12%, var(--surface)); }
+    .nav-icon img { width: 15px; height: 15px; filter: brightness(0) saturate(100%) invert(61%) sepia(57%) saturate(2684%) hue-rotate(196deg) brightness(101%); }
+    .sidebar-bottom { margin-top: auto; border-top: 1px solid var(--line-soft); padding: 12px 7px 0; color: var(--faint); font-size: 10px; }
+
+    .workspace { min-width: 0; overflow: hidden; background: var(--bg); }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      border-bottom: 1px solid var(--line-soft);
+      padding: 0 24px;
+    }
+    .topbar h1 { margin: 0; font-size: 20px; font-weight: 650; }
+    .top-actions { display: flex; align-items: center; gap: 9px; }
+    .icon-btn, .profile {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--muted);
+    }
+    .icon-btn { width: 34px; padding: 0; font-size: 16px; }
+    .icon-btn:hover, .profile:hover { border-color: var(--blue); color: var(--text); }
+    .profile { display: flex; align-items: center; gap: 9px; padding: 4px 13px 4px 5px; color: var(--text); font: 600 11px Consolas, monospace; }
+    .avatar { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #a6813c; color: #161109; }
+
+    .page {
+      display: grid;
+      grid-template-rows: auto auto auto minmax(0, 1fr);
+      height: calc(100dvh - 62px);
+      overflow: hidden;
+    }
+    .identity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 24px 12px;
+    }
+    .identity-main { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .back { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--muted); font-size: 18px; }
+    .back:hover { border-color: var(--blue); color: var(--text); }
+    .person-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 9px; background: linear-gradient(145deg, var(--blue), var(--blue-strong)); font-size: 14px; font-weight: 750; }
+    .identity h2 { margin: 0; font-size: 17px; font-weight: 650; }
+    .identity-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 14%, transparent); }
+    .identity-actions { display: flex; gap: 8px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 0 12px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .btn:hover { border-color: var(--blue); background: var(--raised); }
+    .btn.primary { border-color: var(--blue); background: var(--blue); color: #fff; }
+
+    .tabs { display: flex; min-height: 39px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); padding: 0 24px; }
+    .tab { position: relative; border: 0; padding: 0 14px; background: transparent; color: var(--muted); font-size: 11.5px; font-weight: 600; }
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--blue); }
+    .tab.active::after { position: absolute; right: 10px; bottom: 0; left: 10px; height: 2px; border-radius: 3px 3px 0 0; background: var(--blue); content: ""; }
+    .count { display: inline-grid; place-items: center; min-width: 17px; height: 17px; margin-left: 5px; border-radius: 12px; background: var(--raised); color: var(--faint); font: 600 9px Consolas, monospace; }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); gap: 9px; padding: 12px 24px; }
+    .metric { position: relative; min-height: 66px; overflow: hidden; border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 10px 13px 9px 15px; background: var(--surface); }
+    .metric::before { position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--tone, var(--blue)); content: ""; }
+    .metric span { display: block; color: var(--faint); font-size: 9.5px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+    .metric strong { display: block; margin-top: 5px; font: 600 18px Consolas, monospace; }
+    .metric small { color: var(--muted); font-size: 9.5px; }
+    .metric.green { --tone: var(--green); }
+    .metric.amber { --tone: var(--amber); }
+    .progress { height: 3px; margin-top: 7px; overflow: hidden; border-radius: 4px; background: var(--bg); }
+    .progress i { display: block; width: 69%; height: 100%; background: var(--green); }
+
+    .view { min-height: 0; padding: 0 24px 18px; }
+    .view-panel { display: none; height: 100%; min-height: 0; }
+    .view-panel.active { display: block; }
+    .sheet {
+      display: grid;
+      grid-template-rows: 40px 32px minmax(0, 1fr) 27px;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .sheet-tools { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--line); padding: 0 9px; }
+    .search { width: min(340px, 36vw); height: 29px; border: 1px solid var(--line); border-radius: 6px; padding: 0 10px; background: var(--bg); color: var(--text); outline: none; }
+    .search:focus { border-color: var(--blue); }
+    .sheet-tools select { height: 29px; border: 1px solid var(--line); border-radius: 6px; padding: 0 28px 0 9px; background: var(--bg); color: var(--text); }
+    .sheet-tools .spacer { flex: 1; }
+    .tool-btn { height: 29px; border: 1px solid var(--line); border-radius: 6px; padding: 0 10px; background: var(--bg); color: var(--muted); font-size: 10.5px; font-weight: 600; }
+    .tool-btn:hover { border-color: var(--blue); color: var(--text); }
+    .formula { display: grid; grid-template-columns: 65px 30px minmax(0, 1fr); align-items: center; border-bottom: 1px solid var(--line); background: var(--bg); }
+    .name-box, .fx { height: 100%; border-right: 1px solid var(--line); display: grid; place-items: center; color: var(--muted); font: 600 10px Consolas, monospace; }
+    .fx { color: var(--green); font-style: italic; }
+    .formula-value { overflow: hidden; padding: 0 10px; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+    .table-wrap { min-height: 0; overflow: auto; scrollbar-color: #4a5565 var(--surface); scrollbar-width: thin; }
+    table { width: max(100%, 1460px); border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 11px; }
+    th, td { height: 29px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    thead th { position: sticky; top: 0; z-index: 2; background: var(--raised); color: var(--text); font-size: 10px; font-weight: 700; text-align: left; }
+    thead th:first-child, tbody td:first-child { position: sticky; left: 0; z-index: 3; width: 44px; padding: 0; background: var(--raised); color: var(--muted); text-align: center; }
+    tbody tr:nth-child(even) td:not(:first-child) { background: color-mix(in srgb, var(--blue) 3%, var(--surface)); }
+    tbody tr:hover td:not(:first-child) { background: color-mix(in srgb, var(--blue) 9%, var(--surface)); }
+    td.selected { position: relative; background: color-mix(in srgb, var(--blue) 18%, var(--surface)) !important; }
+    td.selected::after { position: absolute; inset: -1px; border: 2px solid var(--blue); pointer-events: none; content: ""; }
+    .status { display: inline-flex; align-items: center; min-height: 20px; border-radius: 4px; padding: 0 7px; font-size: 9.5px; font-weight: 700; }
+    .status.pago { background: color-mix(in srgb, var(--green) 16%, var(--surface)); color: var(--green); }
+    .status.aguardando { background: color-mix(in srgb, var(--amber) 16%, var(--surface)); color: var(--amber); }
+    .status.proposta { background: color-mix(in srgb, var(--blue) 15%, var(--surface)); color: #8bb1f7; }
+    .status.quebra { background: color-mix(in srgb, var(--red) 14%, var(--surface)); color: #ef8b85; }
+    .sheet-status { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding: 0 10px; background: var(--raised); color: var(--muted); font: 500 9.5px Consolas, monospace; }
+    .selection-summary { display: flex; gap: 18px; color: var(--text); }
+
+    .secondary-view { height: 100%; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; background: var(--surface); }
+    .secondary-view h3 { margin: 0 0 13px; font-size: 14px; }
+    .timeline-day { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-top: 1px solid var(--line-soft); }
+    .timeline-day:first-of-type { border-top: 0; }
+    .timeline-date { color: var(--muted); font: 600 11px Consolas, monospace; }
+    .event { position: relative; display: grid; grid-template-columns: 68px 1fr auto; gap: 12px; align-items: center; min-height: 44px; border-left: 2px solid var(--blue); padding: 7px 10px; background: var(--raised); }
+    .event + .event { margin-top: 7px; }
+    .event strong { font-size: 11.5px; }
+    .event span { color: var(--muted); font-size: 10.5px; }
+    .log-table { width: 100%; table-layout: auto; }
+    .log-table th, .log-table td { height: 36px; }
+    .log-table thead th { position: static; }
+    .log-table th:first-child, .log-table td:first-child { position: static; width: auto; padding: 0 9px; text-align: left; }
+    .correction-pending { color: var(--amber); }
+    .correction-read { color: var(--green); }
+
+    body.focus .sidebar, body.focus .topbar, body.focus .identity, body.focus .tabs, body.focus .metrics { display: none; }
+    body.focus .shell { grid-template-columns: minmax(0, 1fr); }
+    body.focus .page { height: 100dvh; grid-template-rows: minmax(0, 1fr); }
+    body.focus .view { padding: 0; }
+    body.focus .sheet { border: 0; border-radius: 0; }
+
+    @media (max-width: 1150px) {
+      .shell { grid-template-columns: 64px minmax(0, 1fr); }
+      .brand strong, .group-label, .nav button > span:last-child, .sidebar-bottom { display: none; }
+      .brand { justify-content: center; padding-inline: 0; }
+      .nav button { display: grid; grid-template-columns: 1fr; justify-items: center; padding: 0; }
+      .metrics { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">B</span><strong>BACKOFFICE</strong></div>
+      <span class="group-label">BACKOFFICE</span>
+      <nav class="nav">
+        <button class="active"><span class="nav-icon"><img src="../ui/assets/icons/monitoring-9.svg" alt="" /></span><span>MONITORAMENTO</span></button>
+        <button><span class="nav-icon"><img src="../ui/assets/icons/opinion-1.svg" alt="" /></span><span>PARECERES</span></button>
+        <button><span class="nav-icon"><img src="../ui/assets/icons/protocol-template.svg" alt="" /></span><span>PROTOCOLOS</span></button>
+        <button><span class="nav-icon"><img src="../ui/assets/icons/mattress.svg" alt="" /></span><span>COLCHAO</span></button>
+      </nav>
+      <div class="sidebar-bottom">Controle gerencial integrado</div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <h1>Perfil do negociador</h1>
+        <div class="top-actions">
+          <button class="icon-btn" title="Main Hub">⌂</button>
+          <button class="icon-btn" title="Notificacoes">♧</button>
+          <button class="profile"><span class="avatar">E</span>admin.demo</button>
+        </div>
+      </header>
+
+      <div class="page">
+        <section class="identity">
+          <div class="identity-main">
+            <button class="back" title="Voltar aos negociadores">←</button>
+            <span class="person-mark">VS</span>
+            <div>
+              <h2>negociador.demo</h2>
+              <div class="identity-meta"><strong>GAMMA</strong><span>•</span><span class="dot"></span><span>Ativa</span><span>•</span><span>Atualizado ha 2 min</span></div>
+            </div>
+          </div>
+          <div class="identity-actions">
+            <button class="btn">Editar perfil</button>
+            <button class="btn primary">↻ Atualizar dados</button>
+            <button class="icon-btn" title="Mais acoes">⋯</button>
+          </div>
+        </section>
+
+        <nav class="tabs" aria-label="Paginas do negociador">
+          <button class="tab active" data-view="producao">Producao</button>
+          <button class="tab" data-view="timeline">Timeline <span class="count">18</span></button>
+          <button class="tab" data-view="correcoes">Correcoes <span class="count">2</span></button>
+          <button class="tab" data-view="auditoria">Auditoria</button>
+        </nav>
+
+        <section class="metrics">
+          <article class="metric green"><span>Honorarios pagos</span><strong>R$ 48.500</strong><small>23 pagamentos realizados</small></article>
+          <article class="metric amber"><span>Projecao em aberto</span><strong>R$ 17.250</strong><small>8 aguardando pagamento</small></article>
+          <article class="metric"><span>Acordos no periodo</span><strong>31</strong><small>R$ 485.000 negociados</small></article>
+          <article class="metric green"><span>Meta de honorarios</span><strong>69%</strong><small>R$ 48.500 de R$ 70.000</small><div class="progress"><i></i></div></article>
+        </section>
+
+        <section class="view">
+          <div class="view-panel active" data-panel="producao">
+            <div class="sheet">
+              <div class="sheet-tools">
+                <input id="search" class="search" placeholder="Buscar NPJ, cliente ou GECOR" />
+                <select><option>Julho de 2026</option><option>Junho de 2026</option><option>Maio de 2026</option></select>
+                <select><option>Todos os status</option><option>Pagamento realizado</option><option>Aguardando pagamento</option><option>Proposta</option></select>
+                <span class="spacer"></span>
+                <button class="tool-btn">Gerar relatorio</button>
+                <button id="focusBtn" class="tool-btn">Modo foco</button>
+              </div>
+              <div class="formula"><span class="name-box">F4</span><span class="fx">fx</span><span class="formula-value">R$ 56.000,00</span></div>
+              <div class="table-wrap">
+                <table>
+                  <colgroup><col style="width:44px"><col style="width:92px"><col style="width:125px"><col style="width:270px"><col style="width:72px"><col style="width:125px"><col style="width:112px"><col style="width:122px"><col style="width:132px"><col style="width:120px"><col style="width:115px"><col style="width:110px"></colgroup>
+                  <thead><tr><th>#</th><th>DATA</th><th>NPJ</th><th>CLIENTE</th><th>GECOR</th><th>VALOR TOTAL</th><th>ENTRADA</th><th>HONORARIOS</th><th>VENCIMENTO</th><th>PAGAMENTO</th><th>STATUS</th><th>AUTORIZADO?</th></tr></thead>
+                  <tbody id="rows">
+                    <tr><td>1</td><td>15/07/2026</td><td>DEMO-0001</td><td>EMPRESA DEMO ALFA LTDA</td><td>4930</td><td>R$ 56.000,00</td><td>R$ 8.000,00</td><td class="selected">R$ 5.600,00</td><td>20/07/2026</td><td>15/07/2026</td><td><span class="status pago">Pagamento realizado</span></td><td>SIM</td></tr>
+                    <tr><td>2</td><td>15/07/2026</td><td>DEMO-0002</td><td>EMPRESA DEMO BETA LTDA</td><td>4962</td><td>R$ 79.000,00</td><td>R$ 12.000,00</td><td>R$ 7.900,00</td><td>22/07/2026</td><td></td><td><span class="status aguardando">Aguardando pagamento</span></td><td>SIM</td></tr>
+                    <tr><td>3</td><td>14/07/2026</td><td>DEMO-0003</td><td>EMPRESA DEMO GAMA LTDA</td><td>4914</td><td>R$ 33.500,00</td><td>R$ 5.000,00</td><td>R$ 3.350,00</td><td>19/07/2026</td><td></td><td><span class="status proposta">Proposta</span></td><td>NAO</td></tr>
+                    <tr><td>4</td><td>14/07/2026</td><td>DEMO-0004</td><td>EMPRESA DEMO DELTA LTDA</td><td>4969</td><td>R$ 40.000,00</td><td>R$ 4.000,00</td><td>R$ 4.000,00</td><td>18/07/2026</td><td></td><td><span class="status aguardando">Aguardando pagamento</span></td><td>NAO</td></tr>
+                    <tr><td>5</td><td>13/07/2026</td><td>DEMO-0005</td><td>CLIENTE DEMONSTRACAO</td><td>4902</td><td>R$ 12.700,00</td><td>R$ 2.000,00</td><td>R$ 1.270,00</td><td>17/07/2026</td><td>13/07/2026</td><td><span class="status pago">Pagamento realizado</span></td><td>SIM</td></tr>
+                    <tr><td>6</td><td>12/07/2026</td><td>DEMO-0006</td><td>EMPRESA DEMO EPSILON LTDA</td><td>4958</td><td>R$ 28.000,00</td><td>R$ 4.500,00</td><td>R$ 2.800,00</td><td>16/07/2026</td><td></td><td><span class="status quebra">Quebra</span></td><td>NAO</td></tr>
+                    <tr><td>7</td><td>11/07/2026</td><td>DEMO-0007</td><td>EMPRESA DEMO ZETA LTDA</td><td>4914</td><td>R$ 30.000,00</td><td>R$ 5.000,00</td><td>R$ 3.000,00</td><td>15/07/2026</td><td>11/07/2026</td><td><span class="status pago">Pagamento realizado</span></td><td>SIM</td></tr>
+                    <tr><td>8</td><td>10/07/2026</td><td>DEMO-0008</td><td>EMPRESA DEMO ETA LTDA</td><td>4958</td><td>R$ 65.000,00</td><td>R$ 10.000,00</td><td>R$ 6.500,00</td><td>14/07/2026</td><td></td><td><span class="status proposta">Proposta</span></td><td>NAO</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <footer class="sheet-status"><span id="recordCount">8 registros</span><div class="selection-summary"><span>Contagem: 4</span><span>Soma: R$ 19.650,00</span><span>Media: R$ 4.912,50</span></div></footer>
+            </div>
+          </div>
+
+          <div class="view-panel" data-panel="timeline">
+            <div class="secondary-view">
+              <h3>Julho de 2026</h3>
+              <div class="timeline-day"><div class="timeline-date">16 JUL<br><small>Hoje</small></div><div><div class="event"><strong>14:35:22</strong><span>EMPRESA DEMO ALFA LTDA · Valor e status alterados</span><b>2 campos</b></div><div class="event"><strong>11:08:04</strong><span>EMPRESA DEMO BETA LTDA · Novo acordo</span><b>1 registro</b></div></div></div>
+              <div class="timeline-day"><div class="timeline-date">15 JUL</div><div><div class="event"><strong>17:42:10</strong><span>EMPRESA DEMO GAMA LTDA · Data de vencimento atualizada</span><b>1 campo</b></div><div class="event"><strong>09:16:48</strong><span>CLIENTE DEMONSTRACAO · Pagamento confirmado</span><b>2 campos</b></div></div></div>
+              <div class="timeline-day"><div class="timeline-date">14 JUL</div><div><div class="event"><strong>16:59:03</strong><span>EMPRESA DEMO EPSILON LTDA · Acordo marcado como quebra</span><b>2 campos</b></div></div></div>
+            </div>
+          </div>
+
+          <div class="view-panel" data-panel="correcoes">
+            <div class="secondary-view">
+              <h3>Correcoes enviadas ao negociador</h3>
+              <table class="log-table"><thead><tr><th>Cliente</th><th>Campo</th><th>Antes</th><th>Depois</th><th>Responsavel</th><th>Data</th><th>Situacao</th></tr></thead><tbody><tr><td>EMPRESA DEMO ALFA LTDA</td><td>VALOR TOTAL</td><td>R$ 45.000,00</td><td>R$ 56.000,00</td><td>admin.demo</td><td>16/07/2026 14:35</td><td class="correction-pending">Pendente</td></tr><tr><td>EMPRESA DEMO BETA LTDA</td><td>ENTRADA</td><td>R$ 10.000,00</td><td>R$ 12.000,00</td><td>admin.demo</td><td>15/07/2026 11:20</td><td class="correction-read">Visualizada</td></tr></tbody></table>
+            </div>
+          </div>
+
+          <div class="view-panel" data-panel="auditoria">
+            <div class="secondary-view">
+              <h3>Auditoria do perfil</h3>
+              <table class="log-table"><thead><tr><th>Data/Hora</th><th>Acao</th><th>Entidade</th><th>Responsavel</th><th>Origem</th><th>Resultado</th></tr></thead><tbody><tr><td>16/07/2026 14:35:22</td><td>Atualizacao de celula</td><td>Acordo #481</td><td>admin.demo</td><td>Gerencial</td><td class="correction-read">Sucesso</td></tr><tr><td>16/07/2026 11:08:04</td><td>Novo acordo</td><td>Acordo #480</td><td>negociador.demo</td><td>Negocial</td><td class="correction-read">Sucesso</td></tr><tr><td>15/07/2026 17:42:10</td><td>Alteracao de status</td><td>Acordo #477</td><td>negociador.demo</td><td>Negocial</td><td class="correction-read">Sucesso</td></tr></tbody></table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabs = [...document.querySelectorAll('.tab')];
+    const panels = [...document.querySelectorAll('.view-panel')];
+    tabs.forEach((tab) => tab.addEventListener('click', () => {
+      tabs.forEach((item) => item.classList.toggle('active', item === tab));
+      panels.forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === tab.dataset.view));
+    }));
+
+    const search = document.querySelector('#search');
+    search.addEventListener('input', () => {
+      const query = search.value.trim().toLocaleUpperCase('pt-BR');
+      const rows = [...document.querySelectorAll('#rows tr')];
+      let visible = 0;
+      rows.forEach((row) => {
+        const matches = !query || row.textContent.toLocaleUpperCase('pt-BR').includes(query);
+        row.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      document.querySelector('#recordCount').textContent = `${visible} registro${visible === 1 ? '' : 's'}`;
+    });
+
+    document.querySelector('#focusBtn').addEventListener('click', () => {
+      document.body.classList.toggle('focus');
+      document.querySelector('#focusBtn').textContent = document.body.classList.contains('focus') ? 'Sair do foco' : 'Modo foco';
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && document.body.classList.contains('focus')) {
+        document.body.classList.remove('focus');
+        document.querySelector('#focusBtn').textContent = 'Modo foco';
+      }
+    });
+  </script>
+</body>
+</html>

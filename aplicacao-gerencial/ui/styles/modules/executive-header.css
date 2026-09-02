@@ -1,0 +1,194 @@
+/* Compact two-level application header. Loaded last to replace legacy spacing. */
+.topbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 52px 40px;
+  gap: 0;
+  align-items: stretch;
+  justify-content: stretch;
+  justify-self: stretch;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  border-bottom: 1px solid var(--proto-border-soft);
+}
+
+.topbar.tabs-hidden {
+  grid-template-rows: 52px;
+}
+
+.topbar-main {
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  min-height: 52px;
+  height: 52px;
+  padding: 0 24px;
+}
+
+.page-title-group {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.page-title-icon {
+  display: grid;
+  flex: 0 0 28px;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--proto-accent) 11%, transparent);
+}
+
+.page-title-icon img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2222%) hue-rotate(202deg) brightness(96%) contrast(88%);
+}
+
+.topbar-main h1,
+.workspace h1,
+#pageTitle {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.topbar .actions {
+  width: auto;
+  margin-left: auto;
+  gap: 6px;
+}
+
+.topbar .top-icon-btn,
+.topbar .notification-btn {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  border-radius: 7px;
+}
+
+.topbar .profile-btn {
+  min-height: 34px;
+  height: 34px;
+  padding: 3px 12px 3px 4px;
+}
+
+.topbar .profile-btn > span:first-child {
+  width: 26px;
+  height: 26px;
+}
+
+.module-tabs-row {
+  flex-flow: row nowrap;
+  align-items: stretch;
+  min-height: 40px;
+  height: 40px;
+  gap: 8px;
+  width: 100%;
+  max-width: none;
+  padding: 0 20px;
+  overflow: visible;
+}
+
+.module-tabs {
+  flex: 1 1 0;
+  align-self: stretch;
+  width: 0;
+  max-width: none;
+  min-width: 0;
+  min-height: 39px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.module-tabs::-webkit-scrollbar { display: none; }
+
+.module-tabs .sidebar-nav {
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: max-content;
+  min-width: 100%;
+  height: 39px;
+}
+
+.module-tabs .overview-nav,
+.module-tabs .nav-action-btn,
+body.sidebar-collapsed .module-tabs .overview-nav,
+body.sidebar-collapsed .module-tabs .nav-action-btn {
+  min-height: 39px;
+  height: 39px;
+  gap: 7px;
+  padding: 0 9px;
+  font-size: 11.5px;
+}
+
+.module-tabs .nav-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.module-tabs .overview-nav strong {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 9px;
+  line-height: 16px;
+}
+
+.module-action-slot {
+  flex: 0 0 auto;
+  align-self: stretch;
+  min-height: 40px;
+  gap: 6px;
+}
+
+.module-action-slot .module-action-btn,
+.module-action-slot .top-back-profiles {
+  min-height: 30px;
+  height: 30px;
+  border-radius: 7px;
+  padding: 0 10px;
+  font-size: 10.5px;
+}
+
+.module-action-slot svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 900px) {
+  .topbar { grid-template-rows: 50px 40px; }
+  .topbar.tabs-hidden { grid-template-rows: 50px; }
+  .topbar-main {
+    align-items: center;
+    flex-direction: row;
+    min-height: 50px;
+    height: 50px;
+    padding-inline: 16px;
+  }
+  .module-tabs-row {
+    align-items: stretch;
+    flex-direction: row;
+    padding-inline: 12px;
+  }
+}
+
+@media (max-width: 620px) {
+  .topbar-main { padding-inline: 10px; }
+  .page-title-group { gap: 7px; }
+  .page-title-icon { flex-basis: 26px; width: 26px; height: 26px; }
+  .topbar-main h1,
+  #pageTitle { max-width: 34vw; overflow: hidden; font-size: 17px; text-overflow: ellipsis; }
+  .topbar .actions { width: auto; flex-wrap: nowrap; }
+  .topbar .profile-btn strong { display: none; }
+  .topbar .profile-btn { width: 34px; padding: 3px; }
+  .module-tabs-row { padding-inline: 8px; }
+  .module-action-slot .module-action-btn { padding-inline: 8px; }
+}

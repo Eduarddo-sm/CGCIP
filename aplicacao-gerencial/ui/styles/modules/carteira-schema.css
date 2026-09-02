@@ -1,0 +1,513 @@
+/* Full-screen wallet schema editor based on the approved configuration prototype. */
+#carteiraDialog.carteira-dialog {
+  inset: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--proto-bg);
+  color: var(--proto-text);
+}
+
+#carteiraDialog.carteira-dialog form {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-rows: 68px auto auto minmax(0, 1fr) 66px;
+  grid-template-areas:
+    "head head"
+    "basics schema"
+    "ho schema"
+    ". schema"
+    "foot foot";
+  column-gap: 18px;
+  row-gap: 16px;
+  width: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0 26px;
+  overflow: hidden;
+  background: var(--proto-bg);
+}
+
+#carteiraDialog.carteira-dialog form > header {
+  grid-area: head;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 68px;
+  border-bottom: 1px solid var(--proto-border-soft);
+  margin: 0 -26px;
+  padding: 0 26px;
+  background: var(--proto-bg);
+}
+
+#carteiraDialog.carteira-dialog form > header h2 {
+  margin: 0;
+  color: var(--proto-text);
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+#carteiraDialog.carteira-dialog form > header .icon-btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 8px;
+  padding: 0;
+  background: var(--proto-surface);
+  color: var(--proto-secondary);
+  font-size: 20px;
+  line-height: 1;
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog form > header .icon-btn:hover {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+}
+
+#carteiraDialog.carteira-dialog .carteira-basics-panel,
+#carteiraDialog.carteira-dialog .carteira-ho-panel {
+  align-self: start;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 11px;
+  padding: 18px;
+  overflow: hidden;
+  background: var(--proto-surface);
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog .carteira-basics-panel {
+  grid-area: basics;
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-panel {
+  grid-area: ho;
+}
+
+#carteiraDialog.carteira-dialog .carteira-basics-panel .panel-head,
+#carteiraDialog.carteira-dialog .carteira-ho-panel .panel-head {
+  min-height: 0;
+  margin: 0 0 2px;
+  padding: 0;
+  background: transparent;
+}
+
+#carteiraDialog.carteira-dialog .panel-head h3 {
+  margin: 0;
+  color: var(--proto-text);
+  font-size: 13.5px;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+#carteiraDialog.carteira-dialog .carteira-basics-panel .row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#carteiraDialog.carteira-dialog label {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  color: var(--proto-tertiary);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+#carteiraDialog.carteira-dialog .row > label,
+#carteiraDialog.carteira-dialog .carteira-ho-fields > label:not(.checkbox-label) {
+  text-transform: uppercase;
+}
+
+#carteiraDialog.carteira-dialog input,
+#carteiraDialog.carteira-dialog select {
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 7px;
+  padding: 7px 10px;
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+  font-size: 12px;
+  outline: none;
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog input::placeholder {
+  color: var(--proto-tertiary);
+}
+
+#carteiraDialog.carteira-dialog input:focus,
+#carteiraDialog.carteira-dialog select:focus {
+  border-color: var(--proto-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--proto-accent) 14%, transparent);
+}
+
+#carteiraDialog.carteira-dialog .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 22px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--proto-secondary);
+  font-size: 12px;
+  font-weight: 450;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+#carteiraDialog.carteira-dialog .checkbox-label input,
+#carteiraDialog.carteira-dialog .mini-check input {
+  flex: 0 0 auto;
+  width: 17px;
+  min-width: 17px;
+  height: 17px;
+  min-height: 17px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--proto-accent);
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-preview {
+  grid-column: 1 / -1;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-fields .ho-column-field {
+  grid-column: 1 / -1;
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-fields input[type="number"] {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-fields .checkbox-label {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-ho-fields input:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+#carteiraDialog.carteira-dialog .carteira-schema-panel {
+  grid-area: schema;
+  display: grid;
+  grid-template-rows: 61px minmax(0, 1fr);
+  gap: 0;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 11px;
+  padding: 0;
+  overflow: hidden;
+  background: var(--proto-surface);
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog .carteira-schema-panel > .panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 61px;
+  border-bottom: 1px solid var(--proto-border-soft);
+  margin: 0;
+  padding: 0 18px;
+  background: var(--proto-surface);
+}
+
+#carteiraDialog.carteira-dialog #addCarteiraColumnBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  border: 1px solid color-mix(in srgb, var(--proto-gold) 72%, var(--proto-border));
+  border-radius: 8px;
+  padding: 0 14px;
+  background: linear-gradient(135deg, var(--proto-gold), color-mix(in srgb, var(--proto-gold) 72%, #1a1509));
+  color: #1a1509;
+  font-size: 12px;
+  font-weight: 650;
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog #addCarteiraColumnBtn::before {
+  content: "+";
+  font-size: 14px;
+  line-height: 1;
+}
+
+#carteiraDialog.carteira-dialog #addCarteiraColumnBtn:hover {
+  filter: brightness(1.07);
+  transform: none;
+}
+
+#carteiraDialog.carteira-dialog .carteira-schema-scroll {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  background: var(--proto-surface);
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-header,
+#carteiraDialog.carteira-dialog .carteira-column-row {
+  display: grid;
+  grid-template-columns: 48px minmax(160px, 1.25fr) 90px 56px 56px 56px 108px 68px 68px 92px 70px minmax(190px, 1fr) 34px;
+  align-items: center;
+  gap: 0;
+  min-width: 1170px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  min-height: 34px;
+  border-bottom: 1px solid var(--proto-border);
+  padding: 0;
+  background: var(--proto-elevated);
+  color: var(--proto-tertiary);
+  font-size: 9.5px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-header > span {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  min-width: 0;
+  border-right: 1px solid var(--proto-border-soft);
+  padding: 0 10px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-header > span:nth-child(1),
+#carteiraDialog.carteira-dialog .carteira-column-header > span:nth-child(4),
+#carteiraDialog.carteira-dialog .carteira-column-header > span:nth-child(5),
+#carteiraDialog.carteira-dialog .carteira-column-header > span:nth-child(6),
+#carteiraDialog.carteira-dialog .carteira-column-header > span:nth-child(8),
+#carteiraDialog.carteira-dialog .carteira-column-header > span:nth-child(9) {
+  justify-content: center;
+  padding-right: 3px;
+  padding-left: 3px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-columns {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row {
+  min-height: 46px;
+  border-bottom: 1px solid var(--proto-border-soft);
+  background: var(--proto-surface);
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row:hover {
+  background: color-mix(in srgb, var(--proto-elevated) 70%, var(--proto-surface));
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row > input,
+#carteiraDialog.carteira-dialog .carteira-column-row > select {
+  width: calc(100% - 10px);
+  min-height: 30px;
+  height: 30px;
+  margin: 0 5px;
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 11.5px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row > input[name="column_nome"] {
+  color: var(--proto-text);
+  font-weight: 600;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row > input[name="column_max_length"] {
+  font-family: Consolas, "Courier New", monospace;
+  text-align: center;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row > input[name="column_opcoes"] {
+  color: var(--proto-secondary);
+}
+
+#carteiraDialog.carteira-dialog .mini-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 46px;
+  gap: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  min-height: 46px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-order .icon-btn,
+#carteiraDialog.carteira-dialog .carteira-column-row > .icon-btn:last-child {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  min-width: 20px;
+  height: 24px;
+  min-height: 24px;
+  border: 0;
+  border-radius: 5px;
+  padding: 0;
+  background: transparent;
+  color: var(--proto-tertiary);
+  font-size: 12px;
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-order .icon-btn:hover {
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row > .icon-btn:last-child {
+  margin: 0 auto;
+  color: var(--proto-tertiary);
+  font-size: 17px;
+}
+
+#carteiraDialog.carteira-dialog .carteira-column-row > .icon-btn:last-child:hover {
+  background: color-mix(in srgb, var(--proto-danger) 12%, transparent);
+  color: var(--proto-danger);
+}
+
+#carteiraDialog.carteira-dialog form > footer {
+  grid-area: foot;
+  position: static;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 66px;
+  border-top: 1px solid var(--proto-border-soft);
+  margin: 0 -26px;
+  padding: 0 26px;
+  background: var(--proto-bg);
+}
+
+#carteiraDialog.carteira-dialog form > footer .ds-button {
+  min-height: 34px;
+  border-radius: 8px;
+  padding: 0 15px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+#carteiraDialog.carteira-dialog form > footer .secondary-btn {
+  border-color: var(--proto-border);
+  background: transparent;
+  color: var(--proto-secondary);
+}
+
+#carteiraDialog.carteira-dialog form > footer [type="submit"] {
+  border-color: color-mix(in srgb, var(--proto-gold) 72%, var(--proto-border));
+  background: linear-gradient(135deg, var(--proto-gold), color-mix(in srgb, var(--proto-gold) 72%, #1a1509));
+  color: #1a1509;
+}
+
+#carteiraDialog.carteira-dialog form > footer [type="submit"]:hover {
+  filter: brightness(1.07);
+  transform: none;
+}
+
+html.dark #carteiraDialog.carteira-dialog,
+html.dark #carteiraDialog.carteira-dialog form,
+html.dark #carteiraDialog.carteira-dialog form > header,
+html.dark #carteiraDialog.carteira-dialog form > footer {
+  background: var(--proto-bg);
+}
+
+@media (max-width: 900px) {
+  #carteiraDialog.carteira-dialog {
+    overflow: auto;
+  }
+
+  #carteiraDialog.carteira-dialog form {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 60px auto auto minmax(520px, 1fr) 60px;
+    grid-template-areas:
+      "head"
+      "basics"
+      "ho"
+      "schema"
+      "foot";
+    height: auto;
+    min-height: 100dvh;
+    padding: 0 16px;
+    overflow: visible;
+  }
+
+  #carteiraDialog.carteira-dialog form > header,
+  #carteiraDialog.carteira-dialog form > footer {
+    margin-right: -16px;
+    margin-left: -16px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  #carteiraDialog.carteira-dialog .carteira-schema-panel {
+    min-height: 520px;
+  }
+}

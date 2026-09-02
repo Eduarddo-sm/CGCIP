@@ -1,0 +1,392 @@
+/* Records management workspace */
+.dynamic-tool-records-dialog.is-refined {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 24px 70px rgb(15 23 42 / 26%);
+}
+
+.dynamic-tool-records-dialog.is-refined::backdrop {
+  background: rgb(8 15 28 / 58%);
+  backdrop-filter: blur(2px);
+}
+
+.dynamic-tool-records-dialog.is-refined .modal-card {
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  background: var(--surface);
+}
+
+.dynamic-records-header {
+  min-height: 68px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.dynamic-records-identity,
+.dynamic-records-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dynamic-records-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--tool-color) 14%, var(--surface));
+  color: var(--tool-color);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.dynamic-records-identity h2 {
+  margin: 1px 0;
+  font-size: 17px;
+}
+
+.dynamic-records-identity .eyebrow {
+  margin: 0;
+  color: var(--primary);
+  font-size: 9px;
+}
+
+.dynamic-records-identity small {
+  display: block;
+  max-width: 620px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamic-records-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-soft, var(--surface));
+}
+
+.dynamic-records-summary article {
+  display: grid;
+  min-height: 58px;
+  align-content: center;
+  gap: 1px;
+  padding: 7px 13px;
+  border-right: 1px solid var(--border);
+}
+
+.dynamic-records-summary article:last-child {
+  border-right: 0;
+}
+
+.dynamic-records-summary span,
+.dynamic-records-summary small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.dynamic-records-summary span {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dynamic-records-summary strong {
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+.dynamic-records-stages {
+  display: flex;
+  min-height: 46px;
+  align-items: end;
+  gap: 3px;
+  overflow-x: auto;
+  padding: 5px 12px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.dynamic-records-stages.hidden {
+  display: none;
+}
+
+.dynamic-records-stages button {
+  position: relative;
+  display: flex;
+  height: 40px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 11px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dynamic-records-stages button:hover,
+.dynamic-records-stages button.active {
+  border-bottom-color: var(--stage-color, var(--primary));
+  color: var(--text);
+}
+
+.dynamic-records-stages button i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--stage-color, var(--primary));
+}
+
+.dynamic-records-stages button span {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.dynamic-records-stages button strong {
+  display: grid;
+  min-width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--stage-color, var(--primary)) 11%, var(--surface-muted));
+  color: var(--stage-color, var(--text));
+  font-size: 9px;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-toolbar {
+  grid-template-columns: minmax(250px, 1.7fr) repeat(3, minmax(145px, .8fr)) auto auto auto;
+  min-height: 50px;
+  padding: 7px 12px;
+  background: var(--surface);
+}
+
+.dynamic-records-search {
+  display: flex;
+  height: 34px;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 9px;
+  background: var(--surface-soft, var(--surface));
+  color: var(--muted);
+}
+
+.dynamic-records-search input {
+  width: 100%;
+  height: auto !important;
+  border: 0 !important;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-toolbar select {
+  border-color: var(--border);
+  border-radius: 6px;
+  background: var(--surface-soft, var(--surface));
+  color: var(--text);
+  font-size: 11px;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-content {
+  background: var(--surface);
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table table {
+  font-size: 10px;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table th,
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table td {
+  height: 38px;
+  max-width: 240px;
+  padding: 5px 8px;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table th {
+  height: 34px;
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--primary) 2.5%, var(--surface));
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table tbody tr.is-selected,
+.dynamic-tool-records-dialog.is-refined .dynamic-records-table tbody tr.is-selected:hover {
+  background: color-mix(in srgb, var(--primary) 11%, var(--surface));
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+
+.dynamic-record-title-cell strong,
+.dynamic-record-title-cell small {
+  display: block;
+}
+
+.dynamic-record-title-cell strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dynamic-record-title-cell small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 8px;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-status {
+  min-height: 20px;
+  border: 1px solid color-mix(in srgb, var(--record-status-color) 35%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--record-status-color) 11%, var(--surface));
+  color: var(--record-status-color);
+  font-size: 8px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.dynamic-record-open {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.dynamic-record-open:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.dynamic-records-empty {
+  display: grid;
+  min-height: 280px;
+  place-items: center;
+  align-content: center;
+  gap: 5px;
+  color: var(--muted);
+}
+
+.dynamic-records-empty > span {
+  font-size: 22px;
+}
+
+.dynamic-records-empty strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.dynamic-records-empty small {
+  font-size: 10px;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-details {
+  width: min(480px, 100%);
+  padding: 0 14px 16px;
+  box-shadow: -18px 0 44px rgb(15 23 42 / 20%);
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-details-head {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  min-height: 72px;
+  align-items: center;
+  margin: 0 -14px 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-details-head h3 {
+  max-width: 360px;
+  margin: 5px 0 1px;
+  overflow: hidden;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-meta > div,
+.dynamic-tool-records-dialog.is-refined .dynamic-record-fields > div {
+  padding: 8px 9px;
+  border-radius: 6px;
+  background: var(--surface-soft, var(--surface));
+}
+
+.dynamic-record-data-section {
+  padding-top: 10px;
+}
+
+.dynamic-record-data-section .dynamic-record-fields {
+  margin-bottom: 0;
+}
+
+.dynamic-tool-records-dialog.is-refined .dynamic-record-section textarea {
+  border-color: var(--border);
+  border-radius: 6px;
+  background: var(--surface-soft, var(--surface));
+  color: var(--text);
+}
+
+@media (max-width: 1120px) {
+  .dynamic-tool-records-dialog.is-refined .dynamic-records-toolbar {
+    grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(140px, .7fr));
+  }
+
+  .dynamic-records-toolbar > strong {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 720px) {
+  .dynamic-tool-records-dialog.is-refined {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+  }
+
+  .dynamic-records-identity small,
+  .dynamic-records-header-actions .secondary-btn {
+    display: none;
+  }
+
+  .dynamic-records-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dynamic-records-summary article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .dynamic-tool-records-dialog.is-refined .dynamic-records-toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dynamic-records-search {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,9 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+server.pid
+database/.jwt_secret
+database/*.sqlite3
+backups/*.dump

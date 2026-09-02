@@ -1,0 +1,446 @@
+#configBackupsPage {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+#configBackupsPage.hidden,
+.config-backup-storage-editor.hidden,
+#attachmentStorageSettings.hidden {
+  display: none;
+}
+
+.config-backup-storage,
+.config-backup-history {
+  border: 1px solid var(--border);
+  background: var(--surface, #fff);
+}
+
+.config-backup-storage {
+  display: grid;
+  gap: 10px;
+  padding: 13px 15px;
+}
+
+.config-backup-storage-head {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto auto;
+  gap: 11px;
+  align-items: center;
+}
+
+.config-backup-storage-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  font-size: 17px;
+}
+
+.config-backup-storage-head > div {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.config-backup-storage-head label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.config-backup-storage-head strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.config-backup-health {
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--soft);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.config-backup-health.is-ok {
+  color: #087a4b;
+  background: #dcf7ea;
+}
+
+.config-backup-health.is-error {
+  color: #b42318;
+  background: #fee4e2;
+}
+
+.config-backup-storage-editor {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.config-backup-storage-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 7px;
+}
+
+.config-backup-storage-row input {
+  min-width: 0;
+}
+
+.config-backup-migrate {
+  justify-self: start;
+  margin: 0;
+}
+
+.config-storage-status {
+  color: var(--muted);
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.config-backup-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  background: var(--surface, #fff);
+}
+
+.config-backup-metrics article {
+  display: grid;
+  min-height: 68px;
+  align-content: center;
+  gap: 2px;
+  padding: 10px 14px;
+  border-right: 1px solid var(--border);
+}
+
+.config-backup-metrics article:last-child {
+  border-right: 0;
+}
+
+.config-backup-metrics span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.config-backup-metrics strong {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.config-backup-metrics small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.config-backup-history {
+  min-width: 0;
+}
+
+.config-backup-history-head {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--border);
+}
+
+.config-backup-history-head > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.config-backup-history-head strong {
+  font-size: 13px;
+}
+
+.config-backup-history-head small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.config-backup-filters {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) 145px 145px;
+  gap: 7px;
+}
+
+.config-backup-filters input,
+.config-backup-filters select {
+  min-height: 32px;
+  font-size: 11px;
+}
+
+.config-backup-table-head,
+.config-backup-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.6fr) 110px 150px 90px 115px 34px;
+  gap: 10px;
+  align-items: center;
+}
+
+.config-backup-table-head {
+  min-height: 32px;
+  padding: 0 12px;
+  color: var(--muted);
+  background: var(--soft);
+  border-bottom: 1px solid var(--border);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.config-backup-row {
+  min-height: 46px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.config-backup-row:last-child {
+  border-bottom: 0;
+}
+
+.config-backup-row:hover {
+  background: color-mix(in srgb, var(--primary) 4%, transparent);
+}
+
+.config-backup-name {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-backup-name > span {
+  color: var(--primary);
+}
+
+.config-backup-name strong {
+  overflow: hidden;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.config-backup-source,
+.config-backup-integrity {
+  justify-self: start;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.config-backup-source.is-automatic,
+.config-backup-integrity.is-verified {
+  color: #087a4b;
+  background: #dcf7ea;
+}
+
+.config-backup-source.is-pre_restore {
+  color: #9a6700;
+  background: #fff2cc;
+}
+
+.config-backup-actions {
+  position: relative;
+  justify-self: end;
+}
+
+.config-backup-actions summary {
+  display: grid;
+  width: 30px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  font-size: 17px;
+}
+
+.config-backup-actions summary:hover,
+.config-backup-actions[open] summary {
+  border-color: var(--border);
+  background: var(--soft);
+}
+
+.config-backup-actions > div {
+  position: absolute;
+  z-index: 30;
+  top: 31px;
+  right: 0;
+  display: grid;
+  width: 170px;
+  padding: 5px;
+  border: 1px solid var(--border);
+  background: var(--surface, #fff);
+  box-shadow: 0 12px 28px rgb(15 23 42 / 16%);
+}
+
+.config-backup-actions button {
+  padding: 8px 9px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.config-backup-actions button:hover {
+  background: var(--soft);
+}
+
+.config-backup-actions button.danger {
+  color: #d92d20;
+}
+
+.config-backup-detail-dialog {
+  width: min(620px, calc(100vw - 28px));
+}
+
+.config-backup-detail-dialog > section {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.config-backup-detail-dialog header,
+.config-backup-detail-dialog footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.config-backup-detail-dialog header span {
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.config-backup-detail-dialog h2 {
+  margin: 3px 0 0;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.config-backup-detail-dialog dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.config-backup-detail-dialog dl > div {
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid var(--border);
+}
+
+.config-backup-detail-dialog dl .wide {
+  grid-column: 1 / -1;
+}
+
+.config-backup-detail-dialog dt {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.config-backup-detail-dialog dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+html.dark .config-backup-storage,
+html.dark .config-backup-history,
+html.dark .config-backup-metrics,
+html.dark .config-backup-actions > div {
+  background: var(--surface, #151c27);
+}
+
+html.dark .config-backup-health.is-ok,
+html.dark .config-backup-source.is-automatic,
+html.dark .config-backup-integrity.is-verified {
+  color: #57d59b;
+  background: rgb(12 122 75 / 22%);
+}
+
+@media (max-width: 980px) {
+  .config-backup-metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .config-backup-metrics article:nth-child(3) {
+    border-right: 0;
+  }
+
+  .config-backup-table-head {
+    display: none;
+  }
+
+  .config-backup-row {
+    grid-template-columns: minmax(220px, 1fr) 100px 130px 34px;
+  }
+
+  .config-backup-row > :nth-child(4),
+  .config-backup-row > :nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .config-backup-storage-head {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+  }
+
+  .config-backup-storage-head > button {
+    grid-column: 1 / -1;
+  }
+
+  .config-backup-storage-row,
+  .config-backup-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .config-backup-history-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .config-backup-row {
+    grid-template-columns: minmax(0, 1fr) 90px 34px;
+  }
+
+  .config-backup-row > :nth-child(3) {
+    display: none;
+  }
+}

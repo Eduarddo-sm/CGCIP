@@ -1,0 +1,121 @@
+<nav id="defasagemNav" class="sidebar-nav hidden" aria-label="Controle de Defasagem">
+  <button class="overview-nav active" type="button" data-defasagem-page="dashboard"><span class="nav-icon"><img src="/assets/icons/dashboard-65.svg" alt="" /></span><span>Dashboard geral</span></button>
+  <button class="overview-nav" type="button" data-defasagem-page="operators"><span class="nav-icon"><img src="/assets/icons/people-9.svg" alt="" /></span><span>Painel por operador</span></button>
+  <button class="overview-nav" type="button" data-defasagem-page="links"><span class="nav-icon"><img src="/assets/icons/portfolio-26-1.svg" alt="" /></span><span>Gatilhos e garantias</span></button>
+  <button class="overview-nav" type="button" data-defasagem-page="reports"><span class="nav-icon"><img src="/assets/icons/protocol-template.svg" alt="" /></span><span>Extrator de relat&oacute;rios</span></button>
+  <button class="overview-nav" type="button" data-defasagem-page="records"><span class="nav-icon"><img src="/assets/icons/spreadsheet-2.svg" alt="" /></span><span>Base detalhada</span></button>
+</nav>
+
+<section id="defasagemContent" class="defasagem-workspace hidden" aria-live="polite">
+  <header class="defasagem-command">
+    <div class="defasagem-identity"><span>Base consolidada</span><small id="defasagemSourceMeta">Aguardando primeira carga</small></div>
+    <div class="defasagem-search"><input id="defasagemSearch" type="search" placeholder="Contrato, cliente, operador ou acionamento" /></div>
+    <button id="defasagemFiltersToggle" class="secondary-btn compact" type="button">Filtros</button>
+    <button id="defasagemRefreshBtn" class="primary-btn fit compact" type="button">Atualizar</button>
+  </header>
+  <div id="defasagemFilters" class="defasagem-filters hidden">
+    <select id="defasagemWallet"><option value="">Todas as carteiras</option></select>
+    <select id="defasagemPhase"><option value="">Todas as fases</option></select>
+    <select id="defasagemPortfolioOperator"><option value="">Todos os operadores</option></select>
+    <select id="defasagemUf"><option value="">Todas as UFs</option></select>
+    <select id="defasagemGecor"><option value="">Todos os Gecors</option></select>
+    <select id="defasagemActionOperator"><option value="">Quem tabulou</option></select>
+    <select id="defasagemRange"><option value="">Todas as faixas</option></select>
+    <select id="defasagemAction"><option value="">Todos os acionamentos</option></select>
+    <button id="defasagemClearBtn" class="secondary-btn compact" type="button">Limpar filtros</button>
+  </div>
+
+  <div id="defasagemLoading" class="defasagem-loading hidden"><div></div><div></div><div></div><div></div><span></span></div>
+  <div id="defasagemError" class="defasagem-empty hidden"><strong>N&atilde;o foi poss&iacute;vel carregar a Defasagem</strong><span></span><button class="primary-btn fit compact" type="button">Tentar novamente</button></div>
+
+  <div id="defasagemDashboard" data-defasagem-panel="dashboard" class="defasagem-panel hidden">
+    <div class="defasagem-dashboard-heading">
+      <div><span>Vis&atilde;o operacional</span><strong>Prioridades de acionamento</strong></div>
+      <small>Selecione um indicador para consultar os clientes.</small>
+    </div>
+    <div id="defasagemKpis" class="defasagem-kpis"></div>
+    <div id="defasagemSummary" class="defasagem-summary"></div>
+    <div class="defasagem-priority-grid">
+      <section class="defasagem-card defasagem-priority-card">
+        <header><div><span>Execu&ccedil;&atilde;o imediata</span><strong>Fila priorit&aacute;ria</strong></div><button id="defasagemOpenRecordsBtn" class="secondary-btn compact" type="button">Abrir base</button></header>
+        <div id="defasagemPriorityClients" class="defasagem-priority-list"></div>
+      </section>
+      <section class="defasagem-card defasagem-range-card"><header><span>Risco temporal</span><strong>Faixas de defasagem</strong></header><div id="defasagemRanges" class="defasagem-bars defasagem-bars--roomy"></div></section>
+    </div>
+    <div class="defasagem-group-title"><div><span>Capacidade operacional</span><strong>Distribui&ccedil;&atilde;o da carteira</strong></div></div>
+    <div class="defasagem-support-grid defasagem-volume-grid">
+      <section class="defasagem-card"><header class="defasagem-card-head"><div><span>Distribui&ccedil;&atilde;o da base</span><strong>Clientes por operador</strong></div><button class="secondary-btn compact" type="button" data-defasagem-list="operators">Ver todos</button></header><div id="defasagemAgreementsOperators" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header class="defasagem-card-head"><div><span>Distribui&ccedil;&atilde;o geogr&aacute;fica</span><strong>Clientes por UF</strong></div><button class="secondary-btn compact" type="button" data-defasagem-list="ufs">Ver todos</button></header><div id="defasagemAgreementsUf" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header class="defasagem-card-head"><div><span>Distribui&ccedil;&atilde;o gerencial</span><strong>Clientes por GECOR</strong></div><button class="secondary-btn compact" type="button" data-defasagem-list="gecors">Ver todos</button></header><div id="defasagemAgreementsGecor" class="defasagem-bars"></div></section>
+    </div>
+    <div class="defasagem-group-title"><div><span>Sinais de atua&ccedil;&atilde;o</span><strong>Oportunidades e v&iacute;nculos</strong></div></div>
+    <div class="defasagem-support-grid">
+      <section class="defasagem-card"><header class="defasagem-card-head"><div><span>Retornos por carteira</span><strong>Negocia&ccedil;&otilde;es por operador</strong></div><button class="secondary-btn compact" type="button" data-defasagem-list="operatorAlerts">Ver todos</button></header><div id="defasagemOperatorPortfolioAlerts" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header class="defasagem-card-head"><div><span>Base complementar</span><strong>Gatilhos mais frequentes</strong></div><button class="secondary-btn compact" type="button" data-defasagem-list="triggers">Ver todos</button></header><div id="defasagemTriggers" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header class="defasagem-card-head"><div><span>Base complementar</span><strong>Garantias encontradas</strong></div><button class="secondary-btn compact" type="button" data-defasagem-list="guarantees">Ver todos</button></header><div id="defasagemGuarantees" class="defasagem-bars"></div></section>
+    </div>
+  </div>
+
+  <div data-defasagem-panel="links" class="defasagem-panel hidden">
+    <div class="defasagem-section-head"><div><h2>Gatilhos e garantias</h2><span>An&aacute;lise de defasagem dos clientes vinculados.</span></div><strong id="defasagemLinkedTotal">0 clientes</strong></div>
+    <div class="defasagem-linked-grid">
+      <section class="defasagem-card"><header><span>Defasagem</span><strong>Meses e anos sem acionamento</strong></header><div id="defasagemLinkedRanges" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header><span>Retorno</span><strong>Situa&ccedil;&otilde;es priorit&aacute;rias</strong></header><div id="defasagemLinkedSituations" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header><span>Gatilhos</span><strong>Gatilhos mais frequentes</strong></header><div id="defasagemLinkedTriggers" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header><span>Garantias</span><strong>Garantias encontradas</strong></header><div id="defasagemLinkedGuarantees" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header><span>Carteiras</span><strong>Clientes vinculados</strong></header><div id="defasagemLinkedWallets" class="defasagem-bars"></div></section>
+      <section class="defasagem-card"><header><span>Operadores</span><strong>Clientes vinculados</strong></header><div id="defasagemLinkedOperators" class="defasagem-bars"></div></section>
+    </div>
+
+    <div class="defasagem-section-head defasagem-linked-head"><div><h2>Clientes vinculados</h2><span>Casos com gatilhos ou garantias.</span></div></div>
+    <div class="defasagem-table-wrap defasagem-linked-table"><table><thead><tr><th>Contrato</th><th>Cliente</th><th>Carteira</th><th>Operador</th><th>Gatilhos</th><th>Garantias</th><th>&Uacute;ltimo acionamento</th><th>Data</th><th>Dias</th><th>Faixa</th><th>Prioridade</th></tr></thead><tbody id="defasagemLinkedRows"></tbody></table></div>
+  </div>
+
+  <div data-defasagem-panel="operators" class="defasagem-panel hidden">
+    <div class="defasagem-section-head"><div><h2>Painel por operador</h2><span>Volume, criticidade e oportunidades sem retorno.</span></div><strong id="defasagemOperatorTotal">0 operadores</strong></div>
+    <div class="defasagem-table-wrap"><table><thead><tr><th>#</th><th>Operador</th><th>Clientes</th><th>Cr&iacute;ticos</th><th>Sem acionamento</th><th>Negocia&ccedil;&atilde;o sem retorno</th><th>Poss&iacute;vel neg&oacute;cio</th><th>Ap&oacute;s 1 ano</th></tr></thead><tbody id="defasagemOperatorRows"></tbody></table></div>
+  </div>
+
+  <div data-defasagem-panel="reports" class="defasagem-panel hidden">
+    <section class="defasagem-report-filters">
+      <label>Situa&ccedil;&atilde;o operacional
+        <select id="defasagemReportOperational">
+          <option value="">Todas as situa&ccedil;&otilde;es</option>
+          <option value="desinteresse_sem_retorno">Desinteresse sem retorno</option>
+          <option value="negociacao_sem_retorno">Negocia&ccedil;&atilde;o sem retorno</option>
+          <option value="clientes_criticos">Clientes cr&iacute;ticos</option>
+          <option value="cliente_sem_acionamento">Cliente sem acionamento</option>
+          <option value="possivel_negocio_sem_retorno">Poss&iacute;vel neg&oacute;cio sem retorno</option>
+        </select>
+      </label>
+      <label>Operador que tabulou e n&atilde;o voltou
+        <select id="defasagemReportOperator">
+          <option value="">Todos os operadores</option>
+        </select>
+      </label>
+      <label>Defasagem por situa&ccedil;&atilde;o
+        <select id="defasagemReportType">
+          <option value="">Todas as situa&ccedil;&otilde;es</option>
+          <option value="negociacao">Negocia&ccedil;&atilde;o</option>
+          <option value="possivel_negocio">Poss&iacute;vel neg&oacute;cio</option>
+          <option value="desinteresse">Desinteresse</option>
+        </select>
+      </label>
+    </section>
+    <section class="defasagem-report-card"><div><span>Relat&oacute;rio operacional</span><h2>Exportar a base filtrada</h2><p>Os filtros aplicados no topo ser&atilde;o respeitados no arquivo.</p></div><div class="defasagem-report-actions"><button id="defasagemCsvBtn" class="secondary-btn" type="button">Gerar CSV</button><button id="defasagemXlsxBtn" class="primary-btn fit" type="button">Gerar Excel</button></div></section>
+    <div class="defasagem-report-notes"><article><strong>Base detalhada</strong><span>Contratos, cliente, carteira, acionamento, operador, dias sem retorno e alertas.</span></article><article><strong>Uso gerencial</strong><span>Arquivo pronto para filtros, tabela din&acirc;mica e acompanhamento operacional.</span></article></div>
+  </div>
+
+  <div data-defasagem-panel="records" class="defasagem-panel hidden">
+    <div class="defasagem-section-head"><div><h2>Base detalhada</h2><span>Clientes priorizados conforme os filtros atuais.</span></div><strong id="defasagemRecordTotal">0 registros</strong></div>
+    <div class="defasagem-table-wrap defasagem-records"><table><thead><tr><th>Contrato</th><th>Cliente</th><th>Carteira</th><th>Fase</th><th>UF</th><th>Operador carteira</th><th>&Uacute;ltimo acionamento</th><th>Data</th><th>Quem tabulou</th><th>Dias</th><th>Faixa</th><th>Alerta</th></tr></thead><tbody id="defasagemRecordRows"></tbody></table></div>
+    <footer class="defasagem-pagination"><button id="defasagemPrevBtn" class="secondary-btn compact" type="button">Anterior</button><span id="defasagemPageLabel">P&aacute;gina 1</span><button id="defasagemNextBtn" class="secondary-btn compact" type="button">Pr&oacute;xima</button></footer>
+  </div>
+
+  <div id="defasagemListDrawer" class="defasagem-list-drawer hidden" role="dialog" aria-modal="true" aria-labelledby="defasagemListDrawerTitle">
+    <aside>
+      <header><div><span>Vis&atilde;o completa</span><h2 id="defasagemListDrawerTitle">Detalhamento</h2></div><button id="defasagemListDrawerClose" class="icon-btn" type="button" aria-label="Fechar">&times;</button></header>
+      <div id="defasagemListDrawerContent" class="defasagem-bars"></div>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,564 @@
+<section id="emptyState" class="empty-state ds-card">
+          <h2>Adicione o primeiro negociador</h2>
+        </section>
+
+        <section id="mainHubContent" class="overview-content main-hub-content hub-executive ds-stack">
+          <div class="main-hub-command-bar">
+            <div class="main-hub-source-tabs" aria-label="Origem das pendencias">
+              <button class="active" type="button" data-hub-source="all">Todos <span id="mainHubCountAll">0</span></button>
+              <button type="button" data-hub-source="monitoramento">Monitoramento <span id="mainHubCountMonitoramento">0</span></button>
+              <button type="button" data-hub-source="parecer">Pareceres <span id="mainHubCountParecer">0</span></button>
+              <button type="button" data-hub-source="protocolo">Protocolos <span id="mainHubCountProtocolo">0</span></button>
+            </div>
+            <label class="main-hub-search">
+              <input id="mainHubSearch" type="search" placeholder="Buscar cliente, responsavel ou identificador" autocomplete="off" aria-label="Buscar pendencias" />
+            </label>
+            <button id="reloadMainHubBtn" class="secondary-btn ds-button main-hub-refresh" type="button">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 12a9 9 0 0 1-15.4 6.4"></path>
+                <path d="M3 12A9 9 0 0 1 18.4 5.6"></path>
+                <path d="M18 2v4h-4"></path>
+                <path d="M6 22v-4h4"></path>
+              </svg>
+              Atualizar
+            </button>
+          </div>
+          <div class="main-hub-metrics" aria-live="polite">
+            <span><strong id="mainHubMetricPending">0</strong> pendencias</span>
+            <span><strong id="mainHubMetricCritical">0</strong> criticas</span>
+            <span><strong id="mainHubMetricToday">0</strong> hoje</span>
+            <span class="main-hub-last-update">Ultima atualizacao <strong id="mainHubMetricUpdated">--:--</strong></span>
+          </div>
+          <div id="mainHubList" class="overview-list"></div>
+        </section>
+
+        <section id="dynamicToolContent" class="dynamic-tool-page hidden" aria-live="polite"></section>
+
+        <section id="content" class="content negociador-profile-content hidden">
+          <div id="negociadorProfileMount"></div>
+          <div class="negociador-toolbar">
+            <button id="backToNegociadoresBtn" class="secondary-btn ds-button">Voltar</button>
+            <div class="search-wrap">
+              <input id="quickSearch" type="search" placeholder="Busca rápida" />
+            </div>
+            <button id="editBtn" class="secondary-btn ds-button">Editar</button>
+            <button id="removeBtn" class="danger-btn ds-button ds-button--danger">Remover</button>
+          </div>
+
+          <section id="clientHistoryPanel" class="client-history-panel ds-card hidden">
+            <div class="panel-head">
+              <div>
+                <h2 id="clientHistoryTitle">Histórico de Alterações</h2>
+                <span id="clientHistoryMeta"></span>
+              </div>
+              <div class="panel-actions">
+                <button id="expandClientHistoryBtn" class="secondary-btn ds-button compact" type="button">Expandir todos</button>
+                <button id="collapseClientHistoryBtn" class="secondary-btn ds-button compact" type="button">Recolher todos</button>
+              </div>
+            </div>
+            <div class="overview-filters client-history-filters">
+              <input id="historyPeriodFilter" placeholder="Período: AAAA-MM ou DD/MM/AAAA" />
+              <input id="historyUserFilter" placeholder="Usuário" />
+              <input id="historyTypeFilter" placeholder="Tipo de alteração" />
+              <input id="historyTextFilter" placeholder="Pesquisar no hist?rico" />
+            </div>
+            <div id="clientHistoryTimeline" class="client-history-timeline"></div>
+          </section>
+
+          <div class="timeline-panel ds-card">
+            <div class="panel-head">
+              <h2>Timeline</h2>
+              <span id="timelineHint"></span>
+            </div>
+            <div id="timeline" class="timeline"></div>
+          </div>
+
+          <div id="sheetPanel" class="table-panel ds-card sheet-collapsed">
+            <div class="panel-head">
+              <div class="panel-actions">
+                <button id="openNegotiatorSpreadsheetBtn" class="secondary-btn ds-button compact" type="button">Abrir planilha</button>
+                <button id="toggleSheetSizeBtn" class="secondary-btn ds-button compact" type="button" aria-expanded="false">Expandir</button>
+              </div>
+            </div>
+            <div id="sheetBody" class="sheet-body">
+              <div id="filterBar" class="filter-bar"></div>
+              <div id="grid" class="grid"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="negociadoresContent" class="negociadores-content hidden">
+          <div class="overview-filters negociadores-filters">
+            <input id="negociadoresSearch" placeholder="Pesquisar" />
+            <button id="addFromListBtn" class="secondary-btn ds-button">Adicionar negociador</button>
+          </div>
+          <div id="negociadoresList" class="negociadores-list"></div>
+        </section>
+
+        <section id="carteirasContent" class="negociadores-content hidden">
+          <div id="carteirasListView">
+            <div class="carteira-admin-head">
+              <div>
+                <h2>Carteiras</h2>
+              </div>
+              <button id="addCarteiraBtn" class="primary-btn ds-button ds-button--primary fit" type="button">Nova carteira</button>
+            </div>
+            <div id="carteirasSummary" class="carteira-admin-summary"></div>
+            <div class="carteira-admin-controls">
+              <input id="carteirasSearch" type="search" placeholder="Buscar carteira" aria-label="Buscar carteira" />
+              <select id="carteirasStatus" aria-label="Filtrar por status">
+                <option value="active" selected>Ativas</option>
+                <option value="">Todos os status</option>
+                <option value="inactive">Inativas</option>
+              </select>
+              <select id="carteirasOrder" aria-label="Ordenar carteiras">
+                <option value="name">Ordenar por nome</option>
+                <option value="updated">Atualizadas recentemente</option>
+                <option value="negotiators">Mais negociadores</option>
+              </select>
+            </div>
+            <div id="carteirasList" class="carteira-admin-list"></div>
+          </div>
+          <div id="carteiraDetailView" class="carteira-monitor-workspace hidden">
+            <div class="carteira-monitor-heading">
+              <button id="backToCarteirasBtn" class="secondary-btn ds-button compact" type="button">&#8592; Carteiras</button>
+              <div class="carteira-monitor-identity">
+                <span class="carteira-monitor-mark" aria-hidden="true">C</span>
+                <div>
+                  <h2 id="carteiraMonitorTitle">Monitoramento da carteira</h2>
+                  <span id="carteiraMonitorMeta">Histórico consolidado da carteira</span>
+                </div>
+              </div>
+              <span id="carteiraMonitorStatus" class="carteira-monitor-status">Ativa</span>
+            </div>
+
+            <nav id="carteiraWorkspaceTabs" class="carteira-workspace-tabs" aria-label="Areas da carteira"></nav>
+            <section id="carteiraWorkspaceOverview" class="carteira-workspace-panel"></section>
+
+            <div class="carteira-monitor-controls">
+              <label class="carteira-monitor-search">
+                <span aria-hidden="true">&#128269;</span>
+                <input id="carteiraClientSearch" type="search" placeholder="Buscar por cliente, identificador, NPJ ou processo" autocomplete="off" />
+              </label>
+              <div class="carteira-monitor-filters">
+                <input id="carteiraPeriodFilter" placeholder="Período" aria-label="Filtrar por período" />
+                <input id="carteiraUserFilter" placeholder="Negociador" aria-label="Filtrar por negociador" />
+                <input id="carteiraTypeFilter" placeholder="Tipo de alteração" aria-label="Filtrar por tipo de alteração" />
+                <button id="clearCarteiraFiltersBtn" class="secondary-btn ds-button compact" type="button">Limpar</button>
+              </div>
+            </div>
+
+            <section id="carteiraClientSummary" class="carteira-client-summary hidden" aria-live="polite"></section>
+
+            <div id="carteiraMonitorTabs" class="carteira-monitor-tabs hidden" role="tablist" aria-label="Visões do cliente">
+              <button type="button" data-carteira-monitor-tab="timeline" class="active">Timeline</button>
+              <button type="button" data-carteira-monitor-tab="current">Dados atuais</button>
+              <button type="button" data-carteira-monitor-tab="corrections">Correções</button>
+              <button type="button" data-carteira-monitor-tab="audit">Auditoria</button>
+            </div>
+
+            <div id="carteiraMonitor" class="client-history-panel carteira-monitor-panel ds-card">
+              <div class="panel-head carteira-monitor-panel-head">
+                <div>
+                  <h3 id="carteiraMonitorSectionTitle">Alterações recentes</h3>
+                  <span id="carteiraMonitorSectionMeta">Últimos movimentos registrados na carteira</span>
+                </div>
+                <div id="carteiraTimelineActions" class="panel-actions hidden">
+                  <button id="expandCarteiraHistoryBtn" class="secondary-btn ds-button compact" type="button">Expandir todos</button>
+                  <button id="collapseCarteiraHistoryBtn" class="secondary-btn ds-button compact" type="button">Recolher todos</button>
+                </div>
+              </div>
+              <div id="carteiraTimeline" class="client-history-timeline"></div>
+            </div>
+
+            <section id="carteiraWorkspaceProduction" class="carteira-workspace-panel hidden"></section>
+            <section id="carteiraWorkspacePareceres" class="carteira-workspace-panel hidden"></section>
+            <section id="carteiraWorkspaceColchao" class="carteira-workspace-panel hidden"></section>
+            <section id="carteiraWorkspaceHonorarios" class="carteira-workspace-panel hidden"></section>
+            <section id="carteiraWorkspaceDynamic" class="carteira-workspace-panel hidden"></section>
+            <section id="carteiraWorkspaceSettings" class="carteira-workspace-panel hidden"></section>
+          </div>
+        </section>
+
+        <section id="monitorPlanilhaContent" class="overview-content monitor-planilha-content hidden">
+          <div class="monitor-sheet-commandbar">
+            <div class="monitor-sheet-filters">
+              <select id="monitorPlanilhaCarteira" data-carteira-options data-placeholder="Selecione a carteira" aria-label="Carteira"></select>
+              <select id="monitorPlanilhaMes" aria-label="Mês"></select>
+              <select id="monitorPlanilhaAno" aria-label="Ano"></select>
+            </div>
+            <div class="monitor-sheet-context" aria-live="polite">
+              <strong id="monitorPlanilhaContext">Selecione uma carteira</strong>
+              <span id="monitorPlanilhaUpdatedAt">Aguardando consulta</span>
+            </div>
+            <div class="monitor-sheet-actions">
+              <button id="monitorPlanilhaAddClientBtn" class="primary-btn ds-button ds-button--primary compact" type="button">Cadastrar cliente</button>
+              <button id="monitorPlanilhaOpenReportBtn" class="secondary-btn ds-button compact" type="button">Gerar relatório</button>
+              <button id="monitorPlanilhaExpandBtn" class="secondary-btn ds-button compact icon-text-btn" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5" /><path d="M16 3h5v5" /><path d="M8 21H3v-5" /><path d="M16 21h5v-5" /></svg>
+                Modo foco
+              </button>
+              <button id="monitorPlanilhaReloadBtn" class="secondary-btn ds-button compact icon-only-btn" type="button" title="Atualizar dados" aria-label="Atualizar dados">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0 1 5" /><path d="M20 4v7h-7" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="monitorPlanilhaTable" class="monitor-planilha-table"></div>
+        </section>
+
+        <section id="monitorFechamentoContent" class="overview-content ds-stack hidden">
+          <div class="overview-head ds-row ds-row--between">
+            <div>
+              <h2>Fechamento mensal</h2>
+            </div>
+            <div class="overview-actions">
+              <button id="monitorFechamentoReportBtn" class="secondary-btn ds-button" type="button">Relatorio final</button>
+              <button id="monitorFechamentoReloadBtn" class="secondary-btn ds-button" type="button">Atualizar</button>
+              <button id="monitorFechamentoCloseBtn" class="primary-btn ds-button ds-button--primary fit" type="button">Fechar mes</button>
+            </div>
+          </div>
+
+          <div class="overview-filters monitor-planilha-filters">
+            <select id="monitorFechamentoCarteira" data-carteira-options data-placeholder="Selecione a carteira"></select>
+            <select id="monitorFechamentoMes"></select>
+            <select id="monitorFechamentoAno"></select>
+          </div>
+
+          <div id="monitorFechamentoSummary" class="monitor-planilha-summary"></div>
+          <div id="monitorFechamentoStatus" class="ds-card fechamento-status-card"></div>
+          <div id="monitorFechamentoOpenList" class="table-panel ds-card monitor-planilha-table"></div>
+        </section>
+
+        <section id="overviewContent" class="overview-content overview-inbox ds-stack">
+          <div class="overview-command-bar">
+            <div class="overview-tabs" aria-label="Status das alteracoes">
+              <button class="overview-tab active" data-overview-status="unread">Nao lidas</button>
+              <button class="overview-tab" data-overview-status="read">Lidas</button>
+              <button class="overview-tab" data-overview-status="all">Todas</button>
+            </div>
+            <div id="overviewViewSummary" class="overview-view-summary" aria-live="polite"></div>
+            <div class="overview-actions">
+              <details class="overview-filter-panel">
+                <summary class="secondary-btn ds-button">Filtros</summary>
+                <div class="overview-filters">
+                  <label>Usuario<input id="overviewFilterUser" placeholder="Nome do usuario" /></label>
+                  <label>Data<input id="overviewFilterDate" type="date" /></label>
+                  <label>Tipo<input id="overviewFilterType" placeholder="Tipo de alteracao" /></label>
+                  <label>Prioridade<input id="overviewFilterPriority" placeholder="Prioridade" /></label>
+                </div>
+              </details>
+              <button id="markAllOverviewBtn" class="secondary-btn ds-button">Marcar todas</button>
+              <button id="reloadOverviewBtn" class="secondary-btn ds-button">Atualizar</button>
+            </div>
+          </div>
+          <div id="overviewList" class="overview-list"></div>
+        </section>
+
+        <section id="parecerContent" class="parecer-content hidden">
+          <div id="parecerDashboard" class="parecer-page executive-dashboard">
+            <div id="parecerStats" class="stats-grid dashboard-stat-grid"></div>
+            <section class="parecer-flow-panel ds-card">
+              <div class="parecer-dashboard-section-head">
+                <div><h2>Fluxo dos pareceres</h2><span>Acompanhamento da solicitação até a conclusão</span></div>
+                <time id="parecerDashboardUpdatedAt"></time>
+              </div>
+              <div id="parecerFlow" class="parecer-flow"></div>
+            </section>
+            <div class="parecer-operations-grid">
+              <section class="parecer-operation-panel ds-card">
+                <div class="parecer-dashboard-section-head">
+                  <div><h2>Fila de atenção</h2><span>Itens que exigem uma ação da equipe</span></div>
+                  <strong id="parecerAttentionCount">0</strong>
+                </div>
+                <div id="parecerAttention" class="parecer-attention-list"></div>
+              </section>
+              <section class="parecer-operation-panel ds-card">
+                <div class="parecer-dashboard-section-head">
+                  <div><h2>Atividade recente</h2><span>Últimas movimentações registradas</span></div>
+                </div>
+                <div id="parecerRecent" class="parecer-recent-list"></div>
+              </section>
+            </div>
+            <div id="parecerAnalyticsGrid" class="parecer-analytics-grid">
+              <section id="parecerNegotiatorPanel" class="mini-panel ds-card dashboard-panel">
+                <h2>Pendentes por negociador</h2>
+                <div id="parecerByNegociador" class="metric-list"></div>
+              </section>
+              <section class="mini-panel ds-card dashboard-panel">
+                <h2>Movimentação por data</h2>
+                <div id="parecerByData" class="metric-list"></div>
+              </section>
+            </div>
+          </div>
+
+          <div id="parecerPendentes" class="parecer-page hidden">
+            <div class="parecer-queue-toolbar">
+              <label class="parecer-queue-search">
+                <input id="parecerPendingSearch" type="search" aria-label="Buscar pareceres pendentes" placeholder="Buscar cliente, NPJ ou descrição" autocomplete="off" />
+              </label>
+              <select id="parecerPendingNegotiator" aria-label="Filtrar por negociador">
+                <option value="">Todos os negociadores</option>
+              </select>
+              <select id="parecerPendingReason" aria-label="Filtrar por motivo">
+                <option value="">Todos os motivos</option>
+              </select>
+              <select id="parecerPendingOrder" aria-label="Ordenar pareceres pendentes">
+                <option value="oldest">Mais antigos primeiro</option>
+                <option value="newest">Mais recentes primeiro</option>
+                <option value="name">Cliente de A a Z</option>
+              </select>
+              <div id="parecerPendingSummary" class="parecer-queue-summary" aria-live="polite"></div>
+              <button id="parecerPendingMarkSelected" class="primary-btn ds-button ds-button--primary compact" type="button" disabled>Solicitar selecionados</button>
+            </div>
+            <div id="parecerPendentesGrid" class="pending-list parecer-pending-list"></div>
+          </div>
+
+          <div id="parecerAprovacao" class="parecer-page parecer-approval-page hidden">
+            <div id="parecerApprovalStats" class="parecer-approval-stats" aria-label="Resumo das aprovações"></div>
+            <div class="parecer-approval-controls">
+              <div class="overview-tabs parecer-approval-tabs">
+                <button class="overview-tab active" type="button" data-parecer-approval-tab="pendentes">Pendentes</button>
+                <button class="overview-tab" type="button" data-parecer-approval-tab="historico">Histórico</button>
+              </div>
+              <div class="parecer-approval-filters">
+                <div class="search-wrap parecer-approval-search">
+                  <input id="parecerApprovalSearch" type="search" placeholder="Buscar cliente, NPJ ou descrição" />
+                </div>
+                <select id="parecerApprovalNegotiator" aria-label="Filtrar por negociador">
+                  <option value="">Todos os negociadores</option>
+                </select>
+                <select id="parecerApprovalReason" aria-label="Filtrar por motivo">
+                  <option value="">Todos os motivos</option>
+                </select>
+                <select id="parecerApprovalOrder" aria-label="Ordenar solicitações">
+                  <option value="oldest">Mais antigos primeiro</option>
+                  <option value="newest">Mais recentes primeiro</option>
+                </select>
+              </div>
+            </div>
+            <div id="parecerAprovacaoGrid" class="parecer-approval-list"></div>
+          </div>
+
+          <div id="parecerCompleta" class="parecer-page parecer-sheet-page hidden">
+            <div class="parecer-sheet-commandbar">
+              <div class="parecer-sheet-meta">
+                <strong id="parecerPageInfo">0 registros</strong>
+                <span id="parecerSheetUpdatedAt">Aguardando atualização</span>
+              </div>
+              <div class="parecer-sheet-actions">
+                <button id="parecerSheetFocusBtn" class="secondary-btn ds-button compact" type="button" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5" /><path d="M16 3h5v5" /><path d="M8 21H3v-5" /><path d="M16 21h5v-5" /></svg>
+                  <span>Modo foco</span>
+                </button>
+                <button id="parecerReportFullBtn" class="secondary-btn ds-button compact" type="button">Gerar relatório</button>
+              </div>
+            </div>
+            <div id="parecerCompletaGrid" class="grid parecer-grid operational-grid-host"></div>
+          </div>
+
+        </section>
+
+        <section id="protocoloContent" class="parecer-content hidden">
+          <div id="protocoloDashboard" class="parecer-page executive-dashboard protocolo-dashboard-page">
+            <div class="protocolo-dashboard-toolbar">
+              <div class="protocolo-dashboard-filters">
+                <label>Período<input id="protocoloDashboardPeriod" type="month" /></label>
+                <label>Carteira<select id="protocoloDashboardCarteira"><option value="">Todas as carteiras</option></select></label>
+              </div>
+              <span id="protocoloDashboardUpdatedAt">Aguardando atualização</span>
+            </div>
+            <div id="protocoloStats" class="stats-grid dashboard-stat-grid"></div>
+            <div class="protocolo-dashboard-panels">
+              <section class="dashboard-panel protocolo-dashboard-panel">
+                <header><h2>Pendências por carteira</h2><span id="protocoloCarteirasTotal"></span></header>
+                <div id="protocoloDashboardCarteiras" class="protocolo-dashboard-breakdown"></div>
+              </section>
+              <section class="dashboard-panel protocolo-dashboard-panel">
+                <header><h2>Tempo em aberto</h2><span>Protocolos pendentes</span></header>
+                <div id="protocoloDashboardAging" class="protocolo-dashboard-aging"></div>
+              </section>
+            </div>
+            <section class="dashboard-panel protocolo-dashboard-priority">
+              <header>
+                <div><h2>Protocolos que exigem atenção</h2><span>Casos mais antigos ainda não concluídos</span></div>
+                <button id="protocoloDashboardViewPending" class="secondary-btn ds-button compact" type="button">Ver todas as pendências</button>
+              </header>
+              <div id="protocoloDashboardPriorityList" class="protocolo-priority-list"></div>
+            </section>
+          </div>
+          <div id="protocoloMonitoramento" class="parecer-page hidden">
+            <div class="protocolo-queue-toolbar">
+              <select id="protocoloCarteiraOpen">
+                <option value="">Todas as carteiras</option>
+              </select>
+              <label class="protocolo-queue-search">
+                <input id="protocoloSearchOpen" type="search" aria-label="Buscar protocolos pendentes" placeholder="Buscar cliente, PJ ou processo" autocomplete="off" />
+              </label>
+              <select id="protocoloSortOpen" aria-label="Ordenar protocolos pendentes">
+                <option value="oldest">Mais antigos primeiro</option>
+                <option value="newest">Mais recentes primeiro</option>
+                <option value="name">Cliente de A a Z</option>
+              </select>
+              <div id="protocoloPendingSummary" class="protocolo-queue-summary" aria-live="polite"></div>
+            </div>
+            <div id="protocoloOpenGrid" class="protocolo-list protocolo-pending-list"></div>
+          </div>
+
+          <div id="protocoloConcluidos" class="parecer-page protocolo-sheet-page hidden">
+            <div class="protocolo-sheet-commandbar">
+              <div class="protocolo-sheet-meta">
+                <strong id="protocoloSheetCount">0 registros</strong>
+                <span id="protocoloSheetUpdatedAt">Aguardando atualização</span>
+              </div>
+              <div class="protocolo-sheet-actions">
+                <button id="protocoloSheetFocusBtn" class="secondary-btn ds-button compact" type="button" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5" /><path d="M16 3h5v5" /><path d="M8 21H3v-5" /><path d="M16 21h5v-5" /></svg>
+                  <span>Modo foco</span>
+                </button>
+                <button id="protocoloSheetReportBtn" class="secondary-btn ds-button compact" type="button">Gerar relatório</button>
+                <button id="protocoloSheetNewBtn" class="primary-btn ds-button ds-button--primary compact" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
+                  Novo protocolo
+                </button>
+              </div>
+            </div>
+            <div id="protocoloClosedGrid" class="grid parecer-grid operational-grid-host"></div>
+          </div>
+
+        </section>
+
+        <section id="colchaoContent" class="parecer-content hidden">
+          <div id="colchaoProfiles" class="profile-grid"></div>
+          <div id="colchaoStats" class="stats-grid dashboard-stat-grid"></div>
+
+          <div id="colchaoDashboard" class="parecer-page executive-dashboard">
+            <div class="parecer-columns dashboard-panel-grid">
+              <section class="mini-panel ds-card dashboard-panel">
+                <h2>Ranking por operador</h2>
+                <div id="colchaoRanking" class="metric-list"></div>
+              </section>
+            </div>
+          </div>
+
+          <div id="colchaoClientes" class="parecer-page hidden">
+            <div class="colchao-clients-toolbar">
+              <label class="colchao-clients-search">
+                <input id="colchaoClientsSearch" type="search" placeholder="Buscar cliente, identificador, documento ou operador" autocomplete="off" aria-label="Buscar clientes no colchão" />
+              </label>
+              <select id="colchaoClientsStatus" aria-label="Filtrar clientes por situação">
+                <option value="">Todas as situações</option>
+                <option value="overdue">Com parcelas vencidas</option>
+                <option value="active">Com acordos ativos</option>
+                <option value="paid">Com acordos quitados</option>
+                <option value="broken">Com acordos quebrados</option>
+              </select>
+              <select id="colchaoClientsSort" aria-label="Ordenar clientes">
+                <option value="priority">Prioridade operacional</option>
+                <option value="next_due">Proximo vencimento</option>
+                <option value="balance_desc">Maior saldo aberto</option>
+                <option value="agreements_desc">Mais acordos</option>
+                <option value="name">Nome de A a Z</option>
+              </select>
+              <button id="colchaoClientsRefreshBtn" class="secondary-btn ds-button compact" type="button">Atualizar</button>
+              <div id="colchaoClientsSummary" class="colchao-clients-summary"></div>
+            </div>
+            <div id="colchaoClientsGrid" class="colchao-clients-grid"></div>
+          </div>
+
+          <div id="colchaoPendencias" class="parecer-page hidden">
+            <div class="colchao-queue-toolbar">
+              <label class="colchao-queue-search">
+                <input id="colchaoPendingSearch" type="search" aria-label="Buscar pendências do colchão" placeholder="Buscar cliente, identificador, CPF/CNPJ ou operador" autocomplete="off" />
+              </label>
+              <select id="colchaoPendingBucket">
+                <option value="">Todas as situações</option>
+                <option value="overdue">Vencidos</option>
+                <option value="today">Vence hoje</option>
+                <option value="next7">Próximos 7 dias</option>
+                <option value="future">Vencimentos futuros</option>
+              </select>
+              <select id="colchaoPendingOperator" aria-label="Filtrar por operador"><option value="">Todos os operadores</option></select>
+              <input id="colchaoPendingDate" type="date" />
+              <select id="colchaoPendingOrder" aria-label="Ordenar pendências">
+                <option value="due">Vencimento mais próximo</option>
+                <option value="value">Maior valor</option>
+                <option value="name">Cliente de A a Z</option>
+              </select>
+              <div id="colchaoPendingSummary" class="colchao-queue-summary" aria-live="polite"></div>
+            </div>
+            <div id="colchaoPendenciasGrid" class="protocolo-list colchao-pending-list"></div>
+          </div>
+
+          <div id="colchaoCompleto" class="parecer-page hidden">
+            <select id="colchaoSheetSelect" class="hidden"></select>
+            <div class="colchao-sheet-commandbar">
+              <div class="colchao-sheet-filters">
+                <label class="colchao-sheet-search">
+                  <input id="colchaoFullSearch" type="search" placeholder="Buscar cliente, identificador ou operador" autocomplete="off" aria-label="Buscar na planilha" />
+                </label>
+                <select id="colchaoFilterStatus" aria-label="Filtrar por status">
+                  <option value="">Todos os status</option>
+                  <option value="PAGO">Pago</option>
+                  <option value="VENCIDO">Vencido</option>
+                  <option value="A VENCER">A vencer</option>
+                  <option value="QUEBRA">Quebra</option>
+                </select>
+                <select id="colchaoFilterOperador" aria-label="Filtrar por operador">
+                  <option value="">Todos os operadores</option>
+                </select>
+                <input id="colchaoFilterVencimento" type="date" aria-label="Filtrar por vencimento" />
+                <button id="colchaoClearQuickFiltersBtn" class="secondary-btn ds-button compact icon-only-btn hidden" type="button" title="Limpar filtros rápidos" aria-label="Limpar filtros rápidos">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16" /><path d="M7 12h10" /><path d="M10 17h4" /><path d="M18 4l2 2" /><path d="M20 4l-2 2" /></svg>
+                </button>
+              </div>
+              <div class="colchao-sheet-context" aria-live="polite">
+                <strong id="colchaoPageInfo">0 registros</strong>
+                <span id="colchaoSheetState">Sem alterações pendentes</span>
+              </div>
+              <div class="colchao-sheet-actions">
+                <button id="colchaoOpenSpreadsheetBtn" class="secondary-btn ds-button compact" type="button">Abrir no Excel</button>
+                <button id="colchaoReportBtn" class="secondary-btn ds-button compact" type="button">Relatório</button>
+                <button id="colchaoExpandSpreadsheetBtn" class="secondary-btn ds-button compact icon-text-btn" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5" /><path d="M16 3h5v5" /><path d="M8 21H3v-5" /><path d="M16 21h5v-5" /></svg>
+                  Modo foco
+                </button>
+                <button id="colchaoSaveChangesBtn" class="primary-btn ds-button ds-button--primary compact hidden" type="button" disabled>Salvar alterações</button>
+              </div>
+            </div>
+            <div id="colchaoCompletoGrid" class="grid parecer-grid operational-grid-host"></div>
+          </div>
+
+          <div id="colchaoCadastro" class="parecer-page hidden">
+            <form id="colchaoAgreementForm" class="colchao-agreement-form ds-card" novalidate>
+              <div id="colchaoDynamicAgreementFields" class="colchao-agreement-fields"></div>
+
+              <aside class="colchao-agreement-summary" aria-live="polite">
+                <header><span>Resumo do acordo</span><strong id="colchaoSummaryProfile">Alpha</strong></header>
+                <dl id="colchaoAgreementSummary"></dl>
+              </aside>
+
+              <footer class="colchao-agreement-footer">
+                <button class="secondary-btn ds-button compact" type="reset">Limpar</button>
+                <span id="colchaoAgreementProgress">0 de 8 campos obrigatórios preenchidos</span>
+                <span id="colchaoAgreementError" class="colchao-form-error hidden" role="alert"></span>
+                <button id="colchaoAgreementSubmitBtn" class="primary-btn ds-button ds-button--primary compact" type="submit" disabled>Cadastrar acordo</button>
+              </footer>
+            </form>
+          </div>
+
+          <div id="colchaoConfiguracoes" class="parecer-page hidden">
+            <section class="mini-panel ds-card">
+              <h2>Validação da planilha</h2>
+              <div id="colchaoValidation" class="metric-list"></div>
+            </section>
+            <form id="colchaoConfigForm" class="settings-form ds-card">
+              <label>Caminho da planilha<input name="excel_path" required placeholder="C:\caminho\COLCHAO.xlsx" /></label>
+              <label>Aba principal<input name="main_sheet" placeholder="Opcional: se vazio, usa a primeira aba" /></label>
+              <footer>
+                <button class="primary-btn ds-button ds-button--primary fit" type="submit">Salvar configurações</button>
+                <button id="colchaoReloadBtn" class="secondary-btn ds-button" type="button">Recarregar dados</button>
+              </footer>
+            </form>
+          </div>
+        </section>

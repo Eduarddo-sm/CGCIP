@@ -1,0 +1,1062 @@
+/* Executive shell based on the approved Backoffice prototype. */
+:root {
+  --proto-bg: #f4f6fa;
+  --proto-surface: #ffffff;
+  --proto-elevated: #f1f4f8;
+  --proto-border: #dce2eb;
+  --proto-border-soft: #e8edf3;
+  --proto-text: #182235;
+  --proto-secondary: #657086;
+  --proto-tertiary: #8c96a8;
+  --proto-accent: #4b7fe5;
+  --proto-accent-strong: #3568ce;
+  --proto-gold: #9c762f;
+  --proto-success: #249765;
+  --proto-danger: #d5524b;
+  --proto-radius: 9px;
+
+  --bg: var(--proto-bg);
+  --panel: var(--proto-surface);
+  --panel-solid: var(--proto-surface);
+  --panel-strong: var(--proto-elevated);
+  --line: var(--proto-border);
+  --muted: var(--proto-secondary);
+  --text: var(--proto-text);
+  --accent: var(--proto-accent);
+  --accent-2: var(--proto-accent-strong);
+  --executive-card: var(--proto-surface);
+  --executive-hover: var(--proto-elevated);
+  --executive-border: var(--proto-border);
+  --executive-border-soft: var(--proto-border-soft);
+  --surface-solid: var(--proto-surface);
+  --surface-soft: var(--proto-elevated);
+  --surface-line: var(--proto-border);
+  --surface-line-soft: var(--proto-border-soft);
+  --surface-line-strong: var(--proto-border);
+  --surface-strong-text: var(--proto-text);
+  --surface-muted-text: var(--proto-secondary);
+  --surface-icon: color-mix(in srgb, var(--proto-accent) 9%, var(--proto-surface));
+
+}
+
+html.dark {
+  --proto-bg: #0b0f14;
+  --proto-surface: #151b24;
+  --proto-elevated: #1b2430;
+  --proto-border: #2a3442;
+  --proto-border-soft: #202936;
+  --proto-text: #e7edf5;
+  --proto-secondary: #9aa7b8;
+  --proto-tertiary: #687588;
+  --proto-accent: #5b8ff0;
+  --proto-accent-strong: #3f73d5;
+  --proto-gold: #c9a15a;
+  --proto-success: #4fbe84;
+  --proto-danger: #e0645c;
+  color-scheme: dark;
+}
+
+/* Dark hierarchy: the application shell stays on the canvas; only elevated
+   components use the gray surface tokens. */
+html.dark body,
+html.dark .app-shell,
+html.dark .workspace,
+html.dark .sidebar,
+html.dark .topbar,
+html.dark .module-tabs-row,
+html.dark .module-tabs,
+html.dark .module-tabs .sidebar-nav,
+html.dark #emptyState,
+html.dark #mainHubContent,
+html.dark #content,
+html.dark #negociadoresContent,
+html.dark #carteirasContent,
+html.dark #monitorPlanilhaContent,
+html.dark #monitorFechamentoContent,
+html.dark #overviewContent,
+html.dark #parecerContent,
+html.dark #protocoloContent,
+html.dark #colchaoContent,
+html.dark #groupPlaceholderContent,
+html.dark #configContent,
+html.dark .main-hub-content,
+html.dark .overview-content,
+html.dark .parecer-content,
+html.dark .negociadores-content,
+html.dark .executive-dashboard,
+html.dark .dashboard-stat-grid,
+html.dark .dashboard-panel-grid,
+html.dark .overview-head,
+html.dark .panel-head,
+html.dark .config-panel-head,
+html.dark .negociador-group,
+html.dark .negociador-group > header {
+  background: var(--proto-bg);
+}
+
+html.dark .overview-head,
+html.dark .panel-head,
+html.dark .config-panel-head,
+html.dark .negociador-group > header {
+  background: transparent;
+  box-shadow: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: var(--proto-bg);
+  color: var(--proto-text);
+  font-family: "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  color: #ffffff;
+  background: var(--proto-accent-strong);
+}
+
+/* Structural utilities retained from the former design-system layer. */
+.ds-card {
+  border: 1px solid var(--proto-border-soft);
+  border-radius: var(--proto-radius);
+  background: var(--proto-surface);
+  color: var(--proto-text);
+}
+
+.ds-card {
+  padding: 14px;
+}
+
+.ds-card--compact {
+  padding: 10px 12px;
+}
+
+.ds-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.ds-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ds-row--between {
+  justify-content: space-between;
+}
+
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.ds-modal {
+  border: 1px solid var(--proto-border);
+  border-radius: 10px;
+  background: var(--proto-surface);
+  color: var(--proto-text);
+}
+
+dialog header > p {
+  display: none !important;
+}
+
+/* Shell */
+.app-shell,
+body.sidebar-collapsed .app-shell {
+  min-height: 100dvh;
+  padding-left: 212px;
+  background: var(--proto-bg);
+}
+
+.sidebar {
+  width: 212px;
+  padding: 12px 10px;
+  border-right: 1px solid var(--proto-border-soft);
+  background: var(--proto-surface);
+  box-shadow: none;
+}
+
+body.sidebar-collapsed .app-shell {
+  padding-left: 60px;
+}
+
+body.sidebar-collapsed .sidebar {
+  width: 60px;
+  padding-inline: 6px;
+}
+
+.tool-switcher {
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--proto-border-soft);
+  margin-bottom: 10px;
+}
+
+.brand {
+  width: 100%;
+  min-height: 38px;
+  gap: 8px;
+  border: 0;
+  padding: 4px 6px;
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+}
+
+.brand:hover {
+  background: var(--proto-elevated);
+}
+
+.brand-mark {
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--proto-accent), var(--proto-accent-strong));
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.brand strong {
+  color: var(--proto-text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brand span {
+  color: var(--proto-tertiary);
+  font-size: 10.5px;
+}
+
+.sidebar-toggle {
+  top: 3px;
+  right: -2px;
+  z-index: 4;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
+  border-color: var(--proto-border-soft);
+  border-radius: 7px;
+  background: var(--proto-surface);
+  box-shadow: none;
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+}
+
+.tool-dropdown.app-module-nav {
+  position: static;
+  display: grid;
+  width: 100%;
+  gap: 1px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.tool-dropdown.app-module-nav button {
+  position: relative;
+  min-height: 42px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px 8px;
+  color: var(--proto-secondary);
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+}
+
+.tool-dropdown.app-module-nav button:hover {
+  border-color: transparent;
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+  transform: none;
+}
+
+.tool-dropdown.app-module-nav button.active {
+  border-color: transparent;
+  background: transparent;
+  color: var(--proto-secondary);
+  box-shadow: none;
+}
+
+.tool-dropdown.app-module-nav button.active::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -11px;
+  width: 2px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--proto-accent);
+  transform: translateY(-50%);
+}
+
+body:not(.sidebar-collapsed) .tool-dropdown.app-module-nav button[data-tool="monitoramento"]::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-left: auto;
+  background: var(--proto-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--proto-success) 15%, transparent);
+}
+
+.tool-dropdown.app-module-nav .tool-icon {
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tool-dropdown.app-module-nav .tool-icon img {
+  width: 16px;
+  height: 16px;
+}
+
+.tool-dropdown.app-module-nav button strong {
+  color: currentColor;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tool-dropdown.app-module-nav button > span:last-child {
+  width: 100%;
+  overflow: hidden;
+  color: var(--proto-tertiary);
+  font-size: 10.5px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.group-dropdown,
+.tool-dropdown:not(.app-module-nav) {
+  border-color: var(--proto-border);
+  border-radius: 8px;
+  padding: 5px;
+  background: var(--proto-surface);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
+}
+
+.group-dropdown button,
+.tool-dropdown:not(.app-module-nav) button {
+  border-radius: 6px;
+  color: var(--proto-secondary);
+}
+
+.group-dropdown button:hover,
+.tool-dropdown:not(.app-module-nav) button:hover {
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+}
+
+body.sidebar-collapsed .brand {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button {
+  justify-content: center;
+  width: 46px;
+  min-height: 40px;
+  padding: 0;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav .tool-icon {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.sidebar-collapsed .tool-dropdown.app-module-nav button.active::before {
+  left: -7px;
+}
+
+html.dark .tool-dropdown.app-module-nav {
+  border-color: transparent;
+  background: transparent;
+}
+
+html.dark .tool-dropdown.app-module-nav button.active {
+  border-color: transparent;
+  background: transparent;
+  color: var(--proto-secondary);
+  box-shadow: none;
+}
+
+/* Topbar and module tabs */
+.workspace {
+  height: 100dvh;
+  overflow: auto;
+  padding: 0;
+  background: var(--proto-bg);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  display: block;
+  min-height: 66px;
+  margin: 0;
+  border-bottom: 1px solid var(--proto-border-soft);
+  background: color-mix(in srgb, var(--proto-bg) 96%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.topbar-main {
+  min-height: 66px;
+  padding: 0 28px;
+}
+
+.topbar-main h1,
+.workspace h1,
+#pageTitle {
+  color: var(--proto-text);
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.actions {
+  gap: 10px;
+}
+
+.top-icon-btn,
+.notification-btn {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 8px;
+  background: var(--proto-surface);
+  color: var(--proto-secondary);
+  box-shadow: none;
+}
+
+.top-icon-btn:hover,
+.notification-btn:hover {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+  transform: none;
+}
+
+.notification-badge {
+  top: -6px;
+  right: -6px;
+  min-width: 17px;
+  height: 17px;
+  border: 2px solid var(--proto-bg);
+  border-radius: 20px;
+  padding: 0 4px;
+  background: var(--proto-danger);
+  color: #ffffff;
+  font: 600 9px Consolas, monospace;
+}
+
+.profile-menu {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.profile-btn {
+  min-height: 38px;
+  gap: 8px;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 22px;
+  padding: 5px 13px 5px 6px;
+  background: var(--proto-surface);
+  color: var(--proto-secondary);
+  box-shadow: none;
+}
+
+.profile-btn:hover {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+}
+
+.profile-btn > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--proto-gold), #8a7038);
+  color: #1a1509;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.profile-btn strong {
+  color: currentColor;
+  font: 500 12px Consolas, "Courier New", monospace;
+}
+
+.profile-dropdown,
+.notification-dropdown {
+  border-color: var(--proto-border);
+  border-radius: 8px;
+  background: var(--proto-surface);
+  color: var(--proto-text);
+  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.28);
+}
+
+.module-tabs-row {
+  min-height: 39px;
+  gap: 8px;
+  border: 0;
+  border-top: 1px solid var(--proto-border-soft);
+  border-radius: 0;
+  margin: 0;
+  padding: 0 20px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.module-tabs {
+  align-self: stretch;
+  min-height: 38px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.module-tabs .sidebar-nav {
+  align-self: stretch;
+  gap: 1px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.module-tabs .overview-nav,
+.module-tabs .nav-action-btn {
+  position: relative;
+  min-height: 36px;
+  border: 0;
+  border-radius: 0;
+  padding: 0 10px;
+  background: transparent;
+  color: var(--proto-secondary);
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.module-tabs .overview-nav:hover,
+.module-tabs .nav-action-btn:hover {
+  background: transparent;
+  color: var(--proto-text);
+  transform: none;
+}
+
+.module-tabs .overview-nav.active,
+.module-tabs .nav-action-btn.active {
+  border: 0;
+  background: transparent;
+  color: var(--proto-accent);
+}
+
+.module-tabs .overview-nav.active::after,
+.module-tabs .nav-action-btn.active::after {
+  right: 7px;
+  bottom: 0;
+  left: 7px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--proto-accent);
+}
+
+.module-tabs .nav-icon {
+  width: 15px;
+  height: 15px;
+  border: 0;
+  background: transparent;
+}
+
+.module-tabs .overview-nav strong {
+  min-width: 18px;
+  height: 18px;
+  border: 0;
+  background: var(--proto-elevated);
+  color: var(--proto-secondary);
+  font: 600 10px Consolas, monospace;
+}
+
+.module-action-slot {
+  gap: 8px;
+  margin-left: auto;
+}
+
+html.dark .module-tabs .sidebar-nav,
+html.dark .module-tabs .overview-nav,
+html.dark .module-tabs .nav-action-btn,
+html.dark .module-tabs .overview-nav.active,
+html.dark .module-tabs .nav-action-btn.active {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+html.dark .module-tabs .overview-nav.active,
+html.dark .module-tabs .nav-action-btn.active {
+  color: var(--proto-accent);
+}
+
+/* Content rhythm */
+#emptyState,
+#mainHubContent,
+#content,
+#negociadoresContent,
+#carteirasContent,
+#monitorPlanilhaContent,
+#monitorFechamentoContent,
+#overviewContent,
+#parecerContent,
+#protocoloContent,
+#colchaoContent,
+#groupPlaceholderContent,
+#configContent {
+  width: auto;
+  margin: 20px 28px 36px;
+}
+
+#overviewContent,
+#negociadoresContent,
+#carteirasContent,
+#monitorPlanilhaContent,
+#monitorFechamentoContent,
+#parecerContent,
+#protocoloContent,
+#colchaoContent,
+#configContent {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ds-card,
+.overview-content,
+.parecer-content,
+.table-panel,
+.timeline-panel,
+.config-panel,
+.mini-panel,
+.stats-card,
+.stat-card,
+.negociador-card {
+  border-color: var(--proto-border-soft);
+  border-radius: var(--proto-radius);
+  background: var(--proto-surface);
+  color: var(--proto-text);
+  box-shadow: none;
+}
+
+.overview-head,
+.panel-head {
+  gap: 12px;
+}
+
+.overview-head h2,
+.panel-head h2,
+.mini-panel h2,
+.config-panel h2 {
+  color: var(--proto-text);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.overview-head p,
+.panel-head span,
+.muted {
+  color: var(--proto-secondary);
+  font-size: 12px;
+}
+
+/* Controls */
+.primary-btn,
+.secondary-btn,
+.danger-btn,
+.icon-btn,
+.text-btn,
+button[type="submit"] {
+  min-height: 34px;
+  border-radius: 7px;
+  padding-inline: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.secondary-btn,
+.icon-btn,
+.text-btn {
+  border-color: var(--proto-border);
+  background: var(--proto-surface);
+  color: var(--proto-secondary);
+}
+
+.secondary-btn:hover,
+.icon-btn:hover,
+.text-btn:hover {
+  border-color: var(--proto-accent-strong);
+  background: var(--proto-elevated);
+  color: var(--proto-text);
+  transform: none;
+}
+
+.primary-btn,
+.ds-button--primary {
+  border-color: var(--proto-accent);
+  background: var(--proto-accent);
+  color: #ffffff;
+}
+
+.primary-btn:hover,
+.ds-button--primary:hover {
+  border-color: var(--proto-accent-strong);
+  background: var(--proto-accent-strong);
+  color: #ffffff;
+  transform: none;
+}
+
+input,
+select,
+textarea {
+  min-height: 34px;
+  border-color: var(--proto-border);
+  border-radius: 7px;
+  background: var(--proto-surface);
+  color: var(--proto-text);
+  font-size: 12.5px;
+  box-shadow: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--proto-tertiary);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--proto-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--proto-accent) 14%, transparent);
+}
+
+/* Dense lists, metrics and tables outside the spreadsheet engine. */
+.overview-list,
+.negociadores-list,
+.pending-list,
+.protocolo-list {
+  gap: 8px;
+}
+
+.overview-item,
+.negociador-card,
+.notification-item {
+  border-color: var(--proto-border-soft);
+  border-radius: var(--proto-radius);
+  padding: 12px 14px;
+  background: var(--proto-surface);
+  box-shadow: none;
+}
+
+.overview-item:hover,
+.negociador-card:hover,
+.notification-item:hover {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+  transform: none;
+}
+
+.stats-grid {
+  gap: 10px;
+}
+
+.stats-card,
+.stat-card,
+.monitor-summary-card {
+  min-height: 78px;
+  border-color: var(--proto-border-soft);
+  border-radius: var(--proto-radius);
+  padding: 12px 14px;
+  background: var(--proto-surface);
+  box-shadow: none;
+}
+
+.stats-card strong,
+.stat-card strong,
+.monitor-summary-card strong {
+  color: var(--proto-text);
+  font: 600 21px Consolas, "Courier New", monospace;
+}
+
+.stats-card span,
+.stat-card span,
+.monitor-summary-card span {
+  color: var(--proto-tertiary);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge,
+.status-pill {
+  border-color: var(--proto-border);
+  background: var(--proto-elevated);
+  color: var(--proto-secondary);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+/* Dialogs */
+dialog:not(.focus-spreadsheet-dialog) {
+  border: 1px solid var(--proto-border);
+  border-radius: 10px;
+  background: var(--proto-surface);
+  color: var(--proto-text);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+
+dialog::backdrop,
+.drawer-backdrop {
+  background: rgba(5, 8, 13, 0.68);
+  backdrop-filter: blur(2px);
+}
+
+dialog header,
+dialog footer {
+  border-color: var(--proto-border-soft);
+  background: var(--proto-surface);
+}
+
+dialog h2,
+dialog h3 {
+  color: var(--proto-text);
+  font-weight: 650;
+}
+
+.main-hub-dialog {
+  border-color: var(--proto-border);
+  background: var(--proto-surface);
+  color: var(--proto-text);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+}
+
+.main-hub-dialog .hub-info-card,
+.main-hub-dialog .hub-diff-section,
+.main-hub-dialog .hub-text-section,
+.main-hub-dialog .notes-panel {
+  border-color: var(--proto-border-soft);
+  background: var(--proto-surface);
+}
+
+.main-hub-dialog .hub-info-icon,
+.main-hub-dialog-icon {
+  background: var(--proto-elevated);
+  color: var(--proto-accent);
+}
+
+.main-hub-dialog .before {
+  color: #ef9b9b;
+  background: color-mix(in srgb, var(--proto-danger) 14%, var(--proto-surface));
+}
+
+.main-hub-dialog .after {
+  color: #76d7a7;
+  background: color-mix(in srgb, var(--proto-success) 14%, var(--proto-surface));
+}
+
+/* Module-specific density normalization. */
+#parecerContent .stats-grid,
+#protocoloContent .stats-grid {
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+#parecerContent .parecer-stat-card {
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 13px;
+  min-height: 96px;
+  border-color: var(--proto-border);
+  border-radius: var(--proto-radius);
+  padding: 14px 16px 16px;
+  background: var(--proto-surface);
+}
+
+#parecerContent .parecer-stat-icon {
+  width: 42px;
+  height: 42px;
+}
+
+#parecerContent .parecer-stat-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+#parecerContent .parecer-stat-card span {
+  color: var(--proto-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#parecerContent .parecer-stat-card strong {
+  margin-top: 4px;
+  font: 600 25px Consolas, "Courier New", monospace;
+}
+
+#parecerContent .parecer-stat-card em {
+  margin: 5px 0 7px;
+  color: var(--proto-tertiary);
+  font-size: 10.5px;
+}
+
+#parecerContent .parecer-stat-card i {
+  right: 16px;
+  bottom: 10px;
+  left: 16px;
+  height: 3px;
+}
+
+#protocoloContent .protocolo-stat-card {
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 94px;
+  border-color: var(--proto-border);
+  border-radius: var(--proto-radius);
+  padding: 15px 18px;
+  background: var(--proto-surface);
+}
+
+#protocoloContent .protocolo-stat-icon {
+  width: 44px;
+  height: 44px;
+}
+
+#protocoloContent .protocolo-stat-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+#protocoloContent .protocolo-stat-card span {
+  color: var(--proto-secondary);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#protocoloContent .protocolo-stat-card strong {
+  margin-top: 4px;
+  font: 600 26px Consolas, "Courier New", monospace;
+}
+
+#protocoloContent .protocolo-stat-card em {
+  margin-top: 5px;
+  color: var(--proto-tertiary);
+  font-size: 11px;
+}
+
+html.dark #parecerContent .parecer-stat-card.blue .parecer-stat-icon,
+html.dark #protocoloContent .protocolo-stat-card .protocolo-stat-icon {
+  background: color-mix(in srgb, var(--proto-accent) 16%, var(--proto-elevated));
+  color: var(--proto-accent);
+}
+
+html.dark #parecerContent .parecer-stat-card.orange .parecer-stat-icon,
+html.dark #protocoloContent .protocolo-stat-card.orange .protocolo-stat-icon {
+  background: color-mix(in srgb, #f08a00 14%, var(--proto-elevated));
+  color: #f1a13c;
+}
+
+html.dark #parecerContent .parecer-stat-card.green .parecer-stat-icon,
+html.dark #protocoloContent .protocolo-stat-card.green .protocolo-stat-icon {
+  background: color-mix(in srgb, var(--proto-success) 14%, var(--proto-elevated));
+  color: var(--proto-success);
+}
+
+@media (max-width: 900px) {
+  .module-tabs-row {
+    align-items: flex-start;
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  body,
+  .workspace {
+    overflow: auto;
+  }
+
+  .app-shell,
+  body.sidebar-collapsed .app-shell {
+    padding-left: 0;
+  }
+
+  .sidebar,
+  body.sidebar-collapsed .sidebar {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .topbar-main {
+    padding-inline: 14px;
+  }
+
+  #emptyState,
+  #mainHubContent,
+  #content,
+  #negociadoresContent,
+  #carteirasContent,
+  #monitorPlanilhaContent,
+  #monitorFechamentoContent,
+  #overviewContent,
+  #parecerContent,
+  #protocoloContent,
+  #colchaoContent,
+  #groupPlaceholderContent,
+  #configContent {
+    margin: 14px;
+  }
+
+}

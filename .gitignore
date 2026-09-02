@@ -1,0 +1,91 @@
+# Segredos e configuracoes locais
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.key
+**/.spreadsheet_credential_key
+*.pem
+*.pfx
+*.p12
+*.crt
+**/.jwt_secret
+
+# Python
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node, Playwright e Tauri
+**/node_modules/
+**/test-results/
+**/playwright-report/
+**/.playwright/
+**/src-tauri/target/
+**/src-tauri/gen/
+**/backend_dist/
+**/build/
+*.spec
+
+# Bancos, backups e artefatos operacionais
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.dump
+*.backup
+*.bak
+*.pid
+*.log
+/backups/
+/data/
+/outputs/
+/tmp/
+/tmp_*.json
+/docs/dblogin.txt
+/aplicacao-negocial/database/teste.sql
+/aplicacao-gerencial/tests/fixtures/*.pdf
+/aplicacao-negocial/backups/
+/aplicacao-gerencial/backups/
+/aplicacao-gerencial/logs/
+/aplicacao-gerencial/tmp/
+/aplicacao-gerencial/data/*
+!/aplicacao-gerencial/data/.gitkeep
+
+# Arquivos de escritorio com dados importados ou gerados
+/aplicacao-negocial/database/*.xlsx
+/aplicacao-negocial/database/*.xls*
+/aplicacao-gerencial/data/**/*.xlsx
+/aplicacao-gerencial/data/**/*.xls*
+/aplicacao-gerencial/data/**/*.csv
+/aplicacao-gerencial/data/**/*.pdf
+
+# Capturas e artefatos de depuracao na raiz dos modulos
+/*.png
+/aplicacao-gerencial/*.png
+/aplicacao-negocial/*.png
+
+# Temporarios de editores e sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Arquivos locais de ferramentas
+.codex/
+.claude/

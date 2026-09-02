@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/assets/app-icon.png?v=1" />
+    <link rel="apple-touch-icon" href="/assets/app-icon.png?v=1" />
+    <title>Login &middot; CB</title>
+    <script>
+      (() => {
+        const theme = localStorage.theme || "dark";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme === "dark" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="/styles/foundation.css?v=20260715-executive-cleanup-1" />
+    <link rel="stylesheet" href="/styles/executive-prototype.css?v=20260715-compact-dark-1" />
+  </head>
+  <body class="login-body">
+    <main class="login-shell">
+      <section class="login-panel">
+        <div class="brand login-brand">
+          <div class="brand-mark">M</div>
+          <div>
+            <strong>Monitoramento PD</strong>
+            <span>Acesso restrito</span>
+          </div>
+        </div>
+        <form id="loginForm" class="login-form">
+          <label>Usu&aacute;rio<input name="username" autocomplete="username" required autofocus /></label>
+          <label>Senha<input name="password" type="password" autocomplete="current-password" required /></label>
+          <button class="primary-btn" type="submit">Entrar</button>
+          <p id="loginError" class="login-error"></p>
+        </form>
+      </section>
+    </main>
+    <script>
+      document.querySelector("#loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const error = document.querySelector("#loginError");
+        error.textContent = "";
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: form.username.value.trim(),
+            password: form.password.value,
+          }),
+        });
+        const payload = await response.json();
+        if (!response.ok) {
+          error.textContent = payload.error || "Nao foi possivel entrar";
+          return;
+        }
+        location.href = "/";
+      });
+    </script>
+  </body>
+</html>
+

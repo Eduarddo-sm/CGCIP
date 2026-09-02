@@ -1,0 +1,81 @@
+#protocoloContent .protocolo-sheet-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
+  height: calc(100dvh - 132px);
+  min-height: 520px;
+  overflow: hidden;
+}
+
+#protocoloContent .protocolo-sheet-page.hidden { display: none; }
+
+.protocolo-sheet-commandbar,
+.protocolo-sheet-meta,
+.protocolo-sheet-actions {
+  display: flex;
+  align-items: center;
+}
+
+.protocolo-sheet-commandbar {
+  justify-content: space-between;
+  min-height: 38px;
+  gap: 12px;
+}
+
+.protocolo-sheet-meta,
+.protocolo-sheet-actions { gap: 10px; }
+.protocolo-sheet-meta strong { color: var(--surface-text); font-size: 0.78rem; }
+.protocolo-sheet-meta span { color: color-mix(in srgb, var(--surface-text) 62%, transparent); font-size: 0.72rem; }
+.protocolo-sheet-actions .ds-button {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 32px;
+  padding-inline: 12px;
+}
+.protocolo-sheet-actions svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+#protocoloContent #protocoloClosedGrid.operational-native-excel,
+#protocoloContent #protocoloClosedGrid.operational-native-excel .excel-grid-shell {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+
+body.protocolo-sheet-focus-mode { overflow: hidden; }
+body.protocolo-sheet-focus-mode .sidebar,
+body.protocolo-sheet-focus-mode .topbar,
+body.protocolo-sheet-focus-mode #protocoloContent > :not(#protocoloConcluidos) { display: none !important; }
+
+body.protocolo-sheet-focus-mode .app-shell,
+body.protocolo-sheet-focus-mode .workspace,
+body.protocolo-sheet-focus-mode #protocoloContent {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+body.protocolo-sheet-focus-mode .app-shell { display: block; }
+body.protocolo-sheet-focus-mode #protocoloConcluidos {
+  height: 100dvh;
+  min-height: 0;
+  padding: 6px;
+  background: var(--surface-page);
+}
+body.protocolo-sheet-focus-mode .protocolo-sheet-commandbar { padding-inline: 4px; }
+
+@media (max-width: 720px) {
+  .protocolo-sheet-commandbar,
+  .protocolo-sheet-meta,
+  .protocolo-sheet-actions { flex-wrap: wrap; }
+  .protocolo-sheet-meta span { display: none; }
+  #protocoloContent .protocolo-sheet-page { height: auto; min-height: calc(100dvh - 120px); overflow: visible; }
+}

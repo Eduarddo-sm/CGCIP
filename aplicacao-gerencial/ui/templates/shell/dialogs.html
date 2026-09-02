@@ -1,0 +1,532 @@
+<dialog id="protocoloDialog" class="dialog ds-modal">
+  <form id="protocoloForm" method="dialog">
+    <header class="protocolo-dialog-head">
+      <span class="protocolo-dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3Z" /><path d="M14 3v5h5" /><path d="M12 12v6" /><path d="M9 15h6" /></svg>
+      </span>
+      <div>
+        <h2>Novo protocolo</h2>
+      </div>
+      <button type="button" class="icon-btn ds-button" data-close-protocolo>&times;</button>
+    </header>
+    <label>Carteira
+      <select name="carteira" required data-carteira-options data-placeholder="Selecione uma carteira"></select>
+    </label>
+    <label>Nome do cliente<input name="nome" required placeholder="Digite o nome do cliente" /></label>
+    <label>PJ<input name="pj" required placeholder="Digite o numero do PJ" /></label>
+    <label>Processo<input name="processo" required placeholder="Digite o numero do processo" /></label>
+    <label>Observacao<textarea name="observacao" rows="3" placeholder="Digite uma observacao (opcional)"></textarea></label>
+    <footer>
+      <button type="button" class="secondary-btn ds-button" data-close-protocolo>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+        Cancelar
+      </button>
+      <button class="primary-btn ds-button ds-button--primary fit" type="submit">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" /><path d="M17 21v-8H7v8" /><path d="M7 3v5h8" /></svg>
+        Cadastrar protocolo
+      </button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="negociadorDialog" class="dialog ds-modal">
+  <form id="negociadorForm" method="dialog">
+    <header>
+      <h2 id="dialogTitle">Adicionar negociador</h2>
+      <button type="button" class="icon-btn ds-button" data-close>&times;</button>
+    </header>
+    <div class="source-choice" role="radiogroup" aria-label="Tipo de cadastro">
+      <label>
+        <input type="radio" name="source_type" value="planilha" checked />
+        <span>Caminho de planilha</span>
+      </label>
+      <label>
+        <input type="radio" name="source_type" value="sistema" />
+        <span>Negociador via sistema</span>
+      </label>
+    </div>
+    <label id="negociadorNomeField">Nome do negociador<input name="nome" /></label>
+    <label id="carteiraInputField">Carteira referente
+      <select name="carteira" data-carteira-options data-placeholder="Selecione uma carteira"></select>
+    </label>
+    <label id="carteiraSelectField" class="hidden">Carteira referente
+      <select name="carteira_sistema" data-carteira-options data-placeholder="Selecione"></select>
+    </label>
+    <section id="planilhaFields" class="source-fields">
+      <label>Arquivo da planilha Excel<input name="arquivo_path" placeholder="C:\caminho\arquivo.xlsx" /></label>
+      <div class="row">
+        <label>Sheet da planilha<input name="sheet" /></label>
+        <button type="button" id="loadSheetsBtn" class="secondary-btn ds-button">Buscar sheets</button>
+      </div>
+      <div id="sheetChoices" class="sheet-choices"></div>
+      <label>Senha da planilha (opcional)<input name="senha" type="password" /></label>
+    </section>
+    <section id="sistemaFields" class="source-fields hidden">
+      <label>Usuario do sistema negocial<input name="negocial_username" autocomplete="username" placeholder="ex: usuario.demo" /></label>
+      <label>Senha do sistema negocial<input name="negocial_password" type="password" autocomplete="new-password" /></label>
+      <label>Meta do negociador<input name="meta_pagamento" inputmode="decimal" placeholder="70000,00" /></label>
+      <p class="dialog-hint">Este login sera criado/atualizado na aplicacao negocial e o monitoramento puxara a producao diaria desse usuario.</p>
+    </section>
+    <footer>
+      <button type="button" class="secondary-btn ds-button" data-close>Cancelar</button>
+      <button class="primary-btn ds-button ds-button--primary" type="submit">Salvar</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="eventDialog" class="dialog ds-modal wide">
+  <header>
+    <h2>Detalhes da alteracao</h2>
+    <button type="button" class="icon-btn ds-button" data-close-event>&times;</button>
+  </header>
+  <div id="eventDetails"></div>
+</dialog>
+
+<dialog id="mainHubDialog" class="dialog ds-modal wide main-hub-dialog">
+  <header class="main-hub-dialog-head">
+    <div class="main-hub-dialog-title">
+      <span id="mainHubDialogIcon" class="main-hub-dialog-icon" aria-hidden="true"></span>
+      <div class="main-hub-dialog-title-copy">
+        <span id="mainHubDialogBadge" class="main-hub-dialog-badge">Alteração</span>
+        <h2 id="mainHubDialogTitle">Detalhes</h2>
+        <p id="mainHubDialogSubtitle" class="main-hub-dialog-subtitle"></p>
+      </div>
+    </div>
+    <button type="button" class="icon-btn ds-button" data-close-hub aria-label="Fechar"></button>
+  </header>
+  <div id="mainHubDetails"></div>
+  <footer id="mainHubDialogFooter" class="hub-detail-actions"></footer>
+</dialog>
+
+<dialog id="notesDialog" class="dialog ds-modal">
+  <header>
+    <div>
+      <h2>Observações</h2>
+    </div>
+    <button type="button" class="icon-btn ds-button" data-close-notes>&times;</button>
+  </header>
+  <div id="notesDialogBody"></div>
+</dialog>
+
+<dialog id="carteiraDialog" class="dialog ds-modal wide carteira-dialog">
+  <form id="carteiraForm" method="dialog">
+    <header>
+      <div>
+        <h2>Carteira</h2>
+      </div>
+      <button type="button" class="icon-btn ds-button" data-close-carteira>&times;</button>
+    </header>
+    <section class="carteira-basics-panel">
+      <div class="panel-head compact">
+        <div>
+          <h3>Identificacao</h3>
+        </div>
+      </div>
+      <div class="row">
+        <label>Nome da carteira<input name="nome" required placeholder="Ex: BETA" /></label>
+        <label>Descricao<input name="descricao" placeholder="Opcional" /></label>
+      </div>
+      <label class="checkbox-label">
+        <input name="sync_negocial" type="checkbox" checked />
+        Criar/atualizar estrutura no sistema negocial
+      </label>
+    </section>
+    <section class="carteira-ho-panel">
+      <div class="panel-head compact">
+        <div>
+          <h3>Regra de H.O</h3>
+        </div>
+      </div>
+      <label class="checkbox-label">
+        <input name="usa_percentual_ho" type="checkbox" />
+        Usar percentual de H.O nesta carteira
+      </label>
+      <div class="carteira-ho-fields" data-ho-fields>
+        <label>Motor do cálculo
+          <select name="ho_motor_calculo">
+            <option value="PERCENTUAL_FIXO">Percentual fixo</option>
+            <option value="PERCENTUAL_CONDICIONAL">Condicional por tipo de acordo</option>
+            <option value="ALPHA_EXCEPCIONAL">Excepcional Alpha</option>
+          </select>
+        </label>
+        <label data-ho-percent>% Padrão<input name="percentual_ho_padrao" type="number" min="0" max="100" step="0.01" placeholder="10" /></label>
+        <label data-ho-percent>% Mínimo<input name="percentual_ho_minimo" type="number" min="0" max="100" step="0.01" placeholder="9" /></label>
+        <label data-ho-percent>% Máximo<input name="percentual_ho_maximo" type="number" min="0" max="100" step="0.01" placeholder="10" /></label>
+        <label class="ho-column-field" data-ho-fixed>Base do cálculo
+          <select name="ho_coluna_base"></select>
+        </label>
+        <label class="ho-column-field" data-ho-conditional>Base para À vista
+          <select name="ho_coluna_base_vista"></select>
+        </label>
+        <label class="ho-column-field" data-ho-conditional>Base para Parcelado
+          <select name="ho_coluna_base_parcelado"></select>
+        </label>
+        <label class="ho-column-field">Resultado em
+          <select name="ho_coluna_destino"></select>
+        </label>
+        <label class="ho-column-field" data-ho-percent>Valor recebido
+          <select name="ho_coluna_valor_recebido"></select>
+        </label>
+        <label class="ho-column-field" data-ho-percent>% efetivo
+          <select name="ho_coluna_percentual_efetivo"></select>
+        </label>
+        <label>Casas decimais
+          <input name="ho_casas_decimais" type="number" min="0" max="6" step="1" value="2" />
+        </label>
+        <label class="checkbox-label compact">
+          <input name="calculo_automatico_ho" type="checkbox" />
+          Calcular H.O automaticamente
+        </label>
+        <output class="carteira-ho-preview" data-ho-preview></output>
+      </div>
+    </section>
+    <section class="carteira-schema-panel">
+      <div class="panel-head compact">
+        <div>
+          <h3>Colunas da carteira</h3>
+        </div>
+        <button id="addCarteiraColumnBtn" class="secondary-btn ds-button compact" type="button">Adicionar coluna</button>
+      </div>
+      <div class="carteira-schema-scroll">
+        <div class="carteira-column-header">
+          <span>Ordem</span>
+          <span>Nome</span>
+          <span>Tipo</span>
+          <span>Obrig.</span>
+          <span>Chave</span>
+          <span>Auto</span>
+          <span>Auto valor</span>
+          <span>Cadastro</span>
+          <span>Negocial</span>
+          <span>Etapa</span>
+          <span>Max.</span>
+          <span>Opcoes</span>
+          <span></span>
+        </div>
+        <div id="carteiraColumns" class="carteira-columns"></div>
+      </div>
+    </section>
+    <footer>
+      <button type="button" class="secondary-btn ds-button" data-close-carteira>Cancelar</button>
+      <button class="primary-btn ds-button ds-button--primary fit" type="submit">Salvar carteira</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="monitorReportDialog" class="dialog ds-modal monitor-report-dialog">
+  <form id="monitorReportForm" method="dialog">
+    <header>
+      <div>
+        <h2>Gerar relatorio</h2>
+      </div>
+      <button type="button" class="icon-btn ds-button" data-close-monitor-report>&times;</button>
+    </header>
+    <label>Carteira
+      <select name="carteira" required data-carteira-options data-placeholder="Selecione"></select>
+    </label>
+    <label>Tipo de relatorio
+      <select name="escopo">
+        <option value="carteira">Toda a carteira</option>
+        <option value="negociador">Negociador</option>
+      </select>
+    </label>
+    <label id="monitorReportUsuarioField" class="hidden">Negociador
+      <select name="usuario"></select>
+    </label>
+    <div class="row monitor-report-period-row">
+      <fieldset class="monitor-report-period-field">
+        <legend>Meses</legend>
+        <input type="hidden" name="mes">
+        <details class="monitor-report-period-picker" data-report-month-picker>
+          <summary><span>Selecione os meses</span></summary>
+          <div class="monitor-report-period-menu" data-report-month-options></div>
+        </details>
+      </fieldset>
+      <fieldset class="monitor-report-period-field">
+        <legend>Anos</legend>
+        <input type="hidden" name="ano">
+        <details class="monitor-report-period-picker" data-report-year-picker>
+          <summary><span>Selecione os anos</span></summary>
+          <div class="monitor-report-period-menu monitor-report-year-options" data-report-year-options></div>
+        </details>
+      </fieldset>
+    </div>
+    <label>Dia
+      <select name="dia">
+        <option value="">Todos os dias</option>
+      </select>
+    </label>
+    <fieldset class="monitor-report-status-field">
+      <legend>Status</legend>
+      <div class="monitor-report-statuses">
+        <label><input type="checkbox" name="report_status" value="PROPOSTA"> Proposta</label>
+        <label><input type="checkbox" name="report_status" value="AGUARDANDO_PAGAMENTO"> Aguardando pagamento</label>
+        <label><input type="checkbox" name="report_status" value="PAGAMENTO_REALIZADO"> Pagamento realizado</label>
+        <label><input type="checkbox" name="report_status" value="PROPOSTA_NEGADA"> Proposta negada</label>
+        <label><input type="checkbox" name="report_status" value="QUEBRA"> Quebra</label>
+      </div>
+      <small>Marque uma ou mais opções. Sem seleção, o relatório inclui todos os status.</small>
+    </fieldset>
+    <label>Formato
+      <select name="formato">
+        <option value="xlsx">Excel (.xlsx)</option>
+        <option value="csv">CSV</option>
+        <option value="pdf">PDF de acompanhamento</option>
+      </select>
+    </label>
+    <section id="monitorReportPdfOptions" class="monitor-report-pdf-options hidden">
+      <header>
+        <div><span>Montagem do PDF</span><strong>Defina como o documento será apresentado</strong></div>
+      </header>
+      <label>Título do relatório
+        <input name="titulo" maxlength="120" value="Acompanhamento de casos da Produção Diária">
+      </label>
+      <label>Orientação para a reunião
+        <textarea name="observacoes" rows="3" maxlength="800" placeholder="Ex.: Revisar os casos sem retorno e definir a próxima ação com o negociador."></textarea>
+      </label>
+      <div class="row">
+        <label>Agrupar casos por
+          <select name="agrupar_por">
+            <option value="negociador">Negociador</option>
+            <option value="status">Status</option>
+            <option value="none">Sem agrupamento</option>
+          </select>
+        </label>
+        <label>Ordenar casos por
+          <select name="ordenacao">
+            <option value="valor_desc">Maior valor primeiro</option>
+            <option value="cliente">Cliente de A a Z</option>
+            <option value="data">Data mais próxima</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <label>Orientação da página
+          <select name="orientacao">
+            <option value="paisagem">Paisagem</option>
+            <option value="retrato">Retrato</option>
+          </select>
+        </label>
+        <label class="monitor-report-check"><input type="checkbox" name="quebrar_grupo"> <span>Iniciar cada grupo em nova página</span></label>
+      </div>
+      <fieldset>
+        <legend>Campos exibidos no documento</legend>
+        <div class="monitor-report-fields">
+          <label><input type="checkbox" name="campos" value="cliente" checked> Cliente</label>
+          <label><input type="checkbox" name="campos" value="identificador" checked> Identificador</label>
+          <label><input type="checkbox" name="campos" value="negociador" checked> Negociador</label>
+          <label><input type="checkbox" name="campos" value="status" checked> Status</label>
+          <label><input type="checkbox" name="campos" value="valor" checked> Valor do acordo</label>
+          <label><input type="checkbox" name="campos" value="entrada"> Entrada</label>
+          <label><input type="checkbox" name="campos" value="honorarios" checked> Honorários</label>
+          <label><input type="checkbox" name="campos" value="data"> Data do acordo</label>
+          <label><input type="checkbox" name="campos" value="vencimento" checked> Vencimento</label>
+          <label><input type="checkbox" name="campos" value="pagamento"> Pagamento</label>
+          <label><input type="checkbox" name="campos" value="justificativa" checked> Justificativa</label>
+        </div>
+      </fieldset>
+    </section>
+    <footer>
+      <button type="button" class="secondary-btn ds-button" data-close-monitor-report>Cancelar</button>
+      <button class="primary-btn ds-button ds-button--primary" type="submit">Gerar relatorio</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="monitorClientDialog" class="dialog ds-modal">
+  <form id="monitorClientForm" method="dialog">
+    <header>
+      <div>
+        <h2>Cadastrar cliente</h2>
+      </div>
+      <button type="button" class="icon-btn ds-button" data-close-monitor-client>&times;</button>
+    </header>
+    <nav class="monitor-client-stepper" aria-label="Etapas do cadastro">
+      <button class="active" type="button" data-monitor-client-step-target="1"><span>1</span><strong>Cliente</strong></button>
+      <i aria-hidden="true"></i>
+      <button type="button" data-monitor-client-step-target="2"><span>2</span><strong>Acordo</strong></button>
+    </nav>
+    <div class="row monitor-client-context">
+      <label>Carteira
+        <select name="carteira" required data-carteira-options data-placeholder="Selecione"></select>
+      </label>
+      <label>Negociador
+        <select name="negociador" required></select>
+      </label>
+    </div>
+
+    <section class="monitor-client-step" data-monitor-client-step="1">
+      <div class="row">
+        <label>Data do acordo<input name="data_acordo" type="date" required /></label>
+        <label id="monitorClientIdentifierLabel">Identificador<input name="npj" required placeholder="Identificador" /></label>
+      </div>
+      <label>Cliente<input name="cliente" required maxlength="180" placeholder="Nome do cliente" /></label>
+      <section id="monitorClientGammaIdentityFields" class="source-fields">
+        <label>GECOR<input name="gecor" maxlength="4" inputmode="numeric" placeholder="4 digitos" /></label>
+        <details class="monitor-client-advanced">
+          <summary>Informa&ccedil;&otilde;es gerenciais</summary>
+          <div class="row">
+            <label>UF<input name="uf" maxlength="2" placeholder="SP" /></label>
+            <label>DT ajuizamento<input name="data_ajuizamento" type="date" /></label>
+          </div>
+        </details>
+      </section>
+      <section id="monitorClientAlphaIdentityFields" class="source-fields hidden">
+        <div class="row">
+          <label>CPF/CNPJ<input name="cpf" inputmode="numeric" placeholder="CPF ou CNPJ" /></label>
+          <label>Data do 1&ordm; atraso<input name="data_primeiro_atraso" type="date" /></label>
+        </div>
+        <div class="row">
+          <label>Portfolio<input name="portfolio" placeholder="Portfolio" /></label>
+          <label>Carteira
+            <select name="carteira_alpha">
+              <option value="AUTOS">AUTOS</option>
+              <option value="SME">SME</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <div id="monitorClientDynamicStepOneFields" class="source-fields hidden"></div>
+    </section>
+
+    <section class="monitor-client-step hidden" data-monitor-client-step="2">
+      <div class="row">
+        <label>Valor do acordo<input name="valor_total_acordo" required inputmode="decimal" placeholder="0,00" /></label>
+        <label id="monitorClientEntryLabel">Valor da entrada<input name="valor_entrada" inputmode="decimal" placeholder="0,00" /></label>
+      </div>
+      <div class="row">
+        <label>Tipo
+          <select name="tipo_acordo" required>
+            <option value="A_VISTA">A vista</option>
+            <option value="PARCELADO">Parcelado</option>
+          </select>
+        </label>
+        <label>Status
+          <select name="status" required>
+            <option value="PROPOSTA">Proposta</option>
+            <option value="AGUARDANDO_PAGAMENTO">Aguardando pagamento</option>
+            <option value="PAGAMENTO_REALIZADO">Pagamento realizado</option>
+            <option value="PROPOSTA_NEGADA">Proposta negada</option>
+            <option value="QUEBRA">Quebra</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <label>Data de vencimento<input name="data_vencimento" type="date" required /></label>
+        <label id="monitorClientPaymentDateLabel" class="hidden">Data do pagamento<input name="data_pagamento" type="date" /></label>
+      </div>
+      <section id="monitorClientGammaAgreementFields" class="source-fields">
+        <div class="row">
+          <label>Honor&aacute;rios recebidos<input name="valor_ho" inputmode="decimal" placeholder="0,00" /></label>
+          <label>Autorizado?
+            <select name="autorizacao_flexibilizacao">
+              <option value="NAO">NAO</option>
+              <option value="SIM">SIM</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section id="monitorClientDynamicFields" class="source-fields hidden">
+        <div id="monitorClientDynamicStepTwoFields" class="source-fields"></div>
+      </section>
+    </section>
+
+    <footer>
+      <button type="button" class="secondary-btn ds-button" data-close-monitor-client>Cancelar</button>
+      <span class="monitor-client-footer-spacer"></span>
+      <button id="monitorClientBackBtn" type="button" class="secondary-btn ds-button hidden">Voltar</button>
+      <button id="monitorClientNextBtn" type="button" class="primary-btn ds-button ds-button--primary">Avan&ccedil;ar</button>
+      <button id="monitorClientSubmitBtn" class="primary-btn ds-button ds-button--primary hidden" type="submit">Cadastrar cliente</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="monitorPlanilhaExpandedDialog" class="dialog monitor-planilha-expanded-dialog focus-spreadsheet-dialog">
+  <button
+    class="icon-btn ds-button focus-spreadsheet-close"
+    type="button"
+    data-close-monitor-planilha-expanded
+    aria-label="Sair do modo foco"
+    title="Sair do modo foco"
+  >&times;</button>
+  <section id="monitorPlanilhaExpandedTable" class="monitor-planilha-table monitor-planilha-expanded-table expanded-excel-grid"></section>
+</dialog>
+
+<dialog id="colchaoExpandedDialog" class="dialog monitor-planilha-expanded-dialog focus-spreadsheet-dialog">
+  <button
+    class="icon-btn ds-button focus-spreadsheet-close"
+    type="button"
+    data-close-colchao-expanded
+    aria-label="Sair do modo foco"
+    title="Sair do modo foco"
+  >&times;</button>
+  <section id="colchaoExpandedTable" class="monitor-native-excel operational-native-excel operational-grid-host monitor-planilha-expanded-table"></section>
+</dialog>
+
+<dialog id="configUserDialog" class="dialog ds-modal">
+  <form id="configUserForm" method="dialog">
+    <header>
+      <div>
+        <h2 id="configUserDialogTitle">Cadastrar usu&aacute;rio</h2>
+      </div>
+      <button type="button" class="icon-btn ds-button" data-close-config-user>&times;</button>
+    </header>
+    <label>Tipo de usu&aacute;rio
+      <select name="type">
+        <option value="gerencial">Gerencial</option>
+        <option value="negociador">Negociador</option>
+      </select>
+    </label>
+    <label>Usu&aacute;rio<input name="username" autocomplete="username" required placeholder="ex: nome.sobrenome" /></label>
+    <label>Senha<input name="password" type="password" autocomplete="new-password" required /></label>
+    <label id="configRoleField">Perfil
+      <select name="role">
+        <option value="gerencial">Gerencial</option>
+        <option value="supervisor">Supervisor</option>
+        <option value="user">Usu&aacute;rio</option>
+        <option value="admin">Administrador</option>
+        <option value="superadmin" data-superadmin-role>Superadministrador</option>
+      </select>
+    </label>
+    <section id="configNegotiatorFields" class="source-fields hidden">
+      <label>Carteira
+        <select name="carteira" data-carteira-options data-placeholder="Selecione"></select>
+      </label>
+      <div class="row config-goal-fields">
+        <label>Compet&ecirc;ncia da meta<input name="meta_competencia" type="month" /></label>
+        <label>Meta de honor&aacute;rios<input name="meta_pagamento" inputmode="decimal" placeholder="70000,00" /></label>
+      </div>
+      <p id="configGoalHint" class="dialog-hint">A meta fica vinculada ao m&ecirc;s selecionado e n&atilde;o altera compet&ecirc;ncias anteriores.</p>
+      <fieldset class="tool-permission-field">
+        <legend>Ferramentas no sistema negocial</legend>
+        <label class="checkbox-row">
+          <input type="checkbox" name="enabled_tools" value="producao" checked />
+          <span>Produ&ccedil;&atilde;o Di&aacute;ria</span>
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="enabled_tools" value="pareceres" checked />
+          <span>Parecer</span>
+        </label>
+      </fieldset>
+    </section>
+    <footer>
+      <button type="button" class="secondary-btn ds-button" data-close-config-user>Cancelar</button>
+      <button class="primary-btn ds-button ds-button--primary" type="submit" id="configUserSubmitBtn">Cadastrar</button>
+    </footer>
+  </form>
+</dialog>
+
+<aside id="overviewDrawer" class="drawer overview-audit-drawer" aria-hidden="true">
+  <header>
+    <div class="overview-drawer-heading">
+      <span id="overviewDrawerEyebrow">Alteracao</span>
+      <h2 id="overviewDrawerTitle">Resumo da alteracao</h2>
+      <p id="overviewDrawerSubtitle"></p>
+    </div>
+    <button type="button" class="icon-btn ds-button" data-close-overview>&times;</button>
+  </header>
+  <div id="overviewDetails"></div>
+  <footer id="overviewDrawerFooter"></footer>
+</aside>
+<div id="drawerBackdrop" class="drawer-backdrop" data-close-overview></div>
+

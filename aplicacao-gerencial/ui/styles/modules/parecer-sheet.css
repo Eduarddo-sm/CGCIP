@@ -1,0 +1,73 @@
+#parecerContent .parecer-sheet-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
+  height: calc(100dvh - 132px);
+  min-height: 520px;
+  overflow: hidden;
+}
+
+#parecerContent .parecer-sheet-page.hidden { display: none; }
+
+.parecer-sheet-commandbar,
+.parecer-sheet-meta,
+.parecer-sheet-actions {
+  display: flex;
+  align-items: center;
+}
+
+.parecer-sheet-commandbar {
+  justify-content: space-between;
+  min-height: 38px;
+  gap: 12px;
+}
+
+.parecer-sheet-meta,
+.parecer-sheet-actions { gap: 10px; }
+
+.parecer-sheet-meta strong { color: var(--surface-text); font-size: 0.78rem; }
+.parecer-sheet-meta span {
+  color: color-mix(in srgb, var(--surface-text) 62%, transparent);
+  font-size: 0.72rem;
+}
+.parecer-sheet-actions .ds-button { min-height: 32px; padding-inline: 12px; }
+.parecer-sheet-actions svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+
+#parecerContent #parecerCompletaGrid.operational-native-excel,
+#parecerContent #parecerCompletaGrid.operational-native-excel .excel-grid-shell {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+
+body.parecer-sheet-focus-mode { overflow: hidden; }
+body.parecer-sheet-focus-mode .sidebar,
+body.parecer-sheet-focus-mode .topbar,
+body.parecer-sheet-focus-mode #parecerContent > :not(#parecerCompleta) { display: none !important; }
+
+body.parecer-sheet-focus-mode .app-shell,
+body.parecer-sheet-focus-mode .workspace,
+body.parecer-sheet-focus-mode #parecerContent {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+body.parecer-sheet-focus-mode .app-shell { display: block; }
+body.parecer-sheet-focus-mode #parecerCompleta {
+  height: 100dvh;
+  min-height: 0;
+  padding: 6px;
+  background: var(--surface-page);
+}
+body.parecer-sheet-focus-mode .parecer-sheet-commandbar { padding-inline: 4px; }
+
+@media (max-width: 720px) {
+  .parecer-sheet-commandbar,
+  .parecer-sheet-meta,
+  .parecer-sheet-actions { flex-wrap: wrap; }
+  .parecer-sheet-meta span { display: none; }
+}

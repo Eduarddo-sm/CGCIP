@@ -1,0 +1,16 @@
+{
+  "name": "monitoramento-pd-tauri",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "backend:build": "powershell -ExecutionPolicy Bypass -File scripts/build_backend_sidecar.ps1",
+    "test:e2e": "playwright test",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "npm run backend:build && tauri build"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}

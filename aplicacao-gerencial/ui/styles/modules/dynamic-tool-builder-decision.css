@@ -1,0 +1,138 @@
+/* Record decision panel */
+.dynamic-tool-record-direct-dialog {
+  width: min(900px, calc(100vw - 28px));
+  max-width: 900px;
+}
+
+.dynamic-tool-record-direct-dialog > .modal-card {
+  height: min(800px, calc(100dvh - 28px));
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-details-head {
+  min-height: 78px;
+  padding: 13px 18px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-details-head > div {
+  min-width: 0;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-details-head h3 {
+  max-width: 760px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-body {
+  padding: 12px 18px 16px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-meta {
+  overflow: hidden;
+  margin-bottom: 0;
+  border-radius: 7px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-meta dt,
+.dynamic-tool-record-direct-dialog .dynamic-record-fields span {
+  letter-spacing: 0;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-meta dd {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-section {
+  gap: 9px;
+  padding: 14px 0 4px;
+  border-top: 0;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-section h4 {
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-fields > div {
+  min-height: 58px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  background: var(--surface-muted);
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-fields > div.is-wide {
+  grid-column: 1 / -1;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-fields > div.is-empty {
+  min-height: 50px;
+  opacity: .78;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-values-section .dynamic-record-fields > div {
+  border-left: 3px solid color-mix(in srgb, var(--primary) 72%, transparent);
+}
+
+.dynamic-record-empty-fields {
+  margin-top: 11px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-muted);
+}
+
+.dynamic-record-empty-fields > summary {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.dynamic-record-empty-fields > summary span {
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.dynamic-record-empty-fields > .dynamic-record-fields {
+  padding: 0 8px 8px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-activity {
+  margin-top: 10px;
+}
+
+.dynamic-tool-record-direct-dialog .dynamic-record-footer {
+  min-height: 60px;
+  padding: 9px 18px;
+}
+
+@media (max-width: 760px) {
+  .dynamic-tool-page .carteira-dynamic-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .dynamic-tool-record-direct-dialog .dynamic-record-details-head h3 {
+    max-width: calc(100vw - 110px);
+  }
+
+  .dynamic-tool-record-direct-dialog .dynamic-record-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .dynamic-tool-record-direct-dialog .dynamic-record-fields > div.is-wide {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,249 @@
+/* Colchao spreadsheet workspace: compact controls, maximum sheet area. */
+#colchaoContent:not(.hidden) #colchaoCompleto:not(.hidden) {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
+  width: 100%;
+  height: calc(100dvh - 124px);
+  min-height: 520px;
+  overflow: hidden;
+}
+
+#colchaoContent .colchao-sheet-commandbar {
+  display: grid;
+  grid-template-columns: minmax(460px, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 42px;
+  padding: 5px 7px;
+  border: 1px solid var(--proto-border-soft);
+  border-radius: 7px;
+  background: var(--proto-surface);
+}
+
+#colchaoContent .colchao-sheet-filters {
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) 124px 150px 142px 30px;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+#colchaoContent .colchao-sheet-filters input,
+#colchaoContent .colchao-sheet-filters select {
+  width: 100%;
+  height: 30px;
+  min-height: 30px;
+  border: 1px solid var(--proto-border);
+  border-radius: 5px;
+  padding: 0 9px;
+  color: var(--proto-text);
+  background: var(--proto-elevated);
+  box-shadow: none;
+  font-size: 10px;
+}
+
+#colchaoContent .colchao-sheet-search {
+  position: relative;
+  min-width: 0;
+}
+
+#colchaoContent .colchao-sheet-search::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--proto-tertiary);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#colchaoContent .colchao-sheet-search::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  left: 20px;
+  width: 5px;
+  border-top: 1.5px solid var(--proto-tertiary);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+#colchaoContent .colchao-sheet-search input { padding-left: 29px; }
+
+#colchaoContent #colchaoClearQuickFiltersBtn {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  padding: 6px;
+}
+
+#colchaoContent #colchaoClearQuickFiltersBtn svg,
+#colchaoContent .colchao-sheet-actions svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+#colchaoContent .colchao-sheet-context {
+  display: grid;
+  gap: 1px;
+  min-width: max-content;
+  padding-inline: 4px;
+  white-space: nowrap;
+}
+
+#colchaoContent .colchao-sheet-context strong {
+  color: var(--proto-text);
+  font-size: 10px;
+}
+
+#colchaoContent .colchao-sheet-context span {
+  color: var(--proto-tertiary);
+  font-size: 9px;
+}
+
+#colchaoContent .colchao-sheet-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  min-width: 0;
+}
+
+#colchaoContent .colchao-sheet-actions .ds-button {
+  width: auto;
+  min-width: 0;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+#colchaoContent .colchao-sheet-actions .icon-text-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#colchaoContent:not(.hidden) #colchaoCompletoGrid.grid.operational-native-excel {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+}
+
+#colchaoContent:not(.hidden) #colchaoCompletoGrid.operational-native-excel .excel-grid-shell {
+  height: 100%;
+  min-height: 0;
+}
+
+#colchaoContent .colchao-observation-action {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+  padding: 0 4px 0 8px;
+}
+
+#colchaoContent .colchao-observation-action > span {
+  overflow: hidden;
+  color: var(--proto-secondary);
+  font-size: 9.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#colchaoContent .colchao-observation-action .note-btn {
+  min-width: 46px;
+  height: 24px;
+  min-height: 24px;
+  padding-inline: 7px;
+}
+
+#colchaoContent .colchao-due-date-input,
+#colchaoExpandedDialog .colchao-due-date-input {
+  width: 100%;
+  min-width: 124px;
+  height: 28px;
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+}
+
+#colchaoContent .colchao-due-date-input:hover,
+#colchaoExpandedDialog .colchao-due-date-input:hover {
+  border-color: var(--border-strong, #94a3b8);
+  background: var(--surface, #fff);
+}
+
+#colchaoContent .colchao-due-date-input:focus,
+#colchaoExpandedDialog .colchao-due-date-input:focus {
+  outline: 2px solid var(--primary, #2563eb);
+  outline-offset: -1px;
+  background: var(--surface, #fff);
+}
+
+#colchaoContent .colchao-due-date-input.pending-change,
+#colchaoExpandedDialog .colchao-due-date-input.pending-change {
+  border-color: #d97706;
+  background: #fff7ed;
+}
+
+html.dark #colchaoContent .colchao-due-date-input,
+html.dark #colchaoExpandedDialog .colchao-due-date-input {
+  color-scheme: dark;
+}
+
+html.dark #colchaoContent .colchao-due-date-input.pending-change,
+html.dark #colchaoExpandedDialog .colchao-due-date-input.pending-change {
+  color: #fde68a;
+  background: #3b2b12;
+}
+
+#colchaoContent #colchaoSaveChangesBtn:not(.hidden) {
+  animation: colchao-save-enter 150ms ease-out both;
+}
+
+@keyframes colchao-save-enter {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+html.dark #colchaoContent .colchao-sheet-filters input[type="date"] { color-scheme: dark; }
+
+@media (max-width: 1500px) {
+  #colchaoContent .colchao-sheet-commandbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  #colchaoContent .colchao-sheet-filters { grid-column: 1 / -1; }
+  #colchaoContent .colchao-sheet-context { justify-self: start; }
+}
+
+@media (max-width: 860px) {
+  #colchaoContent:not(.hidden) #colchaoCompleto:not(.hidden) {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  #colchaoContent .colchao-sheet-commandbar { grid-template-columns: 1fr; }
+  #colchaoContent .colchao-sheet-filters { grid-template-columns: 1fr 1fr; }
+  #colchaoContent .colchao-sheet-search { grid-column: 1 / -1; }
+  #colchaoContent .colchao-sheet-actions { justify-content: flex-start; overflow-x: auto; }
+  #colchaoContent:not(.hidden) #colchaoCompletoGrid.grid.operational-native-excel { height: 65dvh; min-height: 430px; }
+}

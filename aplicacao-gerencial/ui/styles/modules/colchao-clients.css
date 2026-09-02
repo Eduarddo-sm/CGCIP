@@ -1,0 +1,458 @@
+#colchaoClientes {
+  min-height: calc(100vh - 154px);
+}
+
+.colchao-clients-toolbar {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) 220px 210px auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.colchao-clients-search input,
+.colchao-clients-toolbar select {
+  width: 100%;
+  height: 38px;
+}
+
+.colchao-clients-summary {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-top: 9px;
+  border-top: 1px solid var(--border);
+}
+
+.colchao-clients-summary > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 0 12px;
+  border-right: 1px solid var(--border);
+}
+.colchao-clients-summary > span:first-child { padding-left: 2px; }
+.colchao-clients-summary > span:last-child { border-right: 0; }
+.colchao-clients-summary small { color: var(--muted); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.colchao-clients-summary strong { overflow: hidden; color: var(--text); font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.colchao-clients-summary .danger strong { color: #c83b3b; }
+
+.colchao-clients-grid {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.colchao-clients-list-head,
+.colchao-client-card {
+  grid-template-columns: minmax(280px, 1.55fr) 104px 90px 82px 132px 142px 28px;
+}
+
+.colchao-clients-list-head {
+  display: grid;
+  gap: 12px;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px 0 15px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.colchao-client-card {
+  display: grid;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-left: 3px solid #4d7fea;
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  transition: border-color .16s ease, background .16s ease;
+}
+
+.colchao-client-card:last-child { border-bottom: 0; }
+.colchao-client-card:hover { background: var(--surface-subtle); }
+.colchao-client-card:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--primary); outline-offset: -2px; }
+.colchao-client-card.is-overdue { border-left-color: #e25151; }
+.colchao-client-card.is-paid { border-left-color: #25a56a; }
+.colchao-client-card.is-closed { border-left-color: #8b96a9; }
+
+.colchao-client-identity { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.colchao-client-identity > span:last-child { min-width: 0; }
+.colchao-client-identity strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+.colchao-client-identity small { display: block; overflow: hidden; margin-top: 3px; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+
+.colchao-client-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: #e8f0ff;
+  color: #2e67d6;
+  font-weight: 800;
+}
+
+.colchao-client-situation {
+  justify-self: start;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: #667085;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.colchao-client-situation.is-overdue { background: #feecec; color: #c83b3b; }
+.colchao-client-situation.is-current { background: #e8f7ef; color: #168457; }
+.colchao-client-situation.is-paid { background: #e7f6f0; color: #168457; }
+.colchao-client-metric strong,
+.colchao-client-due strong { display: block; font-size: 12px; }
+.colchao-client-metric small { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; }
+.colchao-client-metric.danger strong { color: #c83b3b; }
+.colchao-client-open { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 5px; color: var(--primary); font-size: 18px; font-weight: 700; }
+.colchao-client-card:hover .colchao-client-open { background: var(--primary-soft); }
+
+.colchao-client-dialog,
+.colchao-reschedule-dialog {
+  width: min(980px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100vh - 28px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 70px rgb(15 29 52 / 25%);
+}
+
+.colchao-client-dialog {
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.colchao-client-dialog::backdrop,
+.colchao-reschedule-dialog::backdrop { background: rgb(8 15 28 / 55%); backdrop-filter: blur(2px); }
+
+.colchao-client-dialog-shell > header,
+.colchao-reschedule-shell > header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.colchao-client-dialog-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.colchao-client-dialog-header {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  min-height: 72px;
+  background: var(--surface);
+}
+
+.colchao-client-dialog-title { min-width: 0; }
+.colchao-client-dialog-title h2 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.colchao-client-health {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-subtle);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.colchao-client-health.is-current { border-color: #9fd8bb; background: #e7f7ef; color: #13734a; }
+.colchao-client-health.is-overdue { border-color: #efb0b0; background: #fdecec; color: #b93232; }
+
+.colchao-client-dialog-shell > header > div,
+.colchao-reschedule-shell > header > div { flex: 1; min-width: 0; }
+.colchao-client-dialog h2,
+.colchao-reschedule-dialog h2 { margin: 1px 0 0; font-size: 19px; }
+.colchao-client-dialog header p,
+.colchao-reschedule-dialog header p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+
+.colchao-client-dialog-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  flex: 0 0 auto;
+  margin: 12px 18px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-subtle);
+}
+
+.colchao-client-dialog-summary span { padding: 10px 12px; border-right: 1px solid var(--border); }
+.colchao-client-dialog-summary span:last-child { border-right: 0; }
+.colchao-client-dialog-summary small { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; }
+.colchao-client-dialog-summary strong { display: block; margin-top: 3px; }
+
+.colchao-client-workspace {
+  display: grid;
+  grid-template-columns: 286px minmax(0, 1fr);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.colchao-client-sidebar {
+  min-height: 0;
+  overflow: auto;
+  border-right: 1px solid var(--border);
+  background: linear-gradient(180deg, #f5f8ff 0, #f8faff 230px, var(--surface-subtle) 100%);
+}
+
+.colchao-client-sidebar .colchao-client-dialog-summary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 10px;
+  border: 1px solid #cbdaf6;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgb(48 94 173 / 7%);
+}
+
+.colchao-client-sidebar .colchao-client-dialog-summary .colchao-sidebar-heading,
+.colchao-client-sidebar .colchao-client-dialog-summary .wide { grid-column: 1 / -1; }
+.colchao-client-sidebar .colchao-client-dialog-summary span { min-width: 0; border-right: 0; border-top: 1px solid #e1e8f5; }
+.colchao-client-sidebar .colchao-client-dialog-summary span:nth-of-type(odd):not(.wide) { border-right: 1px solid #e1e8f5; }
+.colchao-client-sidebar .colchao-client-dialog-summary strong { overflow: hidden; color: #163f7a; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.colchao-client-sidebar .colchao-client-dialog-summary .wide strong { font-size: 15px; }
+.colchao-client-sidebar .colchao-client-dialog-summary .wide:nth-last-child(2) strong { color: #168153; }
+
+.colchao-sidebar-heading { position: relative; padding: 14px 13px 10px; }
+.colchao-sidebar-heading small { display: block; color: var(--muted); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.colchao-sidebar-heading h3 { margin: 2px 0 0; font-size: 13px; }
+.colchao-sidebar-heading em { position: absolute; top: 17px; right: 13px; color: var(--muted); font-size: 10px; font-style: normal; }
+.colchao-client-dialog-summary .colchao-sidebar-heading { padding-bottom: 12px; background: linear-gradient(135deg, #eaf2ff, #f7faff); }
+.colchao-client-dialog-summary .colchao-sidebar-heading small { color: #3769b7; }
+
+.colchao-agreement-selector { padding-bottom: 12px; }
+.colchao-agreement-selector-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: center;
+  width: calc(100% - 18px);
+  margin: 0 9px 7px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+.colchao-agreement-selector-item:hover { background: var(--surface); }
+.colchao-agreement-selector-item.is-selected { border-color: #9ab8f5; background: var(--surface); box-shadow: inset 3px 0 var(--primary); }
+.colchao-agreement-selector-item > span:first-child { min-width: 0; }
+.colchao-agreement-selector-item > span:first-child strong,
+.colchao-agreement-selector-item > span:first-child small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.colchao-agreement-selector-item > span:first-child strong { font-size: 11px; }
+.colchao-agreement-selector-item > span:first-child small { margin-top: 3px; color: var(--muted); font-size: 9px; }
+.colchao-agreement-selector-meta { display: flex; grid-column: 1 / -1; align-items: center; justify-content: space-between; padding-top: 7px; border-top: 1px solid var(--border); }
+.colchao-agreement-selector-meta small { color: var(--muted); font-size: 9px; }
+.colchao-agreement-selector-meta strong { font-size: 10px; }
+
+.colchao-client-dialog-content { min-width: 0; min-height: 0; padding: 16px 18px 18px; overflow: hidden; }
+.colchao-agreements-heading { display: flex; flex: 0 0 auto; align-items: flex-end; justify-content: space-between; padding: 7px 1px 9px; }
+.colchao-agreements-heading small { color: var(--muted); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.colchao-agreements-heading h3 { margin: 2px 0 0; font-size: 14px; }
+.colchao-agreements-heading > span { color: var(--muted); font-size: 11px; }
+.colchao-agreements-list { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 0 4px 10px 0; }
+.colchao-agreement-card { margin-bottom: 8px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.colchao-agreement-head { display: grid; grid-template-columns: 1.1fr .75fr .8fr .8fr 1fr 20px; gap: 12px; align-items: center; width: 100%; padding: 11px 13px; border: 0; background: var(--surface-subtle); color: var(--text); text-align: left; }
+.colchao-agreement-head small { display: block; color: var(--muted); font-size: 9px; text-transform: uppercase; }
+.colchao-agreement-head strong { font-size: 12px; }
+.colchao-agreement-head strong.danger { color: #bd3434; }
+.colchao-agreement-head em { margin-left: 8px; color: var(--muted); font-size: 10px; font-style: normal; }
+.colchao-agreement-chevron { font-size: 18px; transition: transform .16s ease; }
+.colchao-agreement-head[aria-expanded="true"] .colchao-agreement-chevron { transform: rotate(180deg); }
+.colchao-status-badge,
+.colchao-installment-status { display: inline-flex; width: fit-content; padding: 3px 7px; border-radius: 999px; background: #e8eef9; color: #536177; font-size: 9px; font-style: normal; font-weight: 800; }
+.status-vencido { background: #fdeaea; color: #bd3434; }
+.status-ativo,
+.status-avencer { background: #e8f0ff; color: #2864da; }
+.status-pago,
+.status-quitado { background: #e2f7ed; color: #168153; }
+.status-quebra,
+.status-quebrado { background: #f5e7eb; color: #a33252; }
+
+.colchao-agreement-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 9px 12px; }
+.colchao-agreement-progress { display: flex; align-items: center; gap: 9px; min-width: 220px; }
+.colchao-agreement-progress > span { display: block; flex: 1; height: 5px; overflow: hidden; border-radius: 999px; background: var(--surface-subtle); }
+.colchao-agreement-progress i { display: block; height: 100%; border-radius: inherit; background: #25a56a; }
+.colchao-agreement-progress small { color: var(--muted); font-size: 10px; white-space: nowrap; }
+.colchao-installments-table { border-top: 1px solid var(--border); }
+.colchao-installments-table > div { display: grid; grid-template-columns: .8fr 1.2fr 1fr 1fr 80px; align-items: center; min-height: 38px; padding: 0 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
+.colchao-installments-table > div:last-child { border-bottom: 0; }
+.colchao-installments-table .head { color: var(--muted); background: var(--surface-subtle); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.colchao-installments-table .row:hover { background: color-mix(in srgb, var(--primary) 4%, transparent); }
+.colchao-installments-table .status-row-vencido { box-shadow: inset 3px 0 #e25151; }
+.colchao-installments-table .row.is-current-installment {
+  position: relative;
+  z-index: 0;
+  min-height: 48px;
+  border-top: 1px solid #f0aaaa;
+  border-bottom: 1px solid #f0aaaa;
+  background: linear-gradient(90deg, #fff0f0 0, #fff8f8 46%, #fff 100%);
+  box-shadow: inset 4px 0 #df3f46;
+  font-weight: 700;
+}
+.colchao-installments-table .row.is-current-installment.status-row-avencer {
+  border-color: #a9c3f6;
+  background: linear-gradient(90deg, #edf4ff 0, #f7faff 46%, #fff 100%);
+  box-shadow: inset 4px 0 #3976e8;
+}
+.colchao-current-installment-label { display: block; width: fit-content; margin-top: 2px; color: #c73239; font-size: 7px; font-weight: 800; text-transform: uppercase; }
+.status-row-avencer .colchao-current-installment-label { color: #2864da; }
+.colchao-installment-action { min-width: 58px; height: 26px; padding: 0 9px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); font-size: 10px; font-weight: 700; }
+.colchao-installment-action:hover { border-color: #7fa5f3; color: var(--primary); }
+.colchao-installment-action-placeholder { color: var(--muted); }
+
+.colchao-agreement-workspace { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.colchao-agreement-workspace-header { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 18px; padding: 0 0 13px; border-bottom: 1px solid var(--border); }
+.colchao-agreement-title small,
+.colchao-installments-title small { display: block; color: var(--muted); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.colchao-agreement-title h3,
+.colchao-installments-title h3 { margin: 2px 0 0; font-size: 15px; }
+.colchao-agreement-title p { margin: 3px 0 0; color: var(--muted); font-size: 10px; }
+.colchao-agreement-header-actions { display: flex; align-items: center; gap: 10px; }
+.colchao-agreement-overview { display: grid; grid-template-columns: .55fr .7fr 1fr minmax(230px, 1.2fr); flex: 0 0 auto; gap: 8px; margin: 12px 0; padding: 8px; border: 1px solid #d4def0; border-radius: 8px; background: #f5f8fd; }
+.colchao-agreement-overview > span { min-width: 0; padding: 10px 12px; border: 1px solid #e0e7f2; border-radius: 6px; background: #fff; }
+.colchao-agreement-overview > span small { display: block; color: var(--muted); font-size: 9px; text-transform: uppercase; }
+.colchao-agreement-overview > span strong { display: block; overflow: hidden; margin-top: 4px; color: #173f78; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+.colchao-agreement-overview > span strong.danger { color: #bd3434; }
+.colchao-agreement-overview .colchao-agreement-progress { padding: 10px 12px; border: 1px solid #e0e7f2; border-radius: 6px; background: #fff; }
+
+.colchao-installments-region { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); }
+.colchao-installments-title { display: flex; flex: 0 0 auto; align-items: flex-end; justify-content: space-between; padding: 11px 12px; border-bottom: 1px solid var(--border); }
+.colchao-installments-title > span { color: var(--muted); font-size: 10px; }
+.colchao-installments-region .colchao-installments-table { flex: 1 1 auto; min-height: 0; overflow: auto; border-top: 0; }
+.colchao-installments-region .colchao-installments-table .head { position: sticky; z-index: 1; top: 0; }
+
+.colchao-reschedule-shell { display: flex; flex-direction: column; max-height: calc(100vh - 30px); }
+.colchao-reschedule-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px 18px; }
+.colchao-reschedule-fields label { display: grid; gap: 5px; color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.colchao-reschedule-fields input,
+.colchao-reschedule-fields select,
+.colchao-reschedule-fields textarea { width: 100%; }
+.colchao-reschedule-fields .wide { grid-column: 1 / -1; }
+.colchao-reschedule-preview { margin: 0 18px 14px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-subtle); overflow: auto; }
+.colchao-reschedule-preview h3 { margin: 0 0 8px; font-size: 13px; }
+.colchao-reschedule-preview p { margin: 0; color: var(--muted); font-size: 11px; }
+.colchao-preview-table { margin-top: 9px; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+.colchao-preview-table > div { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 7px 9px; border-bottom: 1px solid var(--border); font-size: 11px; }
+.colchao-preview-table > div:last-child { border-bottom: 0; }
+.colchao-preview-table .head { color: var(--muted); background: var(--surface); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.colchao-reschedule-shell > footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--border); }
+.colchao-clients-loading { padding: 40px; color: var(--muted); text-align: center; }
+
+html.dark .colchao-client-card,
+html.dark .colchao-client-dialog,
+html.dark .colchao-reschedule-dialog { background: #111a28; }
+html.dark .colchao-clients-toolbar,
+html.dark .colchao-clients-grid { background: #111a28; }
+html.dark .colchao-clients-list-head { background: #172231; }
+html.dark .colchao-client-avatar { background: #1b3155; color: #82aaff; }
+html.dark .colchao-client-situation { background: #202b3a; color: #aeb9ca; }
+html.dark .colchao-client-situation.is-overdue { background: #351d22; color: #ff9999; }
+html.dark .colchao-client-situation.is-current,
+html.dark .colchao-client-situation.is-paid { background: #143426; color: #6ed4a1; }
+html.dark .colchao-client-card:hover,
+html.dark .colchao-client-dialog-summary,
+html.dark .colchao-agreement-head,
+html.dark .colchao-reschedule-preview,
+html.dark .colchao-installments-table .head { background: #172231; }
+html.dark .colchao-client-dialog-header { background: #111a28; }
+html.dark .colchao-client-health.is-current { border-color: #216947; background: #143426; color: #6ed4a1; }
+html.dark .colchao-client-health.is-overdue { border-color: #7d3737; background: #351d22; color: #ff9999; }
+html.dark .colchao-client-sidebar { background: linear-gradient(180deg, #101d30 0, #0f1825 240px); }
+html.dark .colchao-client-sidebar .colchao-client-dialog-summary,
+html.dark .colchao-agreement-overview > span,
+html.dark .colchao-agreement-overview .colchao-agreement-progress { border-color: #2b3b52; background: #121d2c; }
+html.dark .colchao-client-sidebar .colchao-client-dialog-summary span { border-color: #2b3b52; }
+html.dark .colchao-client-sidebar .colchao-client-dialog-summary strong,
+html.dark .colchao-agreement-overview > span strong { color: #a9c9ff; }
+html.dark .colchao-client-dialog-summary .colchao-sidebar-heading { background: linear-gradient(135deg, #172944, #121d2c); }
+html.dark .colchao-agreement-overview { border-color: #2b3b52; background: #0f1825; }
+html.dark .colchao-installments-table .row.is-current-installment { border-color: #71383e; background: linear-gradient(90deg, #351d22 0, #251b23 48%, #111a28 100%); }
+html.dark .colchao-installments-table .row.is-current-installment.status-row-avencer { border-color: #315a9f; background: linear-gradient(90deg, #172d50 0, #15243a 48%, #111a28 100%); }
+html.dark .colchao-agreement-selector-item:hover,
+html.dark .colchao-agreement-selector-item.is-selected,
+html.dark .colchao-installments-region { background: #111a28; }
+
+@media (max-width: 1100px) {
+  .colchao-clients-toolbar { grid-template-columns: minmax(260px, 1fr) 190px 190px auto; }
+  .colchao-clients-list-head,
+  .colchao-client-card { grid-template-columns: minmax(240px, 1fr) 100px 78px 78px 125px 28px; }
+  .colchao-clients-list-head > span:nth-child(6),
+  .colchao-client-due { display: none; }
+}
+
+@media (max-width: 720px) {
+  .colchao-clients-toolbar { grid-template-columns: 1fr; }
+  .colchao-clients-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 0; }
+  .colchao-clients-summary > span:nth-child(2) { border-right: 0; }
+  .colchao-clients-list-head { display: none; }
+  .colchao-client-card { grid-template-columns: minmax(0, 1fr) auto 24px; }
+  .colchao-client-card + .colchao-client-card { border-top: 0; }
+  .colchao-client-metric,
+  .colchao-client-due { display: none; }
+  .colchao-client-dialog-summary { grid-template-columns: repeat(2, 1fr); }
+  .colchao-client-dialog-summary span:nth-child(2) { border-right: 0; }
+  .colchao-client-health { display: none; }
+  .colchao-client-workspace { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+  .colchao-client-sidebar { overflow: hidden; border-right: 0; border-bottom: 1px solid var(--border); }
+  .colchao-client-sidebar .colchao-client-dialog-summary { display: none; }
+  .colchao-agreement-selector { display: flex; gap: 7px; padding: 9px; overflow-x: auto; }
+  .colchao-agreement-selector > .colchao-sidebar-heading { display: none; }
+  .colchao-agreement-selector-item { flex: 0 0 210px; margin: 0; }
+  .colchao-client-dialog-content { padding: 12px; }
+  .colchao-agreement-workspace-header { align-items: flex-start; }
+  .colchao-agreement-header-actions { align-items: flex-end; flex-direction: column; }
+  .colchao-agreement-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .colchao-agreement-overview > span:nth-child(2) { border-right: 0; }
+  .colchao-agreement-overview .colchao-agreement-progress { grid-column: 1 / -1; border-top: 1px solid var(--border); }
+  .colchao-agreement-head { grid-template-columns: 1fr 1fr 24px; }
+  .colchao-agreement-head > span:nth-child(3),
+  .colchao-agreement-head > span:nth-child(4),
+  .colchao-agreement-head > span:nth-child(5) { display: none; }
+  .colchao-agreement-toolbar { align-items: stretch; flex-direction: column; }
+  .colchao-agreement-progress { min-width: 0; }
+  .colchao-installments-table { overflow-x: auto; }
+  .colchao-installments-table > div { min-width: 620px; }
+  .colchao-reschedule-fields { grid-template-columns: 1fr; }
+}

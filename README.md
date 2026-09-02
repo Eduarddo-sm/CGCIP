@@ -1,4 +1,4 @@
-# Projeto Negocial Showcase
+# CGCIP - Coelho e Gavioli - Controle Inteligente de Produção
 
 [![CI](https://github.com/Eduarddo-sm/projeto-negocial-showcase/actions/workflows/ci.yml/badge.svg)](https://github.com/Eduarddo-sm/projeto-negocial-showcase/actions/workflows/ci.yml)
 

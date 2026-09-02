@@ -22,6 +22,28 @@ somente nomes, carteiras e identificadores sinteticos.
 - testes automatizados de backend, regras de negocio e contratos do frontend;
 - credenciais locais fora do Git e senhas de planilhas criptografadas em repouso.
 
+## Visao do produto
+
+As imagens abaixo sao capturas da aplicacao em execucao, geradas com a carga
+demonstrativa do repositorio. Todos os nomes, identificadores e valores sao
+sinteticos.
+
+### Producao diaria
+
+![Producao diaria com metricas, alertas e planilha operacional](docs/portfolio/01-negocial-producao.png)
+
+### Cadastro configuravel
+
+![Cadastro de acordo gerado a partir do schema da carteira](docs/portfolio/02-negocial-novo-acordo.png)
+
+### Construtor de ferramentas
+
+![Configuracao geral de uma nova ferramenta](docs/portfolio/03-gerencial-construtor.png)
+
+### Composicao de telas
+
+![Editor de dashboard com blocos e previa em tempo real](docs/portfolio/04-gerencial-configuracao-telas.png)
+
 ```mermaid
 flowchart LR
     N[Aplicacao Negocial] --> API[Servicos e regras de negocio]

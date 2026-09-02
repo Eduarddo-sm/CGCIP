@@ -1,6 +1,8 @@
 # CIP - Controle Inteligente de Produção
 
-[![CI](https://github.com/Eduarddo-sm/projeto-negocial-showcase/actions/workflows/ci.yml/badge.svg)](https://github.com/Eduarddo-sm/projeto-negocial-showcase/actions/workflows/ci.yml)
+[![CI](https://github.com/Eduarddo-sm/CGCIP/actions/workflows/ci.yml/badge.svg)](https://github.com/Eduarddo-sm/CGCIP/actions/workflows/ci.yml)
+
+![CIP - Controle Inteligente de Producao](docs/portfolio/cip-banner.png)
 
 Plataforma integrada para operacao negocial, acompanhamento de producao e
 inteligencia gerencial. Esta edicao publica foi preparada para portfolio e usa
